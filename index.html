@@ -69,6 +69,18 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .video-label{font-size:13px;color:#bbb}
 .video-desc{margin-top:14px;font-size:13px;color:#666;line-height:1.65}
 
+/* STATS STRIP */
+.stats-strip{background:#E8940A;padding:36px 24px;display:flex;justify-content:center;gap:0}
+.stat-item{flex:1;max-width:220px;text-align:center;padding:0 24px;position:relative}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:10%;height:80%;width:0.5px;background:rgba(255,255,255,0.3)}
+.stat-big{font-size:48px;font-weight:500;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.stat-desc{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5}
+
+/* DARK FOOTER */
+.footer.dark{background:#111111;border-top:none}
+.footer.dark .footer-logo{color:#E8940A}
+.footer.dark .footer-right{color:#555}
+
 /* TIMELINE */
 .tl-col-headers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:12px}
 .tl-col-head{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:center}
@@ -155,6 +167,8 @@ textarea.form-input{resize:vertical;min-height:100px}
   .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
   .step:not(:last-child)::after{display:none}
   .step-num-circle{margin-bottom:14px}
+  .stats-strip{padding:44px 60px}
+  .stat-big{font-size:60px}
   .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
   .about-stats{margin-top:0}
   .footer{padding:24px 60px}
@@ -210,6 +224,21 @@ textarea.form-input{resize:vertical;min-height:100px}
   <div class="trust-item"><div class="trust-check">✓</div>3 to 5 day turnaround</div>
   <div class="trust-item"><div class="trust-check">✓</div>Revisions included</div>
   <div class="trust-item"><div class="trust-check">✓</div>Retainer or per project</div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-item">
+    <p class="stat-big">7+</p>
+    <p class="stat-desc">Years in video production and AI pipelines</p>
+  </div>
+  <div class="stat-item">
+    <p class="stat-big">30+</p>
+    <p class="stat-desc">Courses and training modules delivered</p>
+  </div>
+  <div class="stat-item">
+    <p class="stat-big">50+</p>
+    <p class="stat-desc">Multimedia projects across video and brand content</p>
+  </div>
 </div>
 
 <section id="work" class="section alt">
@@ -406,7 +435,7 @@ textarea.form-input{resize:vertical;min-height:100px}
   </div>
 </section>
 
-<footer class="footer">
+<footer class="footer dark">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
