@@ -1,0 +1,71 @@
+name: Commit Summary
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Generate and post summary
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, subprocess, urllib.request
+
+          diff = subprocess.run(
+            ['git', 'diff', 'HEAD~1', 'HEAD', '--', '*.html', '*.css', '*.js', '*.json', '*.md'],
+            capture_output=True, text=True
+          ).stdout[:3000]
+
+          commit_msg = subprocess.run(
+            ['git', 'log', '-1', '--pretty=%s'],
+            capture_output=True, text=True
+          ).stdout.strip()
+
+          payload = json.dumps({
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 300,
+            "messages": [{
+              "role": "user",
+              "content": f"Commit message: {commit_msg}\n\nDiff:\n{diff}\n\nWrite a 2-3 sentence plain-English summary of what changed on the website. No code jargon, focus on what a visitor would notice or what was fixed."
+            }]
+          }).encode()
+
+          req = urllib.request.Request(
+            'https://api.anthropic.com/v1/messages',
+            data=payload,
+            headers={
+              'x-api-key': os.environ['ANTHROPIC_API_KEY'],
+              'anthropic-version': '2023-06-01',
+              'content-type': 'application/json'
+            }
+          )
+          response = json.loads(urllib.request.urlopen(req).read())
+          summary = response['content'][0]['text']
+
+          comment = json.dumps({"body": f"### What changed\n\n{summary}"}).encode()
+          commit_sha = os.environ['COMMIT_SHA']
+          repo = os.environ['REPO']
+
+          req2 = urllib.request.Request(
+            f'https://api.github.com/repos/{repo}/commits/{commit_sha}/comments',
+            data=comment,
+            headers={
+              'Authorization': f"Bearer {os.environ['GITHUB_TOKEN']}",
+              'Accept': 'application/vnd.github+json',
+              'content-type': 'application/json'
+            }
+          )
+          urllib.request.urlopen(req2)
+          print(f"Posted: {summary}")
+          PYEOF

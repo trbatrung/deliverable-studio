@@ -28,28 +28,28 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .mobile-cta-wrap{padding:14px 24px 20px}
 .mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
 
-/* SECTIONS */
-.section{padding:56px 24px;background:#ffffff}
-.section.alt{background:#fafafa;border-top:0.5px solid #ebebeb;border-bottom:0.5px solid #ebebeb}
-.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
-.section-sub{font-size:14px;color:#777;line-height:1.65;margin-bottom:24px}
+/* PAGE HEADER */
+.page-header{padding:48px 24px 32px;border-bottom:0.5px solid #ebebeb}
+.page-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.page-h{font-size:28px;font-weight:500;color:#111;letter-spacing:-0.5px;margin-bottom:8px}
+.page-sub{font-size:14px;color:#777;line-height:1.65}
 
-/* TABS */
-.tabs{display:flex;gap:0;margin-bottom:20px;border:0.5px solid #e5e5e5;border-radius:8px;overflow:hidden;width:100%}
-.tab{flex:1;padding:10px 8px;font-size:12px;font-weight:500;color:#888;cursor:pointer;background:#fff;border:none;border-right:0.5px solid #e5e5e5;transition:background 0.15s;text-align:center}
-.tab:last-child{border-right:none}
-.tab.active{background:#FEF3E2;color:#854F0B}
-.tab-content{display:none}
-.tab-content.active{display:block}
+/* WORK SECTIONS */
+.work-section{padding:48px 24px;border-bottom:0.5px solid #f0f0f0}
+.work-section:last-of-type{border-bottom:none}
+.work-label{display:inline-block;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#854F0B;background:#FEF3E2;border:0.5px solid #F5C97A;border-radius:5px;padding:4px 10px;margin-bottom:16px}
+.work-title{font-size:18px;font-weight:500;color:#111;margin-bottom:6px;letter-spacing:-0.3px}
+.work-desc{font-size:13px;color:#777;line-height:1.65;margin-bottom:20px;max-width:560px}
 
-/* VIDEO BOX */
-.video-box{background:#f5f5f5;border:0.5px solid #e0e0e0;border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;width:100%;overflow:hidden}
-.video-tag{position:absolute;top:12px;left:12px;background:#fff;border:0.5px solid #e0e0e0;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:500;color:#555;z-index:1}
-.play-btn{width:56px;height:56px;border-radius:50%;background:#E8940A;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.play-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:4px}
-.video-label{font-size:13px;color:#bbb}
-.video-desc{margin-top:14px;font-size:13px;color:#666;line-height:1.65}
+/* VIDEO */
+.video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
+/* PLACEHOLDER */
+.video-placeholder{aspect-ratio:16/9;background:#f5f5f5;border:0.5px solid #e0e0e0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.placeholder-icon{width:48px;height:48px;border-radius:50%;background:#ebebeb;display:flex;align-items:center;justify-content:center}
+.placeholder-tri{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:14px solid #ccc;margin-left:3px}
+.placeholder-text{font-size:13px;color:#bbb}
 
 /* FOOTER */
 .footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
@@ -62,9 +62,9 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   .hamburger{display:none !important}
   .nav-links{display:flex !important}
   .mobile-menu{display:none !important}
-  .section{padding:64px 60px}
-  .tabs{width:fit-content}
-  .tab{font-size:13px;padding:10px 22px}
+  .page-header{padding:64px 60px 40px}
+  .page-h{font-size:34px}
+  .work-section{padding:56px 60px}
   .footer{padding:24px 60px}
 }
 
@@ -72,7 +72,7 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   .nav-links{display:none}
   .hamburger{display:flex}
 }
-@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.nav,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h{color:#111111 !important}.section-sub,.video-desc{color:#555555 !important}.footer-right{color:#999999 !important}}
+@media(prefers-color-scheme:dark){body,html,.work-section,.footer,.nav,.mobile-menu,.page-header{background:#ffffff !important;color:#111111 !important}.page-h,.work-title{color:#111111 !important}.page-sub,.work-desc{color:#777777 !important}.footer-right{color:#999999 !important}}
 </style>
 </head>
 <body>
@@ -99,39 +99,40 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
-<section class="section alt">
-  <p class="section-eyebrow">Our work</p>
-  <h2 class="section-h">Real briefs. Real output.</h2>
-  <p class="section-sub">Sample videos built for each use case. Click a category to see what we produce.</p>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('hr',this)">HR and onboarding</button>
-    <button class="tab" onclick="switchTab('training',this)">Training and courses</button>
-    <button class="tab" onclick="switchTab('proserv',this)">Professional services</button>
+<div class="page-header">
+  <p class="page-eyebrow">Our work</p>
+  <h1 class="page-h">Real briefs. Real output.</h1>
+  <p class="page-sub">Sample videos across each use case. More being added as we produce them.</p>
+</div>
+
+<div class="work-section">
+  <span class="work-label">HR and onboarding</span>
+  <h2 class="work-title">Welcome and onboarding video</h2>
+  <p class="work-desc">Avatar-led onboarding covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Welcome and onboarding video — Deliverable"></iframe>
   </div>
-  <div id="tab-hr" class="tab-content active">
-    <div class="video-box" style="background:#000;">
-      <span class="video-tag">Studio trailer</span>
-      <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:11px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Deliverable — AI Video Production Studio"></iframe>
-    </div>
-    <p class="video-desc">Avatar-led onboarding video covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
+</div>
+
+<div class="work-section">
+  <span class="work-label">Training and courses</span>
+  <h2 class="work-title">Course module video</h2>
+  <p class="work-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
+  <div class="video-placeholder">
+    <div class="placeholder-icon"><div class="placeholder-tri"></div></div>
+    <span class="placeholder-text">Demo coming soon</span>
   </div>
-  <div id="tab-training" class="tab-content">
-    <div class="video-box">
-      <span class="video-tag">Sample, course module</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Demo coming soon</span>
-    </div>
-    <p class="video-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
+</div>
+
+<div class="work-section">
+  <span class="work-label">Professional services</span>
+  <h2 class="work-title">Explainer video</h2>
+  <p class="work-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
+  <div class="video-placeholder">
+    <div class="placeholder-icon"><div class="placeholder-tri"></div></div>
+    <span class="placeholder-text">Demo coming soon</span>
   </div>
-  <div id="tab-proserv" class="tab-content">
-    <div class="video-box">
-      <span class="video-tag">Sample, explainer video</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Demo coming soon</span>
-    </div>
-    <p class="video-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
-  </div>
-</section>
+</div>
 
 <footer class="footer">
   <span class="footer-logo">Deliverable</span>
@@ -139,12 +140,6 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 </footer>
 
 <script>
-function switchTab(id,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  el.classList.add('active');
-}
 function toggleMenu(){
   document.getElementById('mobileMenu').classList.toggle('open');
 }
