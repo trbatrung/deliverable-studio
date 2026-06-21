@@ -15,10 +15,11 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 
 /* NAV */
 .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
-.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0}
+.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
 .nav-links{display:flex;gap:24px;align-items:center}
 .nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
-.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;border:none;cursor:pointer;white-space:nowrap}
+.nav-link.current{color:#E8940A;font-weight:500}
+.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
 .hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
 .mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
@@ -37,8 +38,8 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .hero-sub{font-size:16px;color:#555;line-height:1.75;margin-bottom:12px}
 .hero-sub2{font-size:14px;color:#999;line-height:1.6;margin-bottom:32px}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{background:#E8940A;color:#fff;border:none;padding:13px 26px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer}
-.btn-ghost{background:#fff;color:#111;border:0.5px solid #ccc;padding:13px 26px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer}
+.btn-primary{background:#E8940A;color:#fff;border:none;padding:13px 26px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-ghost{background:#fff;color:#111;border:0.5px solid #ccc;padding:13px 26px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
 
 /* TRUST BAR */
 .trust-bar{padding:16px 24px;border-top:0.5px solid #f0f0f0;border-bottom:0.5px solid #f0f0f0;display:flex;gap:20px;flex-wrap:wrap;background:#ffffff}
@@ -52,22 +53,6 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
 .section-sub{font-size:14px;color:#777;line-height:1.65;margin-bottom:24px}
 
-/* TABS */
-.tabs{display:flex;gap:0;margin-bottom:20px;border:0.5px solid #e5e5e5;border-radius:8px;overflow:hidden;width:100%}
-.tab{flex:1;padding:10px 8px;font-size:12px;font-weight:500;color:#888;cursor:pointer;background:#fff;border:none;border-right:0.5px solid #e5e5e5;transition:background 0.15s;text-align:center}
-.tab:last-child{border-right:none}
-.tab.active{background:#FEF3E2;color:#854F0B}
-.tab-content{display:none}
-.tab-content.active{display:block}
-
-/* VIDEO BOX */
-.video-box{background:#f5f5f5;border:0.5px solid #e0e0e0;border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;width:100%;overflow:hidden}
-.video-tag{position:absolute;top:12px;left:12px;background:#fff;border:0.5px solid #e0e0e0;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:500;color:#555;z-index:1}
-.play-btn{width:56px;height:56px;border-radius:50%;background:#E8940A;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.play-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:4px}
-.video-label{font-size:13px;color:#bbb}
-.video-desc{margin-top:14px;font-size:13px;color:#666;line-height:1.65}
-
 /* TIMELINE */
 .tl-col-headers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:12px}
 .tl-col-head{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:center}
@@ -80,46 +65,6 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .tl-mid{display:flex;align-items:center;justify-content:center;font-size:10px;color:#ccc;font-weight:500}
 .tl-label{font-size:10px;font-weight:500;color:#aaa;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
 .tl-label.amber{color:#E8940A}
-
-/* FOR GRID */
-.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
-.for-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:10px;padding:18px}
-.for-card-title{font-size:13px;font-weight:500;color:#111;margin-bottom:6px}
-.for-card-body{font-size:12px;color:#777;line-height:1.6}
-
-/* STEPS */
-.steps-col{display:flex;flex-direction:column;gap:0;margin-top:28px}
-.step{display:flex;gap:16px;padding-bottom:24px;position:relative}
-.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:44px;bottom:0;width:0.5px;background:#e0e0e0}
-.step-num-circle{width:34px;height:34px;border-radius:50%;border:0.5px solid #e0e0e0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#E8940A;flex-shrink:0}
-.step-content{}
-.step-title{font-size:14px;font-weight:500;color:#111;margin-bottom:4px}
-.step-body{font-size:13px;color:#888;line-height:1.55}
-
-/* ABOUT */
-.about-text p{font-size:14px;color:#555;line-height:1.8;margin-bottom:14px}
-.about-stats{display:flex;flex-direction:column;gap:10px;margin-top:24px}
-.stat-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:10px;padding:16px 20px}
-.stat-num{font-size:26px;font-weight:500;color:#E8940A;margin-bottom:2px}
-.stat-label{font-size:12px;color:#888;line-height:1.5}
-
-/* CTA */
-.cta-section{padding:72px 24px;border-top:0.5px solid #ebebeb;text-align:center;background:#ffffff}
-.cta-h{font-size:26px;font-weight:500;color:#111;margin-bottom:12px;letter-spacing:-0.4px}
-.cta-sub{font-size:15px;color:#666;margin-bottom:8px;line-height:1.6}
-.cta-sub2{font-size:13px;color:#bbb;margin-bottom:32px}
-
-/* CONTACT FORM */
-.contact-form{margin:0 auto;text-align:left;max-width:480px}
-.form-row{margin-bottom:14px}
-.form-label{font-size:12px;font-weight:500;color:#555;display:block;margin-bottom:6px}
-.form-input{width:100%;padding:11px 14px;border:0.5px solid #e0e0e0;border-radius:7px;font-size:14px;font-family:inherit;color:#111;background:#fff;outline:none;transition:border-color 0.15s;-webkit-appearance:none}
-.form-input:focus{border-color:#E8940A}
-textarea.form-input{resize:vertical;min-height:100px}
-.form-submit{width:100%;background:#E8940A;color:#fff;border:none;padding:13px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;font-family:inherit}
-.form-submit:disabled{opacity:0.6;cursor:not-allowed}
-.form-success{display:none;background:#FEF3E2;border:0.5px solid #F5C97A;border-radius:8px;padding:16px;text-align:center;font-size:14px;color:#854F0B;margin-top:16px}
-.form-error{display:none;background:#fef2f2;border:0.5px solid #f5c6c6;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#A32D2D;margin-top:12px}
 
 /* FOOTER */
 .footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
@@ -136,38 +81,26 @@ textarea.form-input{resize:vertical;min-height:100px}
   .hero-h{font-size:44px;letter-spacing:-1.5px}
   .section{padding:64px 60px}
   .trust-bar{padding:18px 60px}
-  .tabs{width:fit-content}
-  .tab{font-size:13px;padding:10px 22px}
-  .for-grid{grid-template-columns:1fr 1fr}
-  .steps-col{flex-direction:row;gap:0;position:relative}
-  .step-connector{position:absolute;top:17px;left:calc(12.5% + 8px);right:calc(12.5% + 8px);height:0.5px;background:#e0e0e0;z-index:0}
-  .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
-  .step:not(:last-child)::after{display:none}
-  .step-num-circle{margin-bottom:14px}
-  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-  .about-stats{margin-top:0}
   .footer{padding:24px 60px}
-  .cta-section{padding:80px 60px}
 }
 
 @media(max-width:767px){
   .nav-links{display:none}
   .hamburger{display:flex}
-  .step-connector{display:none}
 }
-@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.cta-section,.footer,.trust-bar,.nav,.hero,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h,.hero-h,.for-card-title,.step-title,.cta-h,.stat-num{color:#111111 !important}.hero-sub,.section-sub,.for-card-body,.step-body,.video-desc,.about-text p{color:#555555 !important}.hero-sub2,.video-label,.footer-right,.trust-item{color:#999999 !important}}
+@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.trust-bar,.nav,.hero,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h,.hero-h{color:#111111 !important}.hero-sub,.section-sub{color:#555555 !important}.hero-sub2,.footer-right,.trust-item{color:#999999 !important}}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <span class="logo">Deliverable</span>
+  <a class="logo" href="index.html">Deliverable</a>
   <div class="nav-links">
-    <a class="nav-link" href="#work">Our work</a>
-    <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="#for">Who it's for</a>
-    <a class="nav-link" href="#about">About</a>
-    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+    <a class="nav-link" href="work.html">Our work</a>
+    <a class="nav-link" href="how-it-works.html">How it works</a>
+    <a class="nav-link" href="who-its-for.html">Who it's for</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a class="nav-cta" href="contact.html">Get in touch</a>
   </div>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -175,11 +108,11 @@ textarea.form-input{resize:vertical;min-height:100px}
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#work" onclick="toggleMenu()">Our work</a>
-  <a href="#how" onclick="toggleMenu()">How it works</a>
-  <a href="#for" onclick="toggleMenu()">Who it's for</a>
-  <a href="#about" onclick="toggleMenu()">About</a>
-  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="#contact">Get in touch</a></div>
+  <a href="work.html" onclick="toggleMenu()">Our work</a>
+  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
 <section class="hero">
@@ -188,8 +121,8 @@ textarea.form-input{resize:vertical;min-height:100px}
   <p class="hero-sub">Professional training, onboarding, and explainer videos, produced with AI, delivered fast, at a fraction of traditional cost.</p>
   <p class="hero-sub2">You could learn the tools yourself. Most of our clients tried. They came to us anyway.</p>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">See our work</button>
-    <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to us</button>
+    <a class="btn-primary" href="work.html">See our work</a>
+    <a class="btn-ghost" href="contact.html">Talk to us</a>
   </div>
 </section>
 
@@ -199,40 +132,6 @@ textarea.form-input{resize:vertical;min-height:100px}
   <div class="trust-item"><div class="trust-check">✓</div>Revisions included</div>
   <div class="trust-item"><div class="trust-check">✓</div>Retainer or per project</div>
 </div>
-
-<section id="work" class="section alt">
-  <p class="section-eyebrow">Our work</p>
-  <h2 class="section-h">Real briefs. Real output.</h2>
-  <p class="section-sub">Sample videos built for each use case. Click a category to see what we produce.</p>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('hr',this)">HR and onboarding</button>
-    <button class="tab" onclick="switchTab('training',this)">Training and courses</button>
-    <button class="tab" onclick="switchTab('proserv',this)">Professional services</button>
-  </div>
-  <div id="tab-hr" class="tab-content active">
-    <div class="video-box" style="background:#000;">
-      <span class="video-tag">Studio trailer</span>
-      <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:11px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Deliverable — AI Video Production Studio"></iframe>
-    </div>
-    <p class="video-desc">Avatar-led onboarding video covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
-  </div>
-  <div id="tab-training" class="tab-content">
-    <div class="video-box">
-      <span class="video-tag">Sample, course module</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Demo coming soon</span>
-    </div>
-    <p class="video-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
-  </div>
-  <div id="tab-proserv" class="tab-content">
-    <div class="video-box">
-      <span class="video-tag">Sample, explainer video</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Demo coming soon</span>
-    </div>
-    <p class="video-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
-  </div>
-</section>
 
 <section class="section">
   <p class="section-eyebrow">Why Deliverable</p>
@@ -264,181 +163,14 @@ textarea.form-input{resize:vertical;min-height:100px}
   </div>
 </section>
 
-<section id="for" class="section alt">
-  <p class="section-eyebrow">Who it's for</p>
-  <h2 class="section-h">Built for teams that need video without the overhead</h2>
-  <div class="for-grid">
-    <div class="for-card">
-      <p class="for-card-title">HR and people teams</p>
-      <p class="for-card-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Training providers</p>
-      <p class="for-card-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Legal and professional services</p>
-      <p class="for-card-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Growing SMEs</p>
-      <p class="for-card-body">Regular video content without hiring in-house or paying full agency rates.</p>
-    </div>
-  </div>
-</section>
-
-<section id="how" class="section">
-  <p class="section-eyebrow">How it works</p>
-  <h2 class="section-h">From brief to delivered. Four steps.</h2>
-  <div class="steps-col">
-    <div class="step-connector"></div>
-    <div class="step">
-      <div class="step-num-circle">01</div>
-      <div class="step-content">
-        <p class="step-title">Brief</p>
-        <p class="step-body">Share the topic, tone, and audience. Script optional.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">02</div>
-      <div class="step-content">
-        <p class="step-title">Script</p>
-        <p class="step-body">We write or refine the script. You approve before production starts.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">03</div>
-      <div class="step-content">
-        <p class="step-title">Production</p>
-        <p class="step-body">AI avatar, voiceover, motion, editing. Fully handled.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">04</div>
-      <div class="step-content">
-        <p class="step-title">Delivery</p>
-        <p class="step-body">Final file ready to publish. Revisions included.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="section alt">
-  <p class="section-eyebrow">About</p>
-  <h2 class="section-h">A small studio with a real production background</h2>
-  <div class="about-inner">
-    <div class="about-text">
-      <p>Deliverable is a boutique AI video production studio working with SMEs, training providers, and professional services teams that need consistent, professional video content without the overhead of a traditional production setup.</p>
-      <p>We're not a tool reseller or an automation shortcut. We're a production team that happens to use AI, which means you get the speed and cost benefits of AI with the judgment and craft of experienced producers.</p>
-      <p>Based in Ho Chi Minh City. Working with clients globally.</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card">
-        <p class="stat-num">7+</p>
-        <p class="stat-label">Years across video production, agency work, and AI pipelines</p>
-      </div>
-      <div class="stat-card">
-        <p class="stat-num">30+</p>
-        <p class="stat-label">Courses and training modules produced and delivered</p>
-      </div>
-      <div class="stat-card">
-        <p class="stat-num">50+</p>
-        <p class="stat-label">Multimedia projects across video, ads, and brand content</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="cta-section">
-  <h2 class="cta-h">Ready to see what we can build for you?</h2>
-  <p class="cta-sub">Send us a brief or just say hello. We'll show you what's possible before you commit to anything.</p>
-  <p class="cta-sub2">No retainer required to start. First conversation is free.</p>
-  <form class="contact-form" onsubmit="handleContactSubmit(event)">
-    <div class="form-row">
-      <label class="form-label" for="f-name">Name</label>
-      <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
-    </div>
-    <div class="form-row">
-      <label class="form-label" for="f-email">Email</label>
-      <input class="form-input" id="f-email" name="email" type="email" placeholder="you@company.com" required>
-    </div>
-    <div class="form-row">
-      <label class="form-label" for="f-company">Company</label>
-      <input class="form-input" id="f-company" name="company" type="text" placeholder="Company name">
-    </div>
-    <div class="form-row">
-      <label class="form-label" for="f-message">Message</label>
-      <textarea class="form-input" id="f-message" name="message" placeholder="Tell us what you need..." required></textarea>
-    </div>
-    <button class="form-submit" type="submit">Send message</button>
-    <div class="form-success" id="formSuccess">We got your message. We'll be in touch shortly.</div>
-    <div class="form-error" id="formError"></div>
-  </form>
-</section>
-
 <footer class="footer">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://okduntsweecbxlaaywlx.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_0F8E-a9VDxJLgCyhxC9PpA_QRxZWBzt';
-
-function switchTab(id,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  el.classList.add('active');
-}
-
 function toggleMenu(){
   document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-async function handleContactSubmit(e){
-  e.preventDefault();
-  const form=e.target;
-  const btn=form.querySelector('.form-submit');
-  const success=document.getElementById('formSuccess');
-  const error=document.getElementById('formError');
-
-  btn.disabled=true;
-  btn.textContent='Sending...';
-  success.style.display='none';
-  error.style.display='none';
-
-  const data={
-    name:form.name.value.trim(),
-    email:form.email.value.trim(),
-    company:form.company.value.trim()||null,
-    message:form.message.value.trim()
-  };
-
-  try{
-    const res=await fetch(SUPABASE_URL+'/rest/v1/Leads',{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_ANON_KEY,
-        'Authorization':'Bearer '+SUPABASE_ANON_KEY,
-        'Content-Type':'application/json',
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify(data)
-    });
-    if(res.ok){
-      form.reset();
-      success.style.display='block';
-    } else {
-      throw new Error('failed');
-    }
-  } catch(err){
-    error.textContent='Something went wrong. Email us directly at hello@deliverable.studio';
-    error.style.display='block';
-  }
-
-  btn.disabled=false;
-  btn.textContent='Send message';
 }
 </script>
 </body>

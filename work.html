@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="color-scheme" content="light">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Work | Deliverable</title>
+<style>
+:root{color-scheme:light}
+*{-webkit-text-size-adjust:100%}
+body,html{background:#ffffff !important;color:#111111 !important}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:light only}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
+.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
+.nav-link.current{color:#E8940A;font-weight:500}
+.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
+.mobile-cta-wrap{padding:14px 24px 20px}
+.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
+
+/* SECTIONS */
+.section{padding:56px 24px;background:#ffffff}
+.section.alt{background:#fafafa;border-top:0.5px solid #ebebeb;border-bottom:0.5px solid #ebebeb}
+.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
+.section-sub{font-size:14px;color:#777;line-height:1.65;margin-bottom:24px}
+
+/* TABS */
+.tabs{display:flex;gap:0;margin-bottom:20px;border:0.5px solid #e5e5e5;border-radius:8px;overflow:hidden;width:100%}
+.tab{flex:1;padding:10px 8px;font-size:12px;font-weight:500;color:#888;cursor:pointer;background:#fff;border:none;border-right:0.5px solid #e5e5e5;transition:background 0.15s;text-align:center}
+.tab:last-child{border-right:none}
+.tab.active{background:#FEF3E2;color:#854F0B}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* VIDEO BOX */
+.video-box{background:#f5f5f5;border:0.5px solid #e0e0e0;border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;width:100%;overflow:hidden}
+.video-tag{position:absolute;top:12px;left:12px;background:#fff;border:0.5px solid #e0e0e0;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:500;color:#555;z-index:1}
+.play-btn{width:56px;height:56px;border-radius:50%;background:#E8940A;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.play-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:4px}
+.video-label{font-size:13px;color:#bbb}
+.video-desc{margin-top:14px;font-size:13px;color:#666;line-height:1.65}
+
+/* FOOTER */
+.footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
+.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
+.footer-right{font-size:12px;color:#bbb}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .nav{padding:22px 60px}
+  .hamburger{display:none !important}
+  .nav-links{display:flex !important}
+  .mobile-menu{display:none !important}
+  .section{padding:64px 60px}
+  .tabs{width:fit-content}
+  .tab{font-size:13px;padding:10px 22px}
+  .footer{padding:24px 60px}
+}
+
+@media(max-width:767px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.nav,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h{color:#111111 !important}.section-sub,.video-desc{color:#555555 !important}.footer-right{color:#999999 !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="index.html">Deliverable</a>
+  <div class="nav-links">
+    <a class="nav-link current" href="work.html">Our work</a>
+    <a class="nav-link" href="how-it-works.html">How it works</a>
+    <a class="nav-link" href="who-its-for.html">Who it's for</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a class="nav-cta" href="contact.html">Get in touch</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="work.html" onclick="toggleMenu()">Our work</a>
+  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+</div>
+
+<section class="section alt">
+  <p class="section-eyebrow">Our work</p>
+  <h2 class="section-h">Real briefs. Real output.</h2>
+  <p class="section-sub">Sample videos built for each use case. Click a category to see what we produce.</p>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('hr',this)">HR and onboarding</button>
+    <button class="tab" onclick="switchTab('training',this)">Training and courses</button>
+    <button class="tab" onclick="switchTab('proserv',this)">Professional services</button>
+  </div>
+  <div id="tab-hr" class="tab-content active">
+    <div class="video-box" style="background:#000;">
+      <span class="video-tag">Studio trailer</span>
+      <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:11px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Deliverable — AI Video Production Studio"></iframe>
+    </div>
+    <p class="video-desc">Avatar-led onboarding video covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
+  </div>
+  <div id="tab-training" class="tab-content">
+    <div class="video-box">
+      <span class="video-tag">Sample, course module</span>
+      <div class="play-btn"><div class="play-tri"></div></div>
+      <span class="video-label">Demo coming soon</span>
+    </div>
+    <p class="video-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
+  </div>
+  <div id="tab-proserv" class="tab-content">
+    <div class="video-box">
+      <span class="video-tag">Sample, explainer video</span>
+      <div class="play-btn"><div class="play-tri"></div></div>
+      <span class="video-label">Demo coming soon</span>
+    </div>
+    <p class="video-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-logo">Deliverable</span>
+  <span class="footer-right">hello@deliverable.studio</span>
+</footer>
+
+<script>
+function switchTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+}
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+</script>
+</body>
+</html>

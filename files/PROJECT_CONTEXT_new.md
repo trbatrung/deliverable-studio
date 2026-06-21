@@ -41,12 +41,12 @@ The real differentiator is owning an end-to-end AI video pipeline: scripting, AI
 ## Current setup
 
 ### Infrastructure
-- **Git repo:** `~/code-project/Deliverable-project` (local)
+- **Git repo:** `~/Desktop/Deliverable-project` (local)
 - **GitHub:** `trbatrung/deliverable-studio`
 - **Vercel:** live at `deliverable-project.vercel.app`, connected to `trbatrung/deliverable-studio`, auto-deploys on push to main
 - **Supabase:** project `deliverable` at `https://okduntsweecbxlaaywlx.supabase.co`
 - **Commits via:** GitHub Desktop
-- **Claude Code:** launch from `~/code-project/Deliverable-project`
+- **Claude Code:** launch from `~/Desktop/Deliverable-project`
 
 ### File structure
 ```
@@ -83,18 +83,17 @@ All nav links currently scroll to anchor sections on the same page. **Next step:
 
 ---
 
-## Multi-page architecture — DONE
+## Next session — multi-page architecture
 
-Site now has dedicated pages:
-- `index.html` — homepage (hero, trust bar, Why Deliverable comparison)
-- `work.html` — Our work (tabs + videos)
-- `how-it-works.html` — steps
-- `who-its-for.html` — audience cards
-- `about.html` — bio + stats
-- `contact.html` — contact form with Supabase
-- `vercel.json` — `cleanUrls: true` so URLs work without `.html` extension
+Convert from single-page scroll to dedicated subpages:
+- `/` — homepage (hero, trust bar, CTA)
+- `/work` — Our work section with video demos
+- `/how-it-works` — process steps
+- `/who-its-for` — audience cards
+- `/about` — studio bio and stats
+- `/contact` — contact form (standalone)
 
-Nav uses real `<a href>` links. Logo links back to homepage. Active page highlighted in amber.
+Approach: separate `.html` files, no framework, no bundler. Nav links become real `href` links. Duplicate nav/footer across files to keep it dependency-free.
 
 ---
 
@@ -108,7 +107,7 @@ Nav uses real `<a href>` links. Logo links back to homepage. Active page highlig
 
 ## Remaining checklist
 
-- [x] Multi-page architecture — done
+- [ ] Multi-page architecture (next session)
 - [ ] Add honeypot + cooldown to contact form
 - [ ] Produce training demo video (standalone script needed)
 - [ ] Produce course module demo video (standalone script needed)
@@ -125,4 +124,4 @@ Nav uses real `<a href>` links. Logo links back to homepage. Active page highlig
 - No em-dashes in any copy, anywhere
 - This is a test/MVP project — keep things simple and shippable
 - Never use ~/random/ as a working directory
-- Always launch Claude from ~/code-project/Deliverable-project for file access
+- Always launch Claude from ~/Desktop/Deliverable-project for file access

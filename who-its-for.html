@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="color-scheme" content="light">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who It's For | Deliverable</title>
+<style>
+:root{color-scheme:light}
+*{-webkit-text-size-adjust:100%}
+body,html{background:#ffffff !important;color:#111111 !important}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:light only}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
+.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
+.nav-link.current{color:#E8940A;font-weight:500}
+.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
+.mobile-cta-wrap{padding:14px 24px 20px}
+.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
+
+/* SECTIONS */
+.section{padding:56px 24px;background:#ffffff}
+.section.alt{background:#fafafa;border-top:0.5px solid #ebebeb;border-bottom:0.5px solid #ebebeb}
+.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
+
+/* FOR GRID */
+.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.for-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:10px;padding:18px}
+.for-card-title{font-size:13px;font-weight:500;color:#111;margin-bottom:6px}
+.for-card-body{font-size:12px;color:#777;line-height:1.6}
+
+/* FOOTER */
+.footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
+.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
+.footer-right{font-size:12px;color:#bbb}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .nav{padding:22px 60px}
+  .hamburger{display:none !important}
+  .nav-links{display:flex !important}
+  .mobile-menu{display:none !important}
+  .section{padding:64px 60px}
+  .for-grid{grid-template-columns:1fr 1fr}
+  .footer{padding:24px 60px}
+}
+
+@media(max-width:767px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.nav,.mobile-menu,.for-card{background:#ffffff !important;color:#111111 !important}.section-h,.for-card-title{color:#111111 !important}.for-card-body{color:#777777 !important}.footer-right{color:#999999 !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="index.html">Deliverable</a>
+  <div class="nav-links">
+    <a class="nav-link" href="work.html">Our work</a>
+    <a class="nav-link" href="how-it-works.html">How it works</a>
+    <a class="nav-link current" href="who-its-for.html">Who it's for</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a class="nav-cta" href="contact.html">Get in touch</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="work.html" onclick="toggleMenu()">Our work</a>
+  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+</div>
+
+<section class="section alt">
+  <p class="section-eyebrow">Who it's for</p>
+  <h2 class="section-h">Built for teams that need video without the overhead</h2>
+  <div class="for-grid">
+    <div class="for-card">
+      <p class="for-card-title">HR and people teams</p>
+      <p class="for-card-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Training providers</p>
+      <p class="for-card-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Legal and professional services</p>
+      <p class="for-card-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Growing SMEs</p>
+      <p class="for-card-body">Regular video content without hiring in-house or paying full agency rates.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-logo">Deliverable</span>
+  <span class="footer-right">hello@deliverable.studio</span>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+</script>
+</body>
+</html>

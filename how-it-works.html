@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="color-scheme" content="light">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works | Deliverable</title>
+<style>
+:root{color-scheme:light}
+*{-webkit-text-size-adjust:100%}
+body,html{background:#ffffff !important;color:#111111 !important}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:light only}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
+.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
+.nav-link.current{color:#E8940A;font-weight:500}
+.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
+.mobile-cta-wrap{padding:14px 24px 20px}
+.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
+
+/* SECTIONS */
+.section{padding:56px 24px;background:#ffffff}
+.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
+.section-sub{font-size:14px;color:#777;line-height:1.65;margin-bottom:24px}
+
+/* STEPS */
+.steps-col{display:flex;flex-direction:column;gap:0;margin-top:28px}
+.step{display:flex;gap:16px;padding-bottom:24px;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:44px;bottom:0;width:0.5px;background:#e0e0e0}
+.step-num-circle{width:34px;height:34px;border-radius:50%;border:0.5px solid #e0e0e0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#E8940A;flex-shrink:0}
+.step-content{}
+.step-title{font-size:14px;font-weight:500;color:#111;margin-bottom:4px}
+.step-body{font-size:13px;color:#888;line-height:1.55}
+
+/* FOOTER */
+.footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
+.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
+.footer-right{font-size:12px;color:#bbb}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .nav{padding:22px 60px}
+  .hamburger{display:none !important}
+  .nav-links{display:flex !important}
+  .mobile-menu{display:none !important}
+  .section{padding:64px 60px}
+  .steps-col{flex-direction:row;gap:0;position:relative}
+  .step-connector{position:absolute;top:17px;left:calc(12.5% + 8px);right:calc(12.5% + 8px);height:0.5px;background:#e0e0e0;z-index:0}
+  .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
+  .step:not(:last-child)::after{display:none}
+  .step-num-circle{margin-bottom:14px}
+  .footer{padding:24px 60px}
+}
+
+@media(max-width:767px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .step-connector{display:none}
+}
+@media(prefers-color-scheme:dark){body,html,.section,.footer,.nav,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h,.step-title{color:#111111 !important}.section-sub,.step-body{color:#555555 !important}.footer-right{color:#999999 !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="index.html">Deliverable</a>
+  <div class="nav-links">
+    <a class="nav-link" href="work.html">Our work</a>
+    <a class="nav-link current" href="how-it-works.html">How it works</a>
+    <a class="nav-link" href="who-its-for.html">Who it's for</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a class="nav-cta" href="contact.html">Get in touch</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="work.html" onclick="toggleMenu()">Our work</a>
+  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+</div>
+
+<section class="section">
+  <p class="section-eyebrow">How it works</p>
+  <h2 class="section-h">From brief to delivered. Four steps.</h2>
+  <div class="steps-col">
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num-circle">01</div>
+      <div class="step-content">
+        <p class="step-title">Brief</p>
+        <p class="step-body">Share the topic, tone, and audience. Script optional.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-circle">02</div>
+      <div class="step-content">
+        <p class="step-title">Script</p>
+        <p class="step-body">We write or refine the script. You approve before production starts.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-circle">03</div>
+      <div class="step-content">
+        <p class="step-title">Production</p>
+        <p class="step-body">AI avatar, voiceover, motion, editing. Fully handled.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-circle">04</div>
+      <div class="step-content">
+        <p class="step-title">Delivery</p>
+        <p class="step-body">Final file ready to publish. Revisions included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-logo">Deliverable</span>
+  <span class="footer-right">hello@deliverable.studio</span>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+</script>
+</body>
+</html>
