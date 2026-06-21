@@ -104,19 +104,26 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .stat-label{font-size:12px;color:#888;line-height:1.5}
 
 /* CTA */
-.cta-section{padding:72px 24px;border-top:0.5px solid #ebebeb;text-align:center;background:#ffffff}
-.cta-h{font-size:26px;font-weight:500;color:#111;margin-bottom:12px;letter-spacing:-0.4px}
-.cta-sub{font-size:15px;color:#666;margin-bottom:8px;line-height:1.6}
-.cta-sub2{font-size:13px;color:#bbb;margin-bottom:32px}
+.cta-section{padding:72px 24px;border-top:0.5px solid #ebebeb;background:linear-gradient(160deg,#fffbf4 0%,#fef6e7 60%,#fffaf2 100%);position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(232,148,10,0.09) 0%,transparent 70%);top:-160px;right:-160px;pointer-events:none}
+.cta-section::after{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(232,148,10,0.06) 0%,transparent 70%);bottom:-120px;left:-80px;pointer-events:none}
+.cta-inner{position:relative;z-index:1}
+.cta-h{font-size:28px;font-weight:500;color:#111;margin-bottom:14px;letter-spacing:-0.5px;line-height:1.2}
+.cta-h em{font-style:normal;color:#E8940A}
+.cta-sub{font-size:15px;color:#555;margin-bottom:28px;line-height:1.7}
+.cta-checks{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.cta-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#555;line-height:1.5}
+.cta-check-icon{width:20px;height:20px;border-radius:50%;background:#FEF3E2;border:0.5px solid #F5C97A;display:flex;align-items:center;justify-content:center;font-size:9px;color:#E8940A;flex-shrink:0;margin-top:1px}
+.cta-note{font-size:12px;color:#aaa;margin-top:24px;line-height:1.6}
 
 /* CONTACT FORM */
-.contact-form{margin:0 auto;text-align:left;max-width:480px}
+.contact-form-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:16px;padding:28px;box-shadow:0 4px 32px rgba(0,0,0,0.06)}
 .form-row{margin-bottom:14px}
 .form-label{font-size:12px;font-weight:500;color:#555;display:block;margin-bottom:6px}
 .form-input{width:100%;padding:11px 14px;border:0.5px solid #e0e0e0;border-radius:7px;font-size:14px;font-family:inherit;color:#111;background:#fff;outline:none;transition:border-color 0.15s;-webkit-appearance:none}
 .form-input:focus{border-color:#E8940A}
 textarea.form-input{resize:vertical;min-height:100px}
-.form-submit{width:100%;background:#E8940A;color:#fff;border:none;padding:13px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;font-family:inherit}
+.form-submit{width:100%;background:#E8940A;color:#fff;border:none;padding:14px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;font-family:inherit;letter-spacing:0.1px}
 .form-submit:disabled{opacity:0.6;cursor:not-allowed}
 .form-success{display:none;background:#FEF3E2;border:0.5px solid #F5C97A;border-radius:8px;padding:16px;text-align:center;font-size:14px;color:#854F0B;margin-top:16px}
 .form-error{display:none;background:#fef2f2;border:0.5px solid #f5c6c6;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#A32D2D;margin-top:12px}
@@ -152,6 +159,7 @@ textarea.form-input{resize:vertical;min-height:100px}
   .about-stats{margin-top:0}
   .footer{padding:24px 60px}
   .cta-section{padding:80px 60px}
+  .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 }
 
 @media(max-width:767px){
@@ -358,30 +366,44 @@ textarea.form-input{resize:vertical;min-height:100px}
 </section>
 
 <section id="contact" class="cta-section">
-  <h2 class="cta-h">Ready to see what we can build for you?</h2>
-  <p class="cta-sub">Send us a brief or just say hello. We'll show you what's possible before you commit to anything.</p>
-  <p class="cta-sub2">No retainer required to start. First conversation is free.</p>
-  <form class="contact-form" onsubmit="handleContactSubmit(event)">
-    <div class="form-row">
-      <label class="form-label" for="f-name">Name</label>
-      <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-h">Let's build something<br><em>worth watching.</em></h2>
+      <p class="cta-sub">Send us a brief or just say hello. We'll show you what's possible before you commit to anything.</p>
+      <ul class="cta-checks">
+        <li class="cta-check"><span class="cta-check-icon">✓</span>We respond within one business day</li>
+        <li class="cta-check"><span class="cta-check-icon">✓</span>First concept is free, no commitment needed</li>
+        <li class="cta-check"><span class="cta-check-icon">✓</span>No long contracts or agency retainers</li>
+        <li class="cta-check"><span class="cta-check-icon">✓</span>Script optional — we can write it for you</li>
+      </ul>
+      <p class="cta-note">Working with clients in Australia, UK, and Singapore.<br>Based in Ho Chi Minh City, available across time zones.</p>
     </div>
-    <div class="form-row">
-      <label class="form-label" for="f-email">Email</label>
-      <input class="form-input" id="f-email" name="email" type="email" placeholder="you@company.com" required>
+    <div>
+      <div class="contact-form-card">
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-row">
+            <label class="form-label" for="f-name">Name</label>
+            <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-email">Email</label>
+            <input class="form-input" id="f-email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-company">Company</label>
+            <input class="form-input" id="f-company" name="company" type="text" placeholder="Company name">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-message">Message</label>
+            <textarea class="form-input" id="f-message" name="message" placeholder="Tell us what you need..." required></textarea>
+          </div>
+          <button class="form-submit" type="submit">Send message</button>
+          <div class="form-success" id="formSuccess">We got your message. We'll be in touch shortly.</div>
+          <div class="form-error" id="formError"></div>
+        </form>
+      </div>
     </div>
-    <div class="form-row">
-      <label class="form-label" for="f-company">Company</label>
-      <input class="form-input" id="f-company" name="company" type="text" placeholder="Company name">
-    </div>
-    <div class="form-row">
-      <label class="form-label" for="f-message">Message</label>
-      <textarea class="form-input" id="f-message" name="message" placeholder="Tell us what you need..." required></textarea>
-    </div>
-    <button class="form-submit" type="submit">Send message</button>
-    <div class="form-success" id="formSuccess">We got your message. We'll be in touch shortly.</div>
-    <div class="form-error" id="formError"></div>
-  </form>
+  </div>
 </section>
 
 <footer class="footer">
