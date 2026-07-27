@@ -37,23 +37,84 @@ function playVideo(btn){
   frame.focus();
 }
 
-// Cursor-tracked spotlight in the hero. Pointer-fine devices only; the glow
-// element is pointer-events:none so it never blocks the CTAs.
-(function heroSpotlight(){
-  var hero = document.querySelector('.hero');
-  if(!hero || !window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  var pending = false, mx = 0, my = 0;
-  hero.addEventListener('mousemove', function(e){
-    var r = hero.getBoundingClientRect();
-    mx = e.clientX - r.left; my = e.clientY - r.top;
-    if(pending) return;
-    pending = true;
-    requestAnimationFrame(function(){
-      hero.style.setProperty('--mx', mx + 'px');
-      hero.style.setProperty('--my', my + 'px');
-      pending = false;
+// Play the hero video in place: the poster stage becomes the player.
+function playHero(btn){
+  var stage = document.querySelector('.hero-stage');
+  if(!stage) return;
+  var frame = document.createElement('iframe');
+  frame.className = 'facade-frame';
+  frame.src = 'https://www.youtube.com/embed/' + stage.dataset.yt + '?rel=0&autoplay=1';
+  frame.title = stage.dataset.title || 'Video';
+  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  frame.allowFullscreen = true;
+  stage.innerHTML = '';
+  stage.appendChild(frame);
+  frame.focus();
+}
+
+// Stadium-card carousel: scroll-snap for the motion, buttons and dots for
+// control, auto-advance with a pause toggle.
+(function carousel(){
+  var root = document.querySelector('.carousel');
+  if(!root) return;
+  var track = root.querySelector('.carousel-track');
+  var cards = Array.prototype.slice.call(root.querySelectorAll('.carousel-card'));
+  var dots = Array.prototype.slice.call(root.querySelectorAll('.carousel-dot'));
+  var pauseBtn = root.querySelector('.carousel-pause');
+  if(!track || !cards.length) return;
+
+  var index = 0, timer = null, playing = true;
+
+  function goTo(i){
+    index = (i + cards.length) % cards.length;
+    var card = cards[index];
+    // scrollLeft rather than scrollIntoView so the page itself never jumps
+    track.scrollTo({left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: 'smooth'});
+    dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
+  }
+
+  function start(){ stop(); if(playing) timer = setInterval(function(){goTo(index + 1)}, 5000); }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+  root.querySelector('.carousel-prev').addEventListener('click', function(){goTo(index - 1); start();});
+  root.querySelector('.carousel-next').addEventListener('click', function(){goTo(index + 1); start();});
+  dots.forEach(function(d, n){ d.addEventListener('click', function(){goTo(n); start();}); });
+
+  if(pauseBtn){
+    pauseBtn.addEventListener('click', function(){
+      playing = !playing;
+      pauseBtn.textContent = playing ? '❚❚' : '▶';
+      pauseBtn.setAttribute('aria-label', playing ? 'Pause carousel' : 'Play carousel');
+      if(playing) start(); else stop();
     });
+  }
+
+  // Respect a reduced-motion preference: no auto-advance at all.
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    playing = false;
+    if(pauseBtn) pauseBtn.textContent = '▶';
+  }
+
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  // Keep the dots honest when someone swipes the track directly.
+  var settle;
+  track.addEventListener('scroll', function(){
+    clearTimeout(settle);
+    settle = setTimeout(function(){
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var nearest = 0, best = Infinity;
+      cards.forEach(function(c, n){
+        var d = Math.abs(c.offsetLeft + c.clientWidth / 2 - mid);
+        if(d < best){ best = d; nearest = n; }
+      });
+      index = nearest;
+      dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
+    }, 120);
   });
+
+  goTo(0);
+  start();
 })();
 
 // Staggered hero entrance, then reveal each band as it scrolls into view.

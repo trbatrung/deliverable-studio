@@ -8,47 +8,19 @@
 <title>Deliverable | AI Video Production Service</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* ---------- HERO (index only) ---------- */
-.hero{padding:48px var(--px) 56px;background:var(--canvas);position:relative;overflow:hidden}
-.hero-grid{display:grid;gap:28px;position:relative;z-index:1}
-.hero-copy .hero-sub2{margin-bottom:0}
-.hero-media{min-width:0}
-/* Amber spotlight that tracks the cursor. Purely decorative, never intercepts clicks. */
-.hero-glow{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity 0.45s ease;background:radial-gradient(circle 380px at var(--mx,50%) var(--my,40%),rgba(232,148,10,0.13),transparent 65%)}
-@media(hover:hover) and (pointer:fine){.hero:hover .hero-glow{opacity:1}}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--band);border:0.5px solid #F5C97A;border-radius:var(--r-pill);padding:6px 16px;margin-bottom:22px}
-.hero-eyebrow span{font-size:12px;font-weight:700;color:#854F0B;letter-spacing:0.56px;text-transform:uppercase}
-.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.hero-h{font-size:36px;font-weight:500;line-height:1.1;letter-spacing:-0.72px;color:var(--ink);margin-bottom:18px;text-wrap:balance}
-.hero-h em{font-style:normal;color:var(--amber)}
-.hero-sub{font-size:16px;color:#4A4744;line-height:1.6;margin-bottom:12px}
-.hero-sub2{font-size:14px;color:#8A8681;line-height:1.6;margin-bottom:32px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-
-/* Hero entrance stagger */
-.js .hero-copy>*,.js .hero-media,.js .hero-btns{opacity:0;transform:translateY(16px);transition:opacity 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s),transform 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s)}
-.js .hero.in .hero-copy>*,.js .hero.in .hero-media,.js .hero.in .hero-btns{opacity:1;transform:none}
-.js .hero-copy>*:nth-child(1){--d:0.05s}
-.js .hero-copy>*:nth-child(2){--d:0.12s}
-.js .hero-copy>*:nth-child(3){--d:0.19s}
-.js .hero-copy>*:nth-child(4){--d:0.26s}
-.js .hero-media{--d:0.20s}
-.js .hero-btns{--d:0.33s}
+/* Hero entrance stagger — the stage fades up, its copy follows in sequence */
+.js .hero-inner>*{opacity:0;transform:translateY(16px);transition:opacity 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s),transform 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s)}
+.js .hero.in .hero-inner>*{opacity:1;transform:none}
+.js .hero-inner>*:nth-child(1){--d:0.10s}
+.js .hero-inner>*:nth-child(2){--d:0.18s}
+.js .hero-inner>*:nth-child(3){--d:0.26s}
+.js .hero-inner>*:nth-child(4){--d:0.34s}
+.js .hero-inner>*:nth-child(5){--d:0.42s}
 
 /* ---------- TRUST BAR ---------- */
 .trust-bar{padding:18px var(--px);display:flex;gap:20px;flex-wrap:wrap;background:var(--band)}
 .trust-item{font-size:12px;color:#854F0B;display:flex;align-items:center;gap:6px}
 .trust-check{width:16px;height:16px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber);flex-shrink:0}
-
-/* ---------- TABS (pill-in-pill, active segment lifts to white) ---------- */
-.tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--lifted);border-radius:var(--r-pill);padding:5px;width:100%}
-.tab{flex:1;padding:9px 12px;font-size:12px;font-weight:500;color:#8A8681;cursor:pointer;background:transparent;border:none;border-radius:var(--r-pill);transition:background 0.15s,color 0.15s,box-shadow 0.15s;text-align:center}
-.tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.07)}
-.tab:not(.active):hover{background:rgba(255,255,255,0.6);color:#5A5754}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.video-desc{margin-top:16px;font-size:14px;color:#6B6763;line-height:1.55}
-.video-demo-note{margin-top:8px;font-size:11px;color:#A09B95;font-style:italic}
 
 /* ---------- COMPARISON TIMELINE ---------- */
 .tl-col-headers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:12px}
@@ -77,15 +49,7 @@
 .contact-form-card{background:#fff;border:none;border-radius:var(--r-media);padding:32px;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
 
 @media(min-width:768px){
-  .hero{padding:64px var(--px) 72px}
-  .hero-h{font-size:40px;letter-spacing:-0.8px}
-  .hero-grid{grid-template-columns:1fr 1fr;grid-template-areas:"copy media" "actions media";grid-template-rows:auto 1fr;column-gap:56px;row-gap:28px;align-items:start}
-  .hero-copy{grid-area:copy}
-  .hero-media{grid-area:media;align-self:center}
-  .hero-btns{grid-area:actions}
   .trust-bar{padding:20px var(--px)}
-  .tabs{width:fit-content}
-  .tab{font-size:13px;padding:9px 24px}
   .cta-h{font-size:40px;letter-spacing:-0.8px}
   .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 }
@@ -93,48 +57,46 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a class="logo" href="index.html">Deliverable</a>
-  <div class="nav-links">
-    <a class="nav-link" href="work.html">Our work</a>
-    <a class="nav-link" href="how-it-works.html">How it works</a>
-    <a class="nav-link" href="who-its-for.html">Who it's for</a>
-    <a class="nav-link" href="about.html">About</a>
-    <a class="nav-cta" href="contact.html">Get in touch</a>
+<div class="nav-shell">
+  <nav class="nav">
+    <a class="logo" href="index.html">Deliverable</a>
+    <div class="nav-links">
+      <a class="nav-link" href="work.html">Our work</a>
+      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="who-its-for.html">Who it's for</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-cta" href="contact.html">Get in touch</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="work.html" onclick="toggleMenu()">Our work</a>
+    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="work.html" onclick="toggleMenu()">Our work</a>
-  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-  <a href="about.html" onclick="toggleMenu()">About</a>
-  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
 <section class="hero">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <div class="hero-eyebrow"><div class="hero-dot"></div><span>AI video production service</span></div>
-      <h1 class="hero-h">Training and onboarding videos that update <em>as fast as your business does.</em></h1>
-      <p class="hero-sub">Script, AI production, editing, and revisions, handled end to end. Built for teams that need video regularly, not once.</p>
-      <p class="hero-sub2">Most teams could learn HeyGen or Veo3 themselves. The harder part is the script, the iteration, and keeping it consistent once something changes.</p>
+  <div class="hero-stage" data-yt="lCPMtNWJa7E" data-title="Deliverable — HR onboarding concept demo">
+    <img class="hero-poster" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" fetchpriority="high">
+    <div class="hero-scrim"></div>
+    <div class="hero-overlay">
+      <div class="hero-inner">
+        <div class="hero-eyebrow"><div class="hero-dot"></div><span>AI video production service</span></div>
+        <h1 class="hero-h">Training and onboarding videos that update <em>as fast as your business does.</em></h1>
+        <p class="hero-sub">Script, AI production, editing, and revisions, handled end to end. Built for teams that need video regularly, not once.</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="#work">See our work</a>
+          <a class="btn-ghost" href="#contact">Talk to us</a>
+        </div>
+        <span class="hero-tag">Concept demo, not a client project</span>
+      </div>
     </div>
-    <div class="hero-media">
-      <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Deliverable — HR onboarding concept demo" onclick="playVideo(this)" aria-label="Play the HR onboarding concept demo">
-        <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" fetchpriority="high">
-        <span class="video-tag">Concept demo</span>
-        <span class="facade-play"><span class="facade-tri"></span></span>
-      </button>
-    </div>
-    <div class="hero-btns">
-      <a class="btn-primary" href="#work">See our work</a>
-      <a class="btn-ghost" href="#contact">Talk to us</a>
-    </div>
+    <button class="hero-play" onclick="playHero(this)" aria-label="Play the concept demo"><span class="facade-tri"></span></button>
   </div>
 </section>
 
@@ -148,37 +110,44 @@
 <section id="work" class="section alt">
   <p class="section-eyebrow">Our work</p>
   <h2 class="section-h">Real briefs. Real output.</h2>
-  <p class="section-sub">Sample videos built for each use case. Click a category to see what we produce.</p>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('hr',this)">HR and onboarding</button>
-    <button class="tab" onclick="switchTab('training',this)">Training and courses</button>
-    <button class="tab" onclick="switchTab('proserv',this)">Professional services</button>
-  </div>
-  <div id="tab-hr" class="tab-content active">
-    <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Deliverable — HR onboarding concept demo" onclick="playVideo(this)" aria-label="Play the HR onboarding concept demo">
-      <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
-      <span class="video-tag">Concept demo</span>
-      <span class="facade-play"><span class="facade-tri"></span></span>
-    </button>
-    <p class="video-desc">Avatar-led onboarding covering company culture, policies, and first-week expectations. Produced once, updated by editing the script, not reshooting.</p>
-    <p class="video-demo-note">Concept demo, built to show what's possible, not a client project.</p>
-  </div>
-  <div id="tab-training" class="tab-content">
-    <div class="media-slot">
-      <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
-      <span class="media-slot-label">Demo coming soon</span>
-      <p class="media-slot-note">Placeholder. Drop the course module loop here once produced.</p>
+  <p class="section-sub">Sample videos built for each use case.</p>
+
+  <div class="carousel">
+    <div class="carousel-nav">
+      <button class="carousel-btn carousel-prev" type="button" aria-label="Previous slide">←</button>
+      <button class="carousel-btn carousel-next" type="button" aria-label="Next slide">→</button>
     </div>
-    <p class="video-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
-  </div>
-  <div id="tab-proserv" class="tab-content">
-    <div class="media-slot">
-      <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
-      <span class="media-slot-label">Demo coming soon</span>
-      <p class="media-slot-note">Placeholder. Drop the professional services explainer here once produced.</p>
+    <div class="carousel-track">
+      <div class="carousel-card has-media">
+        <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" loading="lazy">
+        <span class="carousel-chip">HR and onboarding</span>
+        <span class="carousel-title">Welcome and onboarding</span>
+      </div>
+      <div class="carousel-card">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">4:3 loop</span>
+        <p class="media-slot-note">Placeholder. Drop the course module loop here.</p>
+        <span class="carousel-chip">Training and courses</span>
+        <span class="carousel-title">Course module</span>
+      </div>
+      <div class="carousel-card">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">4:3 loop</span>
+        <p class="media-slot-note">Placeholder. Drop the explainer loop here.</p>
+        <span class="carousel-chip">Professional services</span>
+        <span class="carousel-title">Explainer</span>
+      </div>
     </div>
-    <p class="video-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
+    <div class="carousel-foot">
+      <div class="carousel-dots">
+        <button class="carousel-dot active" type="button" aria-label="Go to slide 1"></button>
+        <button class="carousel-dot" type="button" aria-label="Go to slide 2"></button>
+        <button class="carousel-dot" type="button" aria-label="Go to slide 3"></button>
+      </div>
+      <button class="carousel-pause" type="button" aria-label="Pause carousel">❚❚</button>
+    </div>
   </div>
+
   <a class="section-link" href="work.html">See all work examples →</a>
 </section>
 

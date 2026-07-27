@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="style.css">
 <style>
 /* Page-specific: contact */
-.cta-section{padding:64px var(--px);background:var(--band)}
+/* First element on the page, so it carries the fixed-nav clearance */
+.cta-section{padding:112px var(--px) 64px;background:var(--band)}
 .cta-h{font-size:32px;font-weight:500;color:var(--ink);margin-bottom:14px;letter-spacing:-0.64px;line-height:1.15;text-wrap:balance}
 .cta-h em{font-style:normal;color:var(--amber)}
 .cta-sub{font-size:15px;font-weight:450;color:#4A4744;margin-bottom:28px;line-height:1.5}
@@ -19,7 +20,7 @@
 .cta-note{font-size:12px;color:#8A8681;margin-top:24px;line-height:1.6}
 .contact-form-card{background:#fff;border:none;border-radius:var(--r-media);padding:32px;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
 @media(min-width:768px){
-  .cta-section{padding:88px var(--px)}
+  .cta-section{padding:150px var(--px) 88px}
   .cta-h{font-size:40px;letter-spacing:-0.8px}
   .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 }
@@ -27,26 +28,28 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a class="logo" href="index.html">Deliverable</a>
-  <div class="nav-links">
-    <a class="nav-link" href="work.html">Our work</a>
-    <a class="nav-link" href="how-it-works.html">How it works</a>
-    <a class="nav-link" href="who-its-for.html">Who it's for</a>
-    <a class="nav-link" href="about.html">About</a>
-    <a class="nav-cta current" href="contact.html" style="background:#c4780a">Get in touch</a>
-  </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<div class="nav-shell">
+  <nav class="nav">
+    <a class="logo" href="index.html">Deliverable</a>
+    <div class="nav-links">
+      <a class="nav-link" href="work.html">Our work</a>
+      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="who-its-for.html">Who it's for</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-cta current" href="contact.html" style="background:#c4780a">Get in touch</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="work.html" onclick="toggleMenu()">Our work</a>
-  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-  <a href="about.html" onclick="toggleMenu()">About</a>
-  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="work.html" onclick="toggleMenu()">Our work</a>
+    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+  </div>
 </div>
 
 <section class="cta-section">

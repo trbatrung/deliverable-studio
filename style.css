@@ -31,8 +31,11 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--canv
 .footer{margin-top:auto}
 
 /* ---------- NAV ---------- */
-/* Floating white pill that docks below the viewport top, never flush at y=0 */
-.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 10px 10px 24px;background:#fff;border-radius:var(--r-pill);box-shadow:0 4px 24px rgba(0,0,0,0.05);position:sticky;top:14px;z-index:100;width:calc(100% - var(--gut) * 2);max-width:var(--maxw);margin:14px auto 0}
+/* Fixed shell so the pill floats over the hero video, as in the reference.
+   Transparent area must not swallow clicks, hence pointer-events juggling. */
+.nav-shell{position:fixed;top:0;left:0;right:0;z-index:100;padding-top:14px;pointer-events:none}
+.nav-shell>*{pointer-events:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 10px 10px 24px;background:#fff;border-radius:var(--r-pill);box-shadow:0 4px 24px rgba(0,0,0,0.05);width:calc(100% - var(--gut) * 2);max-width:var(--maxw);margin:0 auto}
 .logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:var(--amber);flex-shrink:0;text-decoration:none}
 .nav-links{display:flex;gap:24px;align-items:center}
 .nav-link{font-size:13px;color:#5A5754;cursor:pointer;text-decoration:none;white-space:nowrap}
@@ -53,7 +56,9 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--canv
 /* ---------- SECTIONS + PAGE HEADERS ---------- */
 .section{padding:64px var(--px);background:var(--canvas)}
 .section.alt{background:var(--band)}
-.page-header{padding:48px var(--px) 32px;background:var(--canvas)}
+/* Top padding doubles as clearance under the fixed nav. Keep it in the
+   shorthand — a separate padding-top rule gets reset by this one. */
+.page-header{padding:104px var(--px) 32px;background:var(--canvas)}
 .page-eyebrow,.section-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#854F0B;letter-spacing:0.56px;text-transform:uppercase;margin-bottom:12px}
 /* The tiny accent dot is the identity. Never omit it. */
 .page-eyebrow::before,.section-eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
@@ -88,6 +93,61 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--canv
 .media-slot-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #C4BFB9;margin-left:4px}
 .media-slot-label{font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#A09B95}
 .media-slot-note{font-size:12px;color:#B5AFA8;max-width:70%;text-align:center;line-height:1.5}
+
+/* ---------- FULL-BLEED HERO STAGE ---------- */
+/* Viewport-wide media frame with the headline sitting on top of it and the
+   nav pill floating over its shoulder. 40px radius at every breakpoint. */
+.hero{position:relative;padding:0 var(--gut);background:var(--canvas)}
+.hero-stage{position:relative;width:100%;max-width:1680px;margin:0 auto;height:82vh;min-height:540px;border-radius:var(--r-media);overflow:hidden;background:#000}
+.hero-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.62) 42%,rgba(0,0,0,0.18) 78%,rgba(0,0,0,0.05) 100%)}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 28px;z-index:2}
+.hero-inner{width:100%;max-width:var(--maxw);margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);border-radius:var(--r-pill);padding:6px 16px;margin-bottom:20px;backdrop-filter:blur(6px)}
+.hero-eyebrow span{font-size:11px;font-weight:700;color:#fff;letter-spacing:0.56px;text-transform:uppercase}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.hero-h{font-size:32px;font-weight:500;line-height:1.08;letter-spacing:-0.64px;color:#fff;margin-bottom:16px;text-wrap:balance;max-width:16ch}
+.hero-h em{font-style:normal;color:var(--amber)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.82);line-height:1.5;margin-bottom:24px;max-width:46ch}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero .btn-primary{background:#fff;color:var(--ink);border-color:#fff}
+.hero .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,0.65)}
+.hero-play{position:absolute;right:32px;bottom:28px;z-index:3;width:76px;height:76px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.35);transition:transform 0.18s ease}
+.hero-play:hover{transform:scale(1.06)}
+.hero-play .facade-tri{border-left-width:20px;border-top-width:12px;border-bottom-width:12px}
+/* In the content flow, not absolutely placed: the nav pill covers the frame's
+   top edge and the CTA row owns the bottom-left corner. */
+.hero-tag{display:inline-block;margin-top:18px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);backdrop-filter:blur(6px);border-radius:var(--r-pill);padding:6px 16px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.9)}
+
+/* ---------- CAROUSEL ---------- */
+/* Stadium-shaped media cards that bleed off both edges, scroll-snapped,
+   with circular arrow controls and a dash-style pagination row. */
+.carousel{position:relative;margin-top:36px}
+.carousel-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:8px 0 20px;scrollbar-width:none;-ms-overflow-style:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-card{position:relative;flex:0 0 86%;scroll-snap-align:center;aspect-ratio:4/3;border-radius:var(--r-pill);overflow:hidden;background:var(--lifted);border:1.5px dashed #DDD6CD;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.carousel-card.has-media{border:none;background:#000}
+/* The chip and title pill already label the card; the note would run under them */
+.carousel-card .media-slot-note{display:none}
+.carousel-card .media-slot-label{margin-top:96px}
+.carousel-card .facade-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.carousel-chip{position:absolute;top:14%;left:16%;background:#fff;border-radius:var(--r-pill);padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--ink);z-index:2}
+.carousel-title{position:absolute;left:50%;top:52%;transform:translateX(-50%);background:#fff;border-radius:var(--r-pill);padding:14px 34px;font-size:17px;font-weight:500;letter-spacing:-0.34px;color:var(--ink);white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.08);z-index:2}
+.carousel-nav{display:flex;gap:12px;justify-content:flex-end;margin-bottom:12px}
+.carousel-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--ink);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--ink);transition:background 0.15s ease,color 0.15s ease}
+.carousel-btn:hover{background:var(--ink);color:var(--canvas)}
+.carousel-foot{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:4px}
+.carousel-dots{display:flex;gap:8px;align-items:center}
+.carousel-dot{width:9px;height:9px;border-radius:var(--r-pill);background:#D8D2CB;border:none;padding:0;cursor:pointer;transition:width 0.25s ease,background 0.25s ease}
+.carousel-dot.active{width:30px;background:#F37338}
+.carousel-pause{width:38px;height:38px;border-radius:50%;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px}
+
+/* ---------- ORBITAL ARCS ---------- */
+/* Thin light-orange curves implying connection between circular portraits.
+   Only meaningful with asymmetric placement, so desktop-only. */
+.orbit-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;display:none}
+.orbit-svg path{fill:none;stroke:#F37338;stroke-width:1.5;opacity:0.5}
+@media(min-width:768px){.orbit-svg{display:block}}
 
 /* Satellite micro-CTA — docks onto the edge of a circular portrait */
 .satellite{position:absolute;right:2%;bottom:6%;width:56px;height:56px;border-radius:50%;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--ink);text-decoration:none}
@@ -165,12 +225,19 @@ textarea.form-input{resize:vertical;min-height:110px;border-radius:var(--r-card)
 /* ---------- DESKTOP ---------- */
 @media(min-width:768px){
   :root{--gut:60px}
-  .nav{padding:12px 12px 12px 32px;top:20px;margin-top:20px}
+  .nav-shell{padding-top:20px}
+  .nav{padding:12px 12px 12px 32px}
+  .hero-overlay{padding:56px 48px}
+  .hero-h{font-size:52px;letter-spacing:-1.04px}
+  .hero-sub{font-size:16px}
+  .hero-play{right:56px;bottom:40px;width:88px;height:88px}
+  .carousel-card{flex:0 0 58%}
+  .carousel-title{font-size:22px;padding:16px 40px}
   .hamburger{display:none !important}
   .nav-links{display:flex !important}
   .mobile-menu{display:none !important}
   .section{padding:96px var(--px)}
-  .page-header{padding:64px var(--px) 40px}
+  .page-header{padding:140px var(--px) 40px}
   .page-h{font-size:40px;letter-spacing:-0.8px}
   .section-h{font-size:36px;letter-spacing:-0.72px}
   .for-grid{grid-template-columns:1fr 1fr}
@@ -207,12 +274,19 @@ textarea.form-input{resize:vertical;min-height:110px;border-radius:var(--r-card)
   .stat-card,.for-card,.media-slot,.tl-cell.left{background:var(--lifted) !important}
   .section.alt,.trust-bar,.cta-section,.tl-cell.right{background:var(--band) !important}
   .footer.dark{background:var(--ink) !important}
-  .section-h,.page-h,.hero-h,.for-card-title,.step-title,.cta-h,.work-title,.nav-link:hover{color:var(--ink) !important}
-  .hero-h em,.cta-h em,.stat-num,.logo,.footer-logo{color:var(--amber) !important}
-  .hero-sub,.cta-sub,.about-text p{color:#4A4744 !important}
+  .section-h,.page-h,.for-card-title,.step-title,.cta-h,.work-title,.nav-link:hover{color:var(--ink) !important}
+  .cta-h em,.stat-num,.logo,.footer-logo{color:var(--amber) !important}
+  /* Hero type sits on dark video, so it stays light in both schemes */
+  .hero-h{color:#ffffff !important}
+  .hero-h em{color:var(--amber) !important}
+  .hero-sub{color:rgba(255,255,255,0.82) !important}
+  .hero-eyebrow span{color:#ffffff !important}
+  .hero .btn-primary{background:#ffffff !important;color:var(--ink) !important}
+  .hero .btn-ghost{background:transparent !important;color:#ffffff !important}
+  .cta-sub,.about-text p{color:#4A4744 !important}
   .section-sub,.page-sub,.for-card-body,.step-body,.video-desc,.work-desc{color:#6B6763 !important}
   .hero-sub2,.video-label,.footer-right,.cta-note,.stat-label,.media-slot-note{color:#8A8681 !important}
-  .trust-item,.section-eyebrow,.page-eyebrow,.hero-eyebrow span,.work-label{color:#854F0B !important}
+  .trust-item,.section-eyebrow,.page-eyebrow,.work-label{color:#854F0B !important}
   .btn-primary,.form-submit{background:var(--ink) !important;color:var(--canvas) !important}
   .btn-ghost,.satellite{background:#ffffff !important;color:var(--ink) !important}
   .form-input{background:#ffffff !important;color:var(--ink) !important}

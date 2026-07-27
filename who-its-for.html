@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="style.css">
 <style>
 /* Page-specific: circular portrait constellation */
-.portrait-row{display:grid;gap:40px;margin-top:40px}
-.portrait{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.portrait-row{position:relative;display:grid;gap:40px;margin-top:40px}
+.portrait{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
 .portrait .media-slot.circle{width:100%;max-width:260px}
 .portrait-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#854F0B;margin-top:22px}
 .portrait-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
@@ -26,26 +26,28 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a class="logo" href="index.html">Deliverable</a>
-  <div class="nav-links">
-    <a class="nav-link" href="work.html">Our work</a>
-    <a class="nav-link" href="how-it-works.html">How it works</a>
-    <a class="nav-link current" href="who-its-for.html">Who it's for</a>
-    <a class="nav-link" href="about.html">About</a>
-    <a class="nav-cta" href="contact.html">Get in touch</a>
-  </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<div class="nav-shell">
+  <nav class="nav">
+    <a class="logo" href="index.html">Deliverable</a>
+    <div class="nav-links">
+      <a class="nav-link" href="work.html">Our work</a>
+      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link current" href="who-its-for.html">Who it's for</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-cta" href="contact.html">Get in touch</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="work.html" onclick="toggleMenu()">Our work</a>
-  <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-  <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-  <a href="about.html" onclick="toggleMenu()">About</a>
-  <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="work.html" onclick="toggleMenu()">Our work</a>
+    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+  </div>
 </div>
 
 <div class="page-header">
@@ -56,6 +58,14 @@
 
 <section class="section">
   <div class="portrait-row">
+    <!-- Orbital arcs: thin light-orange curves implying connection between the
+         portraits. Only reads correctly against the asymmetric offsets, so the
+         stylesheet hides this below 768px. -->
+    <svg class="orbit-svg" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M 150 190 C 270 90, 400 300, 500 250" />
+      <path d="M 500 250 C 620 200, 720 90, 850 175" />
+      <path d="M 60 300 C 180 380, 300 250, 380 330" />
+    </svg>
     <div class="portrait">
       <div class="media-slot circle">
         <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
