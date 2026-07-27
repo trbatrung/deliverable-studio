@@ -1,79 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How It Works | Deliverable</title>
-<style>
-:root{color-scheme:light;--maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2))}
-*{-webkit-text-size-adjust:100%}
-body,html{background:#ffffff !important;color:#111111 !important}
-*{box-sizing:border-box;margin:0;padding:0}
-html{color-scheme:light only}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
-
-/* NAV */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--px);border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
-.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
-.nav-link.current{color:#E8940A;font-weight:500}
-.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
-.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
-.mobile-cta-wrap{padding:14px 24px 20px}
-.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
-
-/* SECTIONS */
-.section{padding:56px var(--px);background:#ffffff}
-.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
-.section-sub{font-size:14px;color:#777;line-height:1.65;margin-bottom:24px}
-
-/* STEPS */
-.steps-col{display:flex;flex-direction:column;gap:0;margin-top:28px}
-.step{display:flex;gap:16px;padding-bottom:24px;position:relative}
-.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:44px;bottom:0;width:0.5px;background:#e0e0e0}
-.step-num-circle{width:34px;height:34px;border-radius:50%;border:0.5px solid #e0e0e0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#E8940A;flex-shrink:0}
-.step-content{}
-.step-title{font-size:14px;font-weight:500;color:#111;margin-bottom:4px}
-.step-body{font-size:13px;color:#888;line-height:1.55}
-
-/* FOOTER */
-.footer{padding:22px var(--px);border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
-.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
-.footer-right{font-size:12px;color:#bbb}
-
-/* DESKTOP */
-@media(min-width:768px){
-  :root{--gut:60px}
-  .nav{padding:22px var(--px)}
-  .hamburger{display:none !important}
-  .nav-links{display:flex !important}
-  .mobile-menu{display:none !important}
-  .section{padding:64px var(--px)}
-  .steps-col{flex-direction:row;gap:0;position:relative}
-  .step-connector{position:absolute;top:17px;left:calc(12.5% + 8px);right:calc(12.5% + 8px);height:0.5px;background:#e0e0e0;z-index:0}
-  .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
-  .step:not(:last-child)::after{display:none}
-  .step-num-circle{margin-bottom:14px}
-  .footer{padding:24px var(--px)}
-}
-
-@media(max-width:767px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .step-connector{display:none}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
-}
-@media(prefers-color-scheme:dark){body,html,.section,.footer,.nav,.mobile-menu{background:#ffffff !important;color:#111111 !important}.section-h,.step-title{color:#111111 !important}.section-sub,.step-body{color:#555555 !important}.footer-right{color:#999999 !important}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -99,9 +32,13 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
+<div class="page-header">
+  <p class="page-eyebrow">How it works</p>
+  <h1 class="page-h">From brief to delivered. Four steps.</h1>
+  <p class="page-sub">No setup on your end. Send the topic, approve the script, receive the file.</p>
+</div>
+
 <section class="section">
-  <p class="section-eyebrow">How it works</p>
-  <h2 class="section-h">From brief to delivered. Four steps.</h2>
   <div class="steps-col">
     <div class="step-connector"></div>
     <div class="step">
@@ -133,18 +70,25 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
       </div>
     </div>
   </div>
-  <p class="section-sub" style="margin-top:32px;margin-bottom:0">Need a new version next quarter? Same process, faster — we already have your brand voice and avatar setup on file.</p>
+  <p class="section-sub" style="margin-top:32px;margin-bottom:0">Need a new version next quarter? Same process, faster, we already have your brand voice and avatar setup on file.</p>
 </section>
 
-<footer class="footer">
+<section class="section alt">
+  <p class="section-eyebrow">Behind the scenes</p>
+  <h2 class="section-h">What the pipeline actually looks like</h2>
+  <p class="section-sub">A short walkthrough of a brief moving from script to finished file.</p>
+  <div class="media-slot">
+    <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+    <span class="media-slot-label">Process walkthrough</span>
+    <p class="media-slot-note">Placeholder. A 3 to 5 second silent loop cut from an existing edit works here, or a full screen-recorded walkthrough.</p>
+  </div>
+</section>
+
+<footer class="footer dark">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>

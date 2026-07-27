@@ -1,0 +1,219 @@
+/* ============================================================
+   Deliverable — shared design system
+   Mastercard-flavoured: warm cream canvas, extreme radii, ink
+   pill CTAs, floating nav pill, accent-dot eyebrows.
+   Every page links this file. Page-specific rules stay inline.
+   ============================================================ */
+
+:root{
+  color-scheme:light;
+  --maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2));
+  /* Warm canvas, tuned a touch warmer than Mastercard's neutral #F3F0EE so it
+     sits under the amber rather than fighting it. */
+  --canvas:#F7F4F1;
+  --lifted:#FCFBFA;
+  --band:#FEF3E2;
+  --ink:#141413;
+  --amber:#E8940A;
+  --amber-deep:#D18409;
+  /* Radius scale: small, medium-large, or full pill. Nothing between. */
+  --r-btn:20px;
+  --r-card:24px;
+  --r-media:40px;
+  --r-pill:999px;
+}
+*{-webkit-text-size-adjust:100%}
+body,html{background:var(--canvas) !important;color:var(--ink) !important}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:light only}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--canvas);color:var(--ink);font-size:15px;min-height:100vh;display:flex;flex-direction:column}
+/* Pin the footer to the bottom on short pages so canvas never trails below it */
+.footer{margin-top:auto}
+
+/* ---------- NAV ---------- */
+/* Floating white pill that docks below the viewport top, never flush at y=0 */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 10px 10px 24px;background:#fff;border-radius:var(--r-pill);box-shadow:0 4px 24px rgba(0,0,0,0.05);position:sticky;top:14px;z-index:100;width:calc(100% - var(--gut) * 2);max-width:var(--maxw);margin:14px auto 0}
+.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:var(--amber);flex-shrink:0;text-decoration:none}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-link{font-size:13px;color:#5A5754;cursor:pointer;text-decoration:none;white-space:nowrap}
+.nav-link.current{color:var(--amber);font-weight:500}
+.nav-cta{font-size:13px;font-weight:500;color:#fff;background:var(--amber);padding:10px 20px;border-radius:var(--r-pill);cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:none;border:none}
+.hamburger span{width:22px;height:1.5px;background:var(--ink);border-radius:2px;display:block}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-radius:var(--r-card);box-shadow:0 4px 24px rgba(0,0,0,0.05);overflow:hidden;width:calc(100% - var(--gut) * 2);max-width:var(--maxw);margin:10px auto 0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:14px;color:#5A5754;padding:14px 24px;border-bottom:0.5px solid #F0EDEA;text-decoration:none}
+.mobile-cta-wrap{padding:14px 24px 20px}
+.mobile-cta-btn{display:block;background:var(--amber);color:#fff;text-align:center;padding:12px;border-radius:var(--r-pill);font-size:14px;font-weight:500;text-decoration:none}
+
+/* ---------- BUTTONS ---------- */
+.btn-primary{background:var(--ink);color:var(--canvas);border:1.5px solid var(--ink);padding:12px 28px;border-radius:var(--r-btn);font-size:15px;font-weight:500;letter-spacing:-0.3px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink);padding:12px 28px;border-radius:var(--r-btn);font-size:15px;font-weight:450;letter-spacing:-0.3px;cursor:pointer;text-decoration:none;display:inline-block}
+
+/* ---------- SECTIONS + PAGE HEADERS ---------- */
+.section{padding:64px var(--px);background:var(--canvas)}
+.section.alt{background:var(--band)}
+.page-header{padding:48px var(--px) 32px;background:var(--canvas)}
+.page-eyebrow,.section-eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#854F0B;letter-spacing:0.56px;text-transform:uppercase;margin-bottom:12px}
+/* The tiny accent dot is the identity. Never omit it. */
+.page-eyebrow::before,.section-eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.page-h{font-size:32px;font-weight:500;color:var(--ink);letter-spacing:-0.64px;line-height:1.15;margin-bottom:10px;text-wrap:balance}
+.page-sub{font-size:15px;font-weight:450;color:#6B6763;line-height:1.5}
+.section-h{font-size:28px;font-weight:500;color:var(--ink);letter-spacing:-0.56px;line-height:1.2;margin-bottom:8px;text-wrap:balance}
+.section-sub{font-size:15px;color:#6B6763;line-height:1.5;margin-bottom:24px}
+.section-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-decoration:none;margin-top:20px;font-weight:500;border-bottom:1.5px solid var(--amber);padding-bottom:2px}
+
+/* ---------- MEDIA ---------- */
+/* 40px stadium is the signature gesture. Do not round less. */
+.video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-media);overflow:hidden;background:#000;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-tag{position:absolute;top:16px;left:16px;background:#fff;border-radius:var(--r-pill);padding:6px 16px;font-size:11px;font-weight:500;color:var(--ink);z-index:1}
+
+/* Poster facade — swaps in the YouTube iframe on click, so the ~1MB player
+   never loads until someone actually wants to watch. */
+.video-facade{position:relative;display:block;width:100%;aspect-ratio:16/9;border:none;border-radius:var(--r-media);overflow:hidden;background:#000;padding:0;cursor:pointer;font:inherit;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
+.facade-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.facade-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.3);transition:transform 0.18s ease,background 0.18s ease}
+.facade-tri{width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid #fff;margin-left:5px}
+.video-facade:hover .facade-play{transform:translate(-50%,-50%) scale(1.08);background:#F0A32A}
+.video-facade:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.video-facade.is-playing{cursor:default}
+.facade-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
+/* Placeholder media slot — the shape the real loop will drop into.
+   Add data-note="..." to label what is coming. */
+.media-slot{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-media);background:var(--lifted);border:1.5px dashed #DDD6CD;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden}
+.media-slot.circle{aspect-ratio:1/1;border-radius:50%;max-width:300px}
+.media-slot-glyph{width:56px;height:56px;border-radius:50%;background:#EDE7DF;display:flex;align-items:center;justify-content:center}
+.media-slot-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #C4BFB9;margin-left:4px}
+.media-slot-label{font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#A09B95}
+.media-slot-note{font-size:12px;color:#B5AFA8;max-width:70%;text-align:center;line-height:1.5}
+
+/* Satellite micro-CTA — docks onto the edge of a circular portrait */
+.satellite{position:absolute;right:2%;bottom:6%;width:56px;height:56px;border-radius:50%;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--ink);text-decoration:none}
+
+/* ---------- CARDS ---------- */
+.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.for-card{background:var(--lifted);border:none;border-radius:var(--r-card);padding:24px}
+.for-card-title{font-size:15px;font-weight:500;color:var(--ink);letter-spacing:-0.3px;margin-bottom:6px}
+.for-card-body{font-size:13px;color:#6B6763;line-height:1.5}
+.stat-card{background:var(--lifted);border:none;border-radius:var(--r-card);padding:20px 24px}
+.stat-num{font-size:28px;font-weight:500;color:var(--amber);letter-spacing:-0.56px;margin-bottom:2px}
+.stat-label{font-size:12px;color:#8A8681;line-height:1.5}
+
+/* ---------- STEPS ---------- */
+.steps-col{display:flex;flex-direction:column;gap:0;margin-top:28px}
+.step{display:flex;gap:16px;padding-bottom:24px;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:46px;bottom:0;width:1px;background:#E5DFD8}
+.step-num-circle{width:38px;height:38px;border-radius:50%;border:none;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0}
+.step-title{font-size:15px;font-weight:500;color:var(--ink);letter-spacing:-0.3px;margin-bottom:4px}
+.step-body{font-size:13px;color:#6B6763;line-height:1.5}
+
+/* ---------- ABOUT ---------- */
+.about-text p{font-size:15px;font-weight:450;color:#4A4744;line-height:1.6;margin-bottom:14px}
+.about-stats{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+
+/* ---------- FORMS ---------- */
+.form-row{margin-bottom:14px}
+.form-label{font-size:12px;font-weight:700;color:#6B6763;display:block;margin-bottom:6px;letter-spacing:0.4px;text-transform:uppercase}
+.form-input{width:100%;padding:12px 20px;border:1px solid #E5DFD8;border-radius:var(--r-pill);font-size:14px;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--ink)}
+textarea.form-input{resize:vertical;min-height:110px;border-radius:var(--r-card)}
+.form-submit{width:100%;background:var(--ink);color:var(--canvas);border:1.5px solid var(--ink);padding:14px;border-radius:var(--r-pill);font-size:15px;font-weight:500;cursor:pointer;margin-top:10px;font-family:inherit;letter-spacing:-0.3px}
+.form-submit:disabled{opacity:0.6;cursor:not-allowed}
+.form-success{display:none;background:var(--band);border:none;border-radius:var(--r-card);padding:16px;text-align:center;font-size:14px;color:#854F0B;margin-top:16px}
+.form-error{display:none;background:#FBF1EE;border:none;border-radius:var(--r-card);padding:12px;text-align:center;font-size:13px;color:#A32D2D;margin-top:12px}
+
+/* ---------- FOOTER ---------- */
+.footer{padding:24px var(--px);border-top:none;display:flex;justify-content:space-between;align-items:center;background:var(--canvas)}
+.footer-logo{font-size:16px;font-weight:500;color:var(--amber)}
+.footer-right{font-size:12px;color:#8A8681}
+.footer.dark{background:var(--ink)}
+.footer.dark .footer-logo{color:var(--amber)}
+.footer.dark .footer-right{color:#8A8681}
+
+/* ---------- INTERACTION ---------- */
+.nav-link{transition:color 0.15s ease}
+.nav-link:hover{color:var(--ink)}
+.nav-cta,.mobile-cta-btn{transition:background 0.15s ease,box-shadow 0.15s ease}
+.nav-cta:hover,.mobile-cta-btn:hover{background:var(--amber-deep);box-shadow:0 4px 14px rgba(232,148,10,0.28)}
+.btn-primary{transition:transform 0.18s ease,box-shadow 0.18s ease}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,20,19,0.22)}
+.btn-ghost{transition:transform 0.18s ease,box-shadow 0.18s ease}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,20,19,0.12)}
+.for-card,.stat-card{transition:transform 0.18s ease,box-shadow 0.18s ease}
+.for-card:hover,.stat-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,0.08)}
+.form-submit{transition:transform 0.18s ease,box-shadow 0.18s ease}
+.form-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,20,19,0.22)}
+.section-link{transition:gap 0.15s ease}
+.section-link:hover{gap:11px}
+.satellite{transition:transform 0.18s ease,box-shadow 0.18s ease}
+.satellite:hover{transform:scale(1.08);box-shadow:0 10px 26px rgba(0,0,0,0.16)}
+
+.video-facade{transition:transform 0.25s ease,box-shadow 0.25s ease}
+.video-facade:not(.is-playing):hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,0.16)}
+.facade-thumb{transition:transform 0.5s ease}
+.video-facade:not(.is-playing):hover .facade-thumb{transform:scale(1.04)}
+.facade-play::after{content:'';position:absolute;inset:-9px;border-radius:50%;border:2px solid rgba(232,148,10,0.6);animation:facade-pulse 2.6s cubic-bezier(0.4,0,0.2,1) infinite}
+@keyframes facade-pulse{0%{transform:scale(0.88);opacity:0.75}70%{transform:scale(1.4);opacity:0}100%{transform:scale(1.4);opacity:0}}
+
+/* ---------- REVEAL ---------- */
+/* Gated on .js so the page still renders with JavaScript disabled. */
+.js .section,.js .cta-section,.js .trust-bar,.js .work-section,.js .page-header{opacity:0;transform:translateY(18px);transition:opacity 0.7s cubic-bezier(0.22,0.61,0.36,1),transform 0.7s cubic-bezier(0.22,0.61,0.36,1)}
+.js .section.in,.js .cta-section.in,.js .trust-bar.in,.js .work-section.in,.js .page-header.in{opacity:1;transform:none}
+
+/* ---------- DESKTOP ---------- */
+@media(min-width:768px){
+  :root{--gut:60px}
+  .nav{padding:12px 12px 12px 32px;top:20px;margin-top:20px}
+  .hamburger{display:none !important}
+  .nav-links{display:flex !important}
+  .mobile-menu{display:none !important}
+  .section{padding:96px var(--px)}
+  .page-header{padding:64px var(--px) 40px}
+  .page-h{font-size:40px;letter-spacing:-0.8px}
+  .section-h{font-size:36px;letter-spacing:-0.72px}
+  .for-grid{grid-template-columns:1fr 1fr}
+  .steps-col{flex-direction:row;gap:0;position:relative}
+  .step-connector{position:absolute;top:19px;left:calc(12.5% + 8px);right:calc(12.5% + 8px);height:1px;background:#E5DFD8;z-index:0}
+  .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
+  .step:not(:last-child)::after{display:none}
+  .step-num-circle{margin-bottom:14px}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .about-stats{margin-top:0}
+  .footer{padding:24px var(--px)}
+}
+
+@media(max-width:767px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .step-connector{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
+  .js .section,.js .cta-section,.js .trust-bar,.js .work-section,.js .page-header,
+  .js .hero-copy>*,.js .hero-media,.js .hero-btns{opacity:1 !important;transform:none !important}
+  .facade-play::after{display:none}
+  .hero-glow{display:none}
+}
+
+/* ---------- FORCED LIGHT MODE ---------- */
+/* Values must track the light palette above, otherwise dark-mode visitors
+   get a different page from everyone else. */
+@media(prefers-color-scheme:dark){
+  body,html,.section,.footer,.hero,.page-header,.work-section{background:var(--canvas) !important;color:var(--ink) !important}
+  .nav,.mobile-menu,.contact-form-card{background:#ffffff !important}
+  .stat-card,.for-card,.media-slot,.tl-cell.left{background:var(--lifted) !important}
+  .section.alt,.trust-bar,.cta-section,.tl-cell.right{background:var(--band) !important}
+  .footer.dark{background:var(--ink) !important}
+  .section-h,.page-h,.hero-h,.for-card-title,.step-title,.cta-h,.work-title,.nav-link:hover{color:var(--ink) !important}
+  .hero-h em,.cta-h em,.stat-num,.logo,.footer-logo{color:var(--amber) !important}
+  .hero-sub,.cta-sub,.about-text p{color:#4A4744 !important}
+  .section-sub,.page-sub,.for-card-body,.step-body,.video-desc,.work-desc{color:#6B6763 !important}
+  .hero-sub2,.video-label,.footer-right,.cta-note,.stat-label,.media-slot-note{color:#8A8681 !important}
+  .trust-item,.section-eyebrow,.page-eyebrow,.hero-eyebrow span,.work-label{color:#854F0B !important}
+  .btn-primary,.form-submit{background:var(--ink) !important;color:var(--canvas) !important}
+  .btn-ghost,.satellite{background:#ffffff !important;color:var(--ink) !important}
+  .form-input{background:#ffffff !important;color:var(--ink) !important}
+}

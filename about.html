@@ -1,72 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Deliverable</title>
+<link rel="stylesheet" href="style.css">
 <style>
-:root{color-scheme:light;--maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2))}
-*{-webkit-text-size-adjust:100%}
-body,html{background:#ffffff !important;color:#111111 !important}
-*{box-sizing:border-box;margin:0;padding:0}
-html{color-scheme:light only}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
-
-/* NAV */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--px);border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
-.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
-.nav-link.current{color:#E8940A;font-weight:500}
-.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
-.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
-.mobile-cta-wrap{padding:14px 24px 20px}
-.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
-
-/* SECTIONS */
-.section{padding:56px var(--px);background:#ffffff}
-.section.alt{background:#fafafa;border-top:0.5px solid #ebebeb;border-bottom:0.5px solid #ebebeb}
-.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
-
-/* ABOUT */
-.about-text p{font-size:14px;color:#555;line-height:1.8;margin-bottom:14px}
-.about-stats{display:flex;flex-direction:column;gap:10px;margin-top:24px}
-.stat-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:10px;padding:16px 20px}
-.stat-num{font-size:26px;font-weight:500;color:#E8940A;margin-bottom:2px}
-.stat-label{font-size:12px;color:#888;line-height:1.5}
-
-/* FOOTER */
-.footer{padding:22px var(--px);border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
-.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
-.footer-right{font-size:12px;color:#bbb}
-
-/* DESKTOP */
+/* Page-specific: about split with portrait */
+/* width + margin-left:auto rather than justify-self:end — the latter shrink-wraps
+   the grid item, leaving the circle's width:100% nothing to resolve against. */
+.about-portrait{position:relative;width:100%;max-width:300px;margin:32px auto 0}
 @media(min-width:768px){
-  :root{--gut:60px}
-  .nav{padding:22px var(--px)}
-  .hamburger{display:none !important}
-  .nav-links{display:flex !important}
-  .mobile-menu{display:none !important}
-  .section{padding:64px var(--px)}
-  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-  .about-stats{margin-top:0}
-  .footer{padding:24px var(--px)}
+  .about-split{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+  .about-portrait{margin:0 0 0 auto}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
-}
-
-@media(max-width:767px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-}
-@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.nav,.mobile-menu,.stat-card{background:#ffffff !important;color:#111111 !important}.section-h,.stat-num{color:#111111 !important}.about-text p,.stat-label{color:#555555 !important}.footer-right{color:#999999 !important}}
 </style>
 </head>
 <body>
@@ -93,26 +42,54 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
-<section class="section alt">
-  <p class="section-eyebrow">About</p>
-  <h2 class="section-h">A production service, not a one-off studio gig.</h2>
-  <div class="about-text">
-    <p>Deliverable runs on the same AI video tools anyone can access — HeyGen, Veo3, ElevenLabs. The tools aren't the differentiator anymore; production discipline is.</p>
-    <p>That means scripts written for clarity and retention, not just text fed into a generator. A repeatable process, so output quality doesn't depend on which week you ask. And a setup where updating a video means editing the script — not re-booking a shoot.</p>
-    <p>This isn't a tool subscription, and it isn't a traditional production house either. It's the production capacity a team would want in-house, without the overhead of hiring one.</p>
-    <p>Based in Ho Chi Minh City. Open to clients across time zones.</p>
+<div class="page-header">
+  <p class="page-eyebrow">About</p>
+  <h1 class="page-h">A production service, not a one-off studio gig.</h1>
+  <p class="page-sub">Based in Ho Chi Minh City. Open to clients across time zones.</p>
+</div>
+
+<section class="section">
+  <div class="about-split">
+    <div class="about-text">
+      <p>Deliverable runs on the same AI video tools anyone can access, HeyGen, Veo3, ElevenLabs. The tools aren't the differentiator anymore; production discipline is.</p>
+      <p>That means scripts written for clarity and retention, not just text fed into a generator. A repeatable process, so output quality doesn't depend on which week you ask. And a setup where updating a video means editing the script, not re-booking a shoot.</p>
+      <p>This isn't a tool subscription, and it isn't a traditional production house either. It's the production capacity a team would want in-house, without the overhead of hiring one.</p>
+    </div>
+    <div class="about-portrait">
+      <div class="media-slot circle">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">Portrait</span>
+      </div>
+      <a class="satellite" href="contact.html" aria-label="Get in touch">→</a>
+    </div>
   </div>
 </section>
 
-<footer class="footer">
+<section class="section alt">
+  <p class="section-eyebrow">Track record</p>
+  <h2 class="section-h">Production judgment, not just tool access</h2>
+  <div class="about-stats" style="margin-top:24px">
+    <div class="stat-card">
+      <p class="stat-num">7 years</p>
+      <p class="stat-label">Real production experience before AI tooling. The judgment carries over.</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-num">3 to 5 days</p>
+      <p class="stat-label">Typical turnaround from approved script to delivered file.</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-num">End to end</p>
+      <p class="stat-label">Script, production, editing and revisions handled in one pipeline.</p>
+    </div>
+  </div>
+  <a class="section-link" href="contact.html">Start a conversation →</a>
+</section>
+
+<footer class="footer dark">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>

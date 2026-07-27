@@ -1,70 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Who It's For | Deliverable</title>
+<link rel="stylesheet" href="style.css">
 <style>
-:root{color-scheme:light;--maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2))}
-*{-webkit-text-size-adjust:100%}
-body,html{background:#ffffff !important;color:#111111 !important}
-*{box-sizing:border-box;margin:0;padding:0}
-html{color-scheme:light only}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
-
-/* NAV */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--px);border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
-.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
-.nav-link.current{color:#E8940A;font-weight:500}
-.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
-.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
-.mobile-cta-wrap{padding:14px 24px 20px}
-.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
-
-/* SECTIONS */
-.section{padding:56px var(--px);background:#ffffff}
-.section.alt{background:#fafafa;border-top:0.5px solid #ebebeb;border-bottom:0.5px solid #ebebeb}
-.section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
-
-/* FOR GRID */
-.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-.for-card{background:#fff;border:0.5px solid #e8e8e8;border-radius:10px;padding:18px}
-.for-card-title{font-size:13px;font-weight:500;color:#111;margin-bottom:6px}
-.for-card-body{font-size:12px;color:#777;line-height:1.6}
-
-/* FOOTER */
-.footer{padding:22px var(--px);border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
-.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
-.footer-right{font-size:12px;color:#bbb}
-
-/* DESKTOP */
+/* Page-specific: circular portrait constellation */
+.portrait-row{display:grid;gap:40px;margin-top:40px}
+.portrait{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.portrait .media-slot.circle{width:100%;max-width:260px}
+.portrait-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#854F0B;margin-top:22px}
+.portrait-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.portrait-title{font-size:20px;font-weight:500;color:var(--ink);letter-spacing:-0.4px;margin-top:8px;line-height:1.25}
+.portrait-body{font-size:13px;color:#6B6763;line-height:1.5;margin-top:8px;max-width:280px}
 @media(min-width:768px){
-  :root{--gut:60px}
-  .nav{padding:22px var(--px)}
-  .hamburger{display:none !important}
-  .nav-links{display:flex !important}
-  .mobile-menu{display:none !important}
-  .section{padding:64px var(--px)}
-  .for-grid{grid-template-columns:1fr 1fr}
-  .footer{padding:24px var(--px)}
+  .portrait-row{grid-template-columns:repeat(3,1fr);gap:32px}
+  /* Asymmetric placement — the constellation feel comes from the offset */
+  .portrait:nth-child(2){margin-top:56px}
+  .portrait:nth-child(3){margin-top:20px}
 }
-
-@media(max-width:767px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
-}
-@media(prefers-color-scheme:dark){body,html,.section,.section.alt,.footer,.nav,.mobile-menu,.for-card{background:#ffffff !important;color:#111111 !important}.section-h,.for-card-title{color:#111111 !important}.for-card-body{color:#777777 !important}.footer-right{color:#999999 !important}}
 </style>
 </head>
 <body>
@@ -91,38 +48,73 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
 </div>
 
-<section class="section alt">
-  <p class="section-eyebrow">Who it's for</p>
-  <h2 class="section-h">Built for teams that need video without the overhead</h2>
-  <div class="for-grid">
-    <div class="for-card">
-      <p class="for-card-title">Training providers</p>
-      <p class="for-card-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
+<div class="page-header">
+  <p class="page-eyebrow">Who it's for</p>
+  <h1 class="page-h">Built for teams that need video without the overhead</h1>
+  <p class="page-sub">Regular video content, without hiring in-house or paying full agency rates.</p>
+</div>
+
+<section class="section">
+  <div class="portrait-row">
+    <div class="portrait">
+      <div class="media-slot circle">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">1:1 loop</span>
+      </div>
+      <span class="portrait-label">Services</span>
+      <h2 class="portrait-title">Training providers</h2>
+      <p class="portrait-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
     </div>
-    <div class="for-card">
-      <p class="for-card-title">HR and people teams</p>
-      <p class="for-card-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
+    <div class="portrait">
+      <div class="media-slot circle">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">1:1 loop</span>
+      </div>
+      <span class="portrait-label">Services</span>
+      <h2 class="portrait-title">HR and people teams</h2>
+      <p class="portrait-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
     </div>
-    <div class="for-card">
-      <p class="for-card-title">Legal and professional services</p>
-      <p class="for-card-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Growing SMEs</p>
-      <p class="for-card-body">Regular video content without hiring in-house or paying full agency rates.</p>
+    <div class="portrait">
+      <div class="media-slot circle">
+        <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+        <span class="media-slot-label">1:1 loop</span>
+      </div>
+      <span class="portrait-label">Services</span>
+      <h2 class="portrait-title">Legal and professional services</h2>
+      <p class="portrait-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
     </div>
   </div>
 </section>
 
-<footer class="footer">
+<section class="section alt">
+  <p class="section-eyebrow">Also a fit</p>
+  <h2 class="section-h">Growing SMEs</h2>
+  <div class="for-grid">
+    <div class="for-card">
+      <p class="for-card-title">No in-house video team</p>
+      <p class="for-card-body">You need video regularly but not enough to justify a full-time hire.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Content that changes</p>
+      <p class="for-card-body">Policies, products and processes shift. Reshooting every time is not viable.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Multiple audiences</p>
+      <p class="for-card-body">Same core message, different framing per team, region or client segment.</p>
+    </div>
+    <div class="for-card">
+      <p class="for-card-title">Fixed budget</p>
+      <p class="for-card-body">Retainer or per project, so the cost is known before the work starts.</p>
+    </div>
+  </div>
+  <a class="section-link" href="contact.html">Talk to us about your team →</a>
+</section>
+
+<footer class="footer dark">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>

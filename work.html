@@ -1,82 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Work | Deliverable</title>
+<link rel="stylesheet" href="style.css">
 <style>
-:root{color-scheme:light;--maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2))}
-*{-webkit-text-size-adjust:100%}
-body,html{background:#ffffff !important;color:#111111 !important}
-*{box-sizing:border-box;margin:0;padding:0}
-html{color-scheme:light only}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
-
-/* NAV */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--px);border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
-.logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
-.nav-link.current{color:#E8940A;font-weight:500}
-.nav-cta{font-size:13px;font-weight:500;color:#fff;background:#E8940A;padding:9px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-.hamburger span{width:22px;height:1.5px;background:#111;border-radius:2px;display:block}
-.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:0.5px solid #ebebeb}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:14px;color:#555;padding:14px 24px;border-bottom:0.5px solid #f5f5f5;text-decoration:none}
-.mobile-cta-wrap{padding:14px 24px 20px}
-.mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
-
-/* PAGE HEADER */
-.page-header{padding:48px var(--px) 32px;border-bottom:0.5px solid #ebebeb}
-.page-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.page-h{font-size:28px;font-weight:500;color:#111;letter-spacing:-0.5px;margin-bottom:8px}
-.page-sub{font-size:14px;color:#777;line-height:1.65}
-
-/* WORK SECTIONS */
-.work-section{padding:48px var(--px);border-bottom:0.5px solid #f0f0f0}
-.work-section:last-of-type{border-bottom:none}
-.work-label{display:inline-block;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#854F0B;background:#FEF3E2;border:0.5px solid #F5C97A;border-radius:5px;padding:4px 10px;margin-bottom:16px}
-.work-title{font-size:18px;font-weight:500;color:#111;margin-bottom:6px;letter-spacing:-0.3px}
-.work-desc{font-size:13px;color:#777;line-height:1.65;margin-bottom:20px;max-width:560px}
-
-/* VIDEO */
-.video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
-.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-
-/* PLACEHOLDER */
-.video-placeholder{aspect-ratio:16/9;background:#f5f5f5;border:0.5px solid #e0e0e0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-.placeholder-icon{width:48px;height:48px;border-radius:50%;background:#ebebeb;display:flex;align-items:center;justify-content:center}
-.placeholder-tri{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:14px solid #ccc;margin-left:3px}
-.placeholder-text{font-size:13px;color:#bbb}
-
-/* FOOTER */
-.footer{padding:22px var(--px);border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
-.footer-logo{font-size:16px;font-weight:500;color:#E8940A}
-.footer-right{font-size:12px;color:#bbb}
-
-/* DESKTOP */
+/* Page-specific: work listing */
+.work-section{padding:56px var(--px);background:var(--canvas)}
+.work-section.alt{background:var(--band)}
+.work-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#854F0B;margin-bottom:14px}
+.work-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.work-title{font-size:24px;font-weight:500;color:var(--ink);margin-bottom:8px;letter-spacing:-0.48px;line-height:1.2}
+.work-desc{font-size:15px;font-weight:450;color:#6B6763;line-height:1.5;margin-bottom:24px;max-width:620px}
 @media(min-width:768px){
-  :root{--gut:60px}
-  .nav{padding:22px var(--px)}
-  .hamburger{display:none !important}
-  .nav-links{display:flex !important}
-  .mobile-menu{display:none !important}
-  .page-header{padding:64px var(--px) 40px}
-  .page-h{font-size:34px}
-  .work-section{padding:56px var(--px)}
-  .footer{padding:24px var(--px)}
+  .work-section{padding:80px var(--px)}
+  .work-title{font-size:28px;letter-spacing:-0.56px}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
-}
-
-@media(max-width:767px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-}
-@media(prefers-color-scheme:dark){body,html,.work-section,.footer,.nav,.mobile-menu,.page-header{background:#ffffff !important;color:#111111 !important}.page-h,.work-title{color:#111111 !important}.page-sub,.work-desc{color:#777777 !important}.footer-right{color:#999999 !important}}
 </style>
 </head>
 <body>
@@ -113,18 +55,21 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <span class="work-label">HR and onboarding</span>
   <h2 class="work-title">Welcome and onboarding video</h2>
   <p class="work-desc">Avatar-led onboarding covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
-  <div class="video-wrap">
-    <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Welcome and onboarding video — Deliverable"></iframe>
-  </div>
+  <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Welcome and onboarding video — Deliverable" onclick="playVideo(this)" aria-label="Play the welcome and onboarding video">
+    <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
+    <span class="video-tag">Concept demo</span>
+    <span class="facade-play"><span class="facade-tri"></span></span>
+  </button>
 </div>
 
-<div class="work-section">
+<div class="work-section alt">
   <span class="work-label">Training and courses</span>
   <h2 class="work-title">Course module video</h2>
   <p class="work-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
-  <div class="video-placeholder">
-    <div class="placeholder-icon"><div class="placeholder-tri"></div></div>
-    <span class="placeholder-text">Demo coming soon</span>
+  <div class="media-slot">
+    <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+    <span class="media-slot-label">Demo coming soon</span>
+    <p class="media-slot-note">Placeholder. Drop a 16:9 loop or full demo here when the course module video is produced.</p>
   </div>
 </div>
 
@@ -132,21 +77,18 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
   <span class="work-label">Professional services</span>
   <h2 class="work-title">Explainer video</h2>
   <p class="work-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
-  <div class="video-placeholder">
-    <div class="placeholder-icon"><div class="placeholder-tri"></div></div>
-    <span class="placeholder-text">Demo coming soon</span>
+  <div class="media-slot">
+    <div class="media-slot-glyph"><div class="media-slot-tri"></div></div>
+    <span class="media-slot-label">Demo coming soon</span>
+    <p class="media-slot-note">Placeholder. Drop a 16:9 loop or full demo here when the explainer video is produced.</p>
   </div>
 </div>
 
-<footer class="footer">
+<footer class="footer dark">
   <span class="footer-logo">Deliverable</span>
   <span class="footer-right">hello@deliverable.studio</span>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
