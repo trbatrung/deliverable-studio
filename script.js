@@ -52,6 +52,28 @@ function playHero(btn){
   frame.focus();
 }
 
+// Play a carousel card in place. Swaps the card's contents rather than the
+// card itself, so the carousel keeps its node references, and halts the
+// auto-advance so the slide can't scroll away mid-watch.
+function playCard(btn){
+  var card = btn.closest('.carousel-card');
+  if(!card) return;
+  var root = card.closest('.carousel');
+  if(root) root.dispatchEvent(new CustomEvent('carousel:stop'));
+
+  var frame = document.createElement('iframe');
+  frame.className = 'facade-frame';
+  frame.src = 'https://www.youtube.com/embed/' + card.dataset.yt + '?rel=0&autoplay=1';
+  frame.title = card.dataset.title || 'Video';
+  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  frame.allowFullscreen = true;
+
+  card.innerHTML = '';
+  card.classList.add('is-playing');
+  card.appendChild(frame);
+  frame.focus();
+}
+
 // Stadium-card carousel: scroll-snap for the motion, buttons and dots for
 // control, auto-advance with a pause toggle.
 (function carousel(){
@@ -65,16 +87,27 @@ function playHero(btn){
 
   var index = 0, timer = null, playing = true;
 
+  // Only the centred card shows its chip, title and play control — a
+  // half-scrolled card would have its pill sliced by the track edge.
+  function mark(){
+    cards.forEach(function(c, n){ c.classList.toggle('is-active', n === index); });
+    dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
+  }
+
   function goTo(i){
     index = (i + cards.length) % cards.length;
     var card = cards[index];
     // scrollLeft rather than scrollIntoView so the page itself never jumps
     track.scrollTo({left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: 'smooth'});
-    dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
+    mark();
   }
 
   function start(){ stop(); if(playing) timer = setInterval(function(){goTo(index + 1)}, 5000); }
   function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+  // A card that starts playing halts auto-advance for good, so the slide
+  // cannot scroll out from under someone watching it.
+  root.addEventListener('carousel:stop', function(){ playing = false; stop(); if(pauseBtn) pauseBtn.textContent = '▶'; });
 
   root.querySelector('.carousel-prev').addEventListener('click', function(){goTo(index - 1); start();});
   root.querySelector('.carousel-next').addEventListener('click', function(){goTo(index + 1); start();});
@@ -109,7 +142,7 @@ function playHero(btn){
         if(d < best){ best = d; nearest = n; }
       });
       index = nearest;
-      dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
+      mark();
     }, 120);
   });
 
