@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deliverable | AI Video Production Service</title>
 <style>
-:root{color-scheme:light}
+:root{color-scheme:light;--maxw:1140px;--gut:24px;--px:max(var(--gut),calc((100% - var(--maxw)) / 2))}
 *{-webkit-text-size-adjust:100%}
 body,html{background:#ffffff !important;color:#111111 !important}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,7 +14,7 @@ html{color-scheme:light only}
 body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;font-size:15px}
 
 /* NAV */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--px);border-bottom:0.5px solid #ebebeb;position:sticky;top:0;background:#fff;z-index:100}
 .logo{font-size:20px;font-weight:500;letter-spacing:-0.5px;color:#E8940A;flex-shrink:0;text-decoration:none}
 .nav-links{display:flex;gap:24px;align-items:center}
 .nav-link{font-size:13px;color:#666;cursor:pointer;text-decoration:none;white-space:nowrap}
@@ -29,7 +29,10 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .mobile-cta-btn{display:block;background:#E8940A;color:#fff;text-align:center;padding:12px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none}
 
 /* HERO */
-.hero{padding:56px 24px 48px;background:#fff}
+.hero{padding:56px var(--px) 48px;background:#fff}
+.hero-grid{display:grid;gap:28px}
+.hero-copy .hero-sub2{margin-bottom:0}
+.hero-media{min-width:0}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#FEF3E2;border:0.5px solid #F5C97A;border-radius:20px;padding:5px 14px;margin-bottom:22px}
 .hero-eyebrow span{font-size:12px;font-weight:500;color:#854F0B;letter-spacing:0.5px}
 .hero-dot{width:6px;height:6px;border-radius:50%;background:#E8940A;flex-shrink:0}
@@ -42,12 +45,12 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .btn-ghost{background:#fff;color:#111;border:0.5px solid #ccc;padding:13px 26px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
 
 /* TRUST BAR */
-.trust-bar{padding:16px 24px;border-top:0.5px solid #F5C97A;border-bottom:0.5px solid #F5C97A;display:flex;gap:20px;flex-wrap:wrap;background:#FEF3E2}
+.trust-bar{padding:16px var(--px);border-top:0.5px solid #F5C97A;border-bottom:0.5px solid #F5C97A;display:flex;gap:20px;flex-wrap:wrap;background:#FEF3E2}
 .trust-item{font-size:12px;color:#854F0B;display:flex;align-items:center;gap:6px}
 .trust-check{width:14px;height:14px;border-radius:50%;background:#fff;border:0.5px solid #F5C97A;display:flex;align-items:center;justify-content:center;font-size:9px;color:#E8940A;flex-shrink:0}
 
 /* SECTIONS */
-.section{padding:56px 24px;background:#ffffff}
+.section{padding:56px var(--px);background:#ffffff}
 .section.alt{background:#FEF3E2;border-top:0.5px solid #F5C97A;border-bottom:0.5px solid #F5C97A}
 .section-eyebrow{font-size:11px;font-weight:500;color:#E8940A;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
 .section-h{font-size:24px;font-weight:500;color:#111;letter-spacing:-0.4px;margin-bottom:8px}
@@ -69,9 +72,22 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .video-label{font-size:13px;color:#bbb}
 .video-desc{margin-top:14px;font-size:13px;color:#666;line-height:1.65}
 .video-demo-note{margin-top:8px;font-size:11px;color:#aaa;font-style:italic}
+/* Muted play glyph for the "coming soon" tabs — looks like a placeholder, not a control */
+.play-btn.is-muted{background:#ebebeb;cursor:default}
+.play-btn.is-muted .play-tri{border-left-color:#ccc}
+
+/* VIDEO FACADE — poster + play glyph, swaps in the YouTube iframe on click */
+.video-facade{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0.5px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#000;padding:0;cursor:pointer;font:inherit}
+.facade-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.facade-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:#E8940A;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.3);transition:transform 0.18s ease,background 0.18s ease}
+.facade-tri{width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid #fff;margin-left:5px}
+.video-facade:hover .facade-play{transform:translate(-50%,-50%) scale(1.08);background:#F0A32A}
+.video-facade:focus-visible{outline:2px solid #E8940A;outline-offset:3px}
+.video-facade.is-playing{cursor:default}
+.facade-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 
 /* STATS STRIP */
-.stats-strip{background:#E8940A;padding:36px 24px;display:flex;justify-content:center;gap:0}
+.stats-strip{background:#E8940A;padding:36px var(--px);display:flex;justify-content:center;gap:0}
 .stat-item{flex:1;max-width:220px;text-align:center;padding:0 24px;position:relative}
 .stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:10%;height:80%;width:0.5px;background:rgba(255,255,255,0.3)}
 .stat-big{font-size:48px;font-weight:500;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:6px}
@@ -117,7 +133,7 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#fff;color
 .stat-label{font-size:12px;color:#888;line-height:1.5}
 
 /* CTA */
-.cta-section{padding:72px 24px;border-top:0.5px solid #ebebeb;background:linear-gradient(160deg,#fffbf4 0%,#fef6e7 60%,#fffaf2 100%);position:relative;overflow:hidden}
+.cta-section{padding:72px var(--px);border-top:0.5px solid #ebebeb;background:linear-gradient(160deg,#fffbf4 0%,#fef6e7 60%,#fffaf2 100%);position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(232,148,10,0.09) 0%,transparent 70%);top:-160px;right:-160px;pointer-events:none}
 .cta-section::after{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(232,148,10,0.06) 0%,transparent 70%);bottom:-120px;left:-80px;pointer-events:none}
 .cta-inner{position:relative;z-index:1}
@@ -146,20 +162,25 @@ textarea.form-input{resize:vertical;min-height:100px}
 .section-link:hover{text-decoration:underline}
 
 /* FOOTER */
-.footer{padding:22px 24px;border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
+.footer{padding:22px var(--px);border-top:0.5px solid #ebebeb;display:flex;justify-content:space-between;align-items:center;background:#ffffff}
 .footer-logo{font-size:16px;font-weight:500;color:#E8940A}
 .footer-right{font-size:12px;color:#bbb}
 
 /* DESKTOP */
 @media(min-width:768px){
-  .nav{padding:22px 60px}
+  :root{--gut:60px}
+  .nav{padding:22px var(--px)}
   .hamburger{display:none !important}
   .nav-links{display:flex !important}
   .mobile-menu{display:none !important}
-  .hero{padding:80px 60px 60px}
-  .hero-h{font-size:44px;letter-spacing:-1.5px}
-  .section{padding:64px 60px}
-  .trust-bar{padding:18px 60px}
+  .hero{padding:80px var(--px) 60px}
+  .hero-h{font-size:40px;letter-spacing:-1.2px}
+  .hero-grid{grid-template-columns:1fr 1fr;grid-template-areas:"copy media" "actions media";grid-template-rows:auto 1fr;column-gap:56px;row-gap:28px;align-items:start}
+  .hero-copy{grid-area:copy}
+  .hero-media{grid-area:media;align-self:center}
+  .hero-btns{grid-area:actions}
+  .section{padding:64px var(--px)}
+  .trust-bar{padding:18px var(--px)}
   .tabs{width:fit-content}
   .tab{font-size:13px;padding:10px 22px}
   .for-grid{grid-template-columns:1fr 1fr}
@@ -168,12 +189,12 @@ textarea.form-input{resize:vertical;min-height:100px}
   .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;flex:1}
   .step:not(:last-child)::after{display:none}
   .step-num-circle{margin-bottom:14px}
-  .stats-strip{padding:44px 60px}
+  .stats-strip{padding:44px var(--px)}
   .stat-big{font-size:60px}
   .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
   .about-stats{margin-top:0}
-  .footer{padding:24px 60px}
-  .cta-section{padding:80px 60px}
+  .footer{padding:24px var(--px)}
+  .cta-section{padding:80px var(--px)}
   .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 }
 
@@ -181,6 +202,9 @@ textarea.form-input{resize:vertical;min-height:100px}
   .nav-links{display:none}
   .hamburger{display:flex}
   .step-connector{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
 }
 @media(prefers-color-scheme:dark){body,html,.section,.cta-section,.footer,.nav,.hero,.mobile-menu,.stat-card,.for-card{background:#ffffff !important;color:#111111 !important}.section.alt{background:#FEF3E2 !important}.trust-bar{background:#FEF3E2 !important}.section-h,.hero-h,.for-card-title,.step-title,.cta-h,.stat-num{color:#111111 !important}.hero-sub,.section-sub,.for-card-body,.step-body,.video-desc,.about-text p{color:#555555 !important}.hero-sub2,.video-label,.footer-right{color:#999999 !important}.trust-item{color:#854F0B !important}}
 </style>
@@ -210,13 +234,24 @@ textarea.form-input{resize:vertical;min-height:100px}
 </div>
 
 <section class="hero">
-  <div class="hero-eyebrow"><div class="hero-dot"></div><span>AI video production service</span></div>
-  <h1 class="hero-h">Training and onboarding videos that update<br><em>as fast as your business does.</em></h1>
-  <p class="hero-sub">Script, AI production, editing, and revisions — handled end to end. Built for teams that need video regularly, not once.</p>
-  <p class="hero-sub2">Most teams could learn HeyGen or Veo3 themselves. The harder part is the script, the iteration, and keeping it consistent once something changes.</p>
-  <div class="hero-btns">
-    <a class="btn-primary" href="#work">See our work</a>
-    <a class="btn-ghost" href="#contact">Talk to us</a>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="hero-eyebrow"><div class="hero-dot"></div><span>AI video production service</span></div>
+      <h1 class="hero-h">Training and onboarding videos that update<br><em>as fast as your business does.</em></h1>
+      <p class="hero-sub">Script, AI production, editing, and revisions — handled end to end. Built for teams that need video regularly, not once.</p>
+      <p class="hero-sub2">Most teams could learn HeyGen or Veo3 themselves. The harder part is the script, the iteration, and keeping it consistent once something changes.</p>
+    </div>
+    <div class="hero-media">
+      <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Deliverable — HR onboarding concept demo" onclick="playVideo(this)" aria-label="Play the HR onboarding concept demo">
+        <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" fetchpriority="high">
+        <span class="video-tag">Concept demo</span>
+        <span class="facade-play"><span class="facade-tri"></span></span>
+      </button>
+    </div>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#work">See our work</a>
+      <a class="btn-ghost" href="#contact">Talk to us</a>
+    </div>
   </div>
 </section>
 
@@ -237,18 +272,19 @@ textarea.form-input{resize:vertical;min-height:100px}
     <button class="tab" onclick="switchTab('proserv',this)">Professional services</button>
   </div>
   <div id="tab-hr" class="tab-content active">
-    <div class="video-box" style="background:#000;">
+    <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Deliverable — HR onboarding concept demo" onclick="playVideo(this)" aria-label="Play the HR onboarding concept demo">
+      <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
       <span class="video-tag">Concept demo</span>
-      <iframe src="https://www.youtube.com/embed/lCPMtNWJa7E?rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:11px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Deliverable — HR onboarding concept demo"></iframe>
-    </div>
+      <span class="facade-play"><span class="facade-tri"></span></span>
+    </button>
     <p class="video-desc">Avatar-led onboarding covering company culture, policies, and first-week expectations. Produced once, updated by editing the script — not reshooting.</p>
     <p class="video-demo-note">Concept demo — built to show what's possible, not a client project.</p>
   </div>
   <div id="tab-training" class="tab-content">
     <div class="video-box">
       <span class="video-tag">Concept demo</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Coming soon</span>
+      <div class="play-btn is-muted"><div class="play-tri"></div></div>
+      <span class="video-label">Demo coming soon</span>
     </div>
     <p class="video-desc">Structured lesson video for online courses. Clear delivery, consistent pacing, easy to update when content changes without reshooting anything.</p>
     <p class="video-demo-note">Concept demo — built to show what's possible, not a client project.</p>
@@ -256,8 +292,8 @@ textarea.form-input{resize:vertical;min-height:100px}
   <div id="tab-proserv" class="tab-content">
     <div class="video-box">
       <span class="video-tag">Concept demo</span>
-      <div class="play-btn"><div class="play-tri"></div></div>
-      <span class="video-label">Coming soon</span>
+      <div class="play-btn is-muted"><div class="play-tri"></div></div>
+      <span class="video-label">Demo coming soon</span>
     </div>
     <p class="video-desc">Complex topic broken down simply. Legal, accounting, or compliance content delivered in a format clients actually watch.</p>
     <p class="video-demo-note">Concept demo — built to show what's possible, not a client project.</p>
@@ -428,6 +464,23 @@ function switchTab(id,el){
 
 function toggleMenu(){
   document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Swap a poster facade for the real YouTube player. Keeps the ~1MB player
+// off the initial page load until someone actually wants to watch.
+function playVideo(btn){
+  const frame=document.createElement('iframe');
+  frame.className='facade-frame';
+  frame.src='https://www.youtube.com/embed/'+btn.dataset.yt+'?rel=0&autoplay=1';
+  frame.title=btn.dataset.title||'Video';
+  frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  frame.allowFullscreen=true;
+
+  const shell=document.createElement('div');
+  shell.className='video-facade is-playing';
+  shell.appendChild(frame);
+  btn.replaceWith(shell);
+  frame.focus();
 }
 
 async function handleContactSubmit(e){
