@@ -27,8 +27,8 @@ function toggleMenu(){
 // never under reduced motion unless the visitor presses Play, and always
 // with a real keyboard-operable control.
 (function loops(){
-  var wins = document.querySelectorAll('.win-media');
-  if(!wins.length) return;
+  var vids = document.querySelectorAll('video.loop');
+  if(!vids.length) return;
   var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
     entries.forEach(function(en){
@@ -49,10 +49,9 @@ function toggleMenu(){
     btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the example loop');
   }
 
-  Array.prototype.forEach.call(wins, function(win){
-    var v = win.querySelector('video.loop');
+  Array.prototype.forEach.call(vids, function(v){
+    var win = v.closest('.shot-win') || v.parentNode;
     var btn = win.querySelector('[data-ctl]');
-    if(!v) return;
     v.muted = true;
     if(!still && io) io.observe(v);
     if(!still && !io) safePlay(v);
