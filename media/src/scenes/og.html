@@ -1,38 +1,36 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <script>window.SCENE = { name: 'og', width: 1200, height: 630, fps: 30, duration: 0, kind: 'still', out: '../og-image.png' };</script>
+<link rel="stylesheet" href="../../../fonts/fonts.css">
 <style>
-  html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; background: #F7F4F1; }
-  body { position: relative; font-family: Inter, sans-serif; color: #141413; -webkit-font-smoothing: antialiased; }
-  .copy { position: absolute; left: 80px; top: 72px; width: 900px; }
-  .eyebrow { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: #854F0B;
-             letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 26px; }
-  .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
-  h1 { margin: 0; font-size: 64px; font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
-  h1 em { font-style: normal; color: #E8940A; }
-  .sub { margin: 26px 0 0; font-size: 24px; font-weight: 400; line-height: 1.4; color: #6B6763; max-width: 800px; }
-  .mark { position: absolute; left: 80px; bottom: 60px; font-size: 34px; font-weight: 500; letter-spacing: -0.02em;
-          color: #E8940A; line-height: 1; }
+  /* Social card, Oct 2026 positioning. Site tokens and Geist, same window
+     object as the site's example rows, a finished frame of the Explain piece (13.5 s,
+     og-frame.png, extracted with ffmpeg from media/demo-explainer.mp4). */
+  html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; background: #F8F7F3; }
+  body { position: relative; font-family: Geist, sans-serif; color: #20211E; -webkit-font-smoothing: antialiased; letter-spacing: -0.011em; }
+  .mark { position: absolute; left: 72px; top: 64px; font-size: 30px; font-weight: 500; letter-spacing: -0.02em; color: #E8940A; }
+  .copy { position: absolute; left: 72px; bottom: 72px; width: 470px; }
+  h1 { margin: 0; font-size: 64px; font-weight: 500; line-height: 1.04; letter-spacing: -0.03em; }
+  .sub { margin: 24px 0 0; font-size: 24px; line-height: 1.35; color: #6D6E67; }
 
-  /* Decorative stack: two flat rounded cards with a play mark */
-  .stack { position: absolute; right: 60px; bottom: 60px; width: 300px; height: 200px; }
-  .card { position: absolute; width: 260px; height: 160px; border-radius: 24px; }
-  .back { right: 0; top: 0; background: #E8940A; }
-  .front { left: 0; bottom: 0; background: #141413; }
-  .play { position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px;
-          border-radius: 50%; background: #E8940A; }
-  .play::after { content: ''; position: absolute; left: 22px; top: 17px; border-style: solid;
-                 border-width: 11px 0 11px 17px; border-color: transparent transparent transparent #F7F4F1; }
+  .win { position: absolute; left: 632px; top: 118px; width: 520px; background: #FFFEFA; border: 1px solid #DEDED5;
+         border-radius: 14px; overflow: hidden;
+         box-shadow: 0 1px 2px rgba(32,33,30,0.04), 0 24px 48px -20px rgba(32,33,30,0.22); }
+  .bar { height: 36px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #DEDED5;
+         font-family: 'Geist Mono', monospace; font-size: 13px; color: #6D6E67; }
+  .media { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #F8F7F3; }
+  .cap { position: absolute; left: 632px; width: 520px; top: 476px; text-align: center;
+         font-family: 'Geist Mono', monospace; font-size: 14px; color: #6D6E67; }
 </style>
 </head><body>
-  <div class="copy">
-    <div class="eyebrow">AI video production service</div>
-    <h1>Training and onboarding videos that update <em>as fast as your business does.</em></h1>
-    <p class="sub">Script, AI production, editing, and revisions, handled end to end.</p>
-  </div>
   <div class="mark">Deliverable</div>
-  <div class="stack" aria-hidden="true">
-    <div class="card back"></div>
-    <div class="card front"><div class="play"></div></div>
+  <div class="copy">
+    <h1>Make your business easier to understand.</h1>
+    <p class="sub">Motion graphics and explainer videos.</p>
   </div>
+  <div class="win" aria-hidden="true">
+    <div class="bar">contract-explainer.mp4</div>
+    <img class="media" src="og-frame.png" alt="">
+  </div>
+  <div class="cap">From a concept piece, not a client project</div>
 </body></html>
