@@ -22,11 +22,18 @@
   --shadow-sm:0 6px 18px rgba(32,33,30,0.08);
   --r:16px;
   --r-sm:10px;
-  --maxw:1180px;
+  --maxw:1080px;
   --gut:20px;
   --px:max(var(--gut),calc((100% - var(--maxw)) / 2));
   --sans:'Geist','Helvetica Neue',Arial,sans-serif;
   --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Spacing: one 4/8 scale. Use these, not one-off pixel values. */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  /* Type: seven sizes. meta / small / body / title / sub-head / section / display */
+  --t-meta:12px;--t-small:15px;--t-body:17px;--t-title:20px;--t-sub:28px;--t-section:clamp(32px,4vw,44px);--t-display:clamp(40px,6.2vw,72px);
+  --track:-0.011em;--track-head:-0.03em;
+  /* One shadow recipe for anything that floats. */
+  --lift:0 1px 2px rgba(32,33,30,0.04),0 24px 48px -20px rgba(32,33,30,0.18);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{color-scheme:light only;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -127,7 +134,7 @@ p+p{margin-top:12px}
 /* Example window: one object. File bar and media share a border, a radius
    and a single shadow; the loop control lives in the bar, never on the piece. */
 .shot{display:flex;flex-direction:column;gap:12px}
-.shot-win{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(32,33,30,0.04),0 24px 48px -20px rgba(32,33,30,0.18)}
+.shot-win{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--lift)}
 .shot-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:36px;padding:0 6px 0 12px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:0.02em}
 .shot-name{grid-column:2}
 .shot-ctl{grid-column:3;justify-self:end;display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;color:var(--ink-2);cursor:pointer}
@@ -137,13 +144,22 @@ p+p{margin-top:12px}
 .shot .win-media{border-radius:0}
 .shot-cap{text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:0.02em}
 @media(min-width:900px){
-  .rows{padding:40px var(--px) 72px;gap:104px}
-  .convo{grid-template-columns:5fr 7fr;gap:64px}
+  .rows{padding:var(--s5) var(--px) var(--s9);gap:var(--s7)}
+  .convo{grid-template-columns:5fr 7fr;gap:var(--s8)}
   .convo .convo-text{order:0}
   .convo .shot,.convo>div:last-child{order:1}
   .convo.alt .convo-text{order:1}
   .convo.alt .shot{order:0}
   .convo.alt .convo-text{justify-self:end}
+  /* Rows with a window: the window always takes the wide column and keeps one
+     size; a narrow text column holds the exchange at the top and the job at
+     the bottom, level with the window's lower edge. Alternate rows interlock. */
+  .convo:has(.shot){grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:var(--s7);align-items:stretch}
+  .convo.alt:has(.shot){grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+  .convo:has(.shot) .convo-text{display:flex;flex-direction:column;max-width:340px;padding:var(--s5) 0 calc(var(--s3) + 18px)}
+  .convo:has(.shot) .bubbles{margin-bottom:var(--s6)}
+  .convo:has(.shot) .row-h{font-size:var(--t-title);margin-top:auto}
+  .convo:has(.shot) .row-p{font-size:16px}
 }
 
 /* ---------- Example windows ---------- */
