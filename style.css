@@ -93,11 +93,39 @@ p+p{margin-top:12px}
 .list li{position:relative;padding-left:26px;color:var(--ink)}
 .list li::before{content:'';position:absolute;left:0;top:0.62em;width:12px;height:12px;border-radius:50%;background:var(--amber-tint);border:1.5px solid var(--amber)}
 
-/* ---------- Hero: statement beside the first example window ---------- */
-.hero{position:relative;padding:48px var(--px) 40px;display:grid;gap:36px;align-items:center}
-.hero-text{max-width:620px}
-.hero .lede{margin-top:22px}
-@media(min-width:900px){.hero{grid-template-columns:1.05fr 0.95fr;gap:56px;padding:64px var(--px) 72px}.hero-text{padding-right:12px}}
+/* ---------- Opening statement ---------- */
+.opening{padding:56px var(--px) 24px}
+.opening-inner{max-width:760px}
+.opening .lede{margin-top:22px}
+@media(min-width:900px){.opening{padding:80px var(--px) 40px}}
+
+/* ---------- Conversation rows: a client-style exchange beside a 5 s loop ----------
+   Alternating sides down the page. The exchange is hypothetical and reads as
+   such: a question a business owner might ask, and the short answer. */
+.rows{padding:24px var(--px) 48px;display:grid;gap:72px}
+.convo{display:grid;gap:28px;align-items:center}
+.convo-text{max-width:460px}
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+.bubble{position:relative;display:inline-block;max-width:92%;padding:12px 16px;border-radius:18px;font-size:18px;line-height:1.35;letter-spacing:-0.01em}
+.bubble.client{align-self:flex-end;background:var(--slate);color:var(--ink);border-bottom-right-radius:6px}
+.bubble.reply{align-self:flex-start;background:var(--amber);color:#fff;border-bottom-left-radius:6px}
+.bubble.client::after{content:'';position:absolute;right:-6px;bottom:0;width:14px;height:14px;background:var(--slate);border-radius:0 0 0 14px;clip-path:polygon(0 0,100% 100%,0 100%)}
+.bubble.reply::after{content:'';position:absolute;left:-6px;bottom:0;width:14px;height:14px;background:var(--amber);border-radius:0 0 14px 0;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.row-h{font-size:24px;font-weight:500;letter-spacing:-0.02em;line-height:1.2;margin-bottom:8px}
+.row-p{font-size:17px;color:var(--ink-2);line-height:1.55}
+.shot{display:flex;flex-direction:column;gap:10px}
+.shot-bar{display:flex;justify-content:center;align-items:center;height:30px;background:var(--paper);border:1px solid var(--rule);border-bottom:none;border-radius:var(--r) var(--r) 0 0;font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:0.02em}
+.shot .win-media{border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);box-shadow:var(--shadow)}
+.shot-cap{text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:0.02em}
+@media(min-width:900px){
+  .rows{padding:40px var(--px) 72px;gap:104px}
+  .convo{grid-template-columns:5fr 7fr;gap:64px}
+  .convo .convo-text{order:0}
+  .convo .shot{order:1}
+  .convo.alt .convo-text{order:1}
+  .convo.alt .shot{order:0}
+  .convo.alt .convo-text{justify-self:end}
+}
 
 /* ---------- Example windows ---------- */
 /* Original "studio window": a label strip, the media, a caption in real HTML.
@@ -132,8 +160,6 @@ p+p{margin-top:12px}
 /* small studio annotation hanging off the hero window */
 .annot{display:inline-flex;align-items:center;gap:8px;max-width:calc(100% - 2 * var(--px));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:7px 12px;box-shadow:var(--shadow-sm)}
 .annot b{font-weight:500;color:var(--ink)}
-.annot-hero{position:absolute;right:calc(var(--px) + 8px);bottom:44px;z-index:2;display:none}
-@media(min-width:900px){.annot-hero{display:inline-flex}}
 
 /* Static first-frame compositions for examples whose loop is still in production */
 .comp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:7%}
