@@ -29,6 +29,19 @@ function toggleMenu(){
 (function loops(){
   var vids = document.querySelectorAll('video.loop');
   if(!vids.length) return;
+  // Phones get the portrait 4:5 version where one exists (data-portrait="media/name-45").
+  if(window.matchMedia('(max-width:599px)').matches){
+    Array.prototype.forEach.call(vids, function(v){
+      var base = v.getAttribute('data-portrait');
+      if(!base) return;
+      Array.prototype.forEach.call(v.querySelectorAll('source'), function(src){
+        src.src = base + (src.type === 'video/webm' ? '.webm' : '.mp4');
+      });
+      v.poster = base + '.webp';
+      v.parentNode.classList.add('portrait');
+      v.load();
+    });
+  }
   var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
     entries.forEach(function(en){

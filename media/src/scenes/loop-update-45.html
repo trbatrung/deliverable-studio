@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Loop 02, portrait: update, weekly review</title>
+<script>
+  // Portrait 4:5 recomposition of loop-update.html: same words, timings and easing;
+  // the title block sits above the chart instead of beside it.
+  window.SCENE = { name: 'loop-update-45', width: 1080, height: 1350, fps: 30, duration: 5, kind: 'loop', outWidth: 720, outHeight: 900 };
+</script>
+<style>
+  /* Visual language from loop-update.html / demo-explainer.html, scaled for a 1080 x 1350 portrait master. */
+  html, body { margin: 0; width: 1080px; height: 1350px; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  .scene { position: absolute; inset: 0; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; }
+  .pill { display: inline-flex; align-items: center; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 8px 30px; white-space: nowrap; line-height: 1.2; }
+  .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
+  .card { background: #FCFBFA; border-radius: 36px; box-shadow: 0 18px 40px rgba(0,0,0,0.07); }
+
+  /* Persistent chrome: firm name, label, travelling progress dot */
+  #chrome { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; }
+  .firm { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
+  .firm i { width: 50px; height: 50px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 26px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .track { position: absolute; left: 64px; right: 64px; bottom: 62px; height: 3px; background: #DDD6CD; border-radius: 999px; }
+  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
+  .track .stop { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #DDD6CD; }
+  .track .stop.on { background: #E8940A; }
+  .track .dot { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #E8940A; }
+
+  /* Stacked: title block on top, five-week bar diagram below */
+  .titleblock { position: absolute; left: 68px; right: 68px; top: 196px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .titleblock .h { font-size: 100px; }
+  .titleblock .sub { font-size: 48px; color: #6B6763; }
+  .titleblock .rule { width: 112px; height: 7px; border-radius: 999px; background: #E8940A; margin-top: 6px; }
+  .chart { position: absolute; left: 64px; right: 64px; top: 566px; height: 640px; padding: 0 76px 44px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .bars { display: flex; align-items: flex-end; justify-content: space-between; height: 450px; border-bottom: 3px solid #DDD6CD; }
+  .bar { position: relative; width: 116px; display: flex; justify-content: center; }
+  .bar i { display: block; width: 100%; border-radius: 20px 20px 0 0; background: #D9D1C6; transform-origin: 50% 100%; }
+  .bar.now i { background: #E8940A; }
+  .labels { display: flex; justify-content: space-between; margin-top: 20px; }
+  .labels span { width: 116px; text-align: center; font-size: 40px; font-weight: 500; color: #6B6763; }
+  .labels span.now { color: #854F0B; }
+  .callout { position: absolute; bottom: 100%; margin-bottom: 22px; left: 50%; }
+  .callout .pill { background: #E8940A; color: #FCFBFA; font-size: 40px; padding: 8px 30px; }
+
+  #cover { position: absolute; inset: 0; z-index: 10; background: #F7F4F1; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div id="chrome">
+  <div class="top">
+    <div class="firm"><i>H</i>Harbour Lane</div>
+    <div class="pill outline">Weekly review</div>
+  </div>
+  <div class="track">
+    <div class="done"></div>
+    <div class="stop" data-at="0.16"></div><div class="stop" data-at="0.42"></div>
+    <div class="stop" data-at="0.66"></div><div class="stop" data-at="0.86"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<section class="scene" id="s-review">
+  <div class="titleblock">
+    <div class="eyebrow">Week 5 &middot; Q2</div>
+    <h2 class="h">Sales results</h2>
+    <div class="sub">Approved highlights</div>
+    <div class="rule"></div>
+  </div>
+  <div class="card chart">
+    <!-- Bar heights are the 16:9 heights x 1.5 (300 px plot -> 450 px) -->
+    <div class="bars">
+      <div class="bar"><i style="height:198px"></i></div>
+      <div class="bar"><i style="height:252px"></i></div>
+      <div class="bar"><i style="height:225px"></i></div>
+      <div class="bar"><i style="height:291px"></i></div>
+      <div class="bar now"><i id="b5" style="height:354px"></i><div class="callout" id="call"><span class="pill">Week 5</span></div></div>
+    </div>
+    <div class="labels"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span class="now" id="l5">W5</span></div>
+  </div>
+</section>
+
+<div id="cover"></div>
+
+<script>
+  const MOVE = 1.8;        // 16:9 translate distances scaled with the type
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
+  const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+
+  const scene = document.getElementById('s-review');
+  const bar5 = document.getElementById('b5');
+  const label5 = document.getElementById('l5');
+  const call = document.getElementById('call');
+  const cover = document.getElementById('cover');
+  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
+  const TW = 1080 - 128;
+  const stops = [...document.querySelectorAll('.track .stop')].map(el => ({ el, x: +el.dataset.at * TW }));
+  stops.forEach(s => { s.el.style.left = s.x + 'px'; });
+
+  window.seek = function (t) {
+    // Week 5 rises into place, its label lands, then the callout settles above it.
+    const k = prog(t, 0.7, 0.9);
+    bar5.style.transform = `scaleY(${k})`;
+    bar5.style.opacity = k > 0 ? 1 : 0;
+    const l = prog(t, 1.25, 0.5);
+    label5.style.opacity = l;
+    label5.style.transform = `translateY(${(1 - l) * 12 * MOVE}px)`;
+    const c = prog(t, 1.85, 0.45);
+    call.style.opacity = c;
+    call.style.transform = `translateX(-50%) translateY(${(1 - c) * 14 * MOVE}px) scale(${0.9 + 0.1 * c})`;
+
+    // Scene change the explainer way: content fades to cream over 0.4 s.
+    scene.style.opacity = 1 - prog(t, 4.5, 0.4);
+
+    // 0.25 s fade from and to the canvas colour, matching the sibling excerpts.
+    cover.style.opacity = Math.max(1 - lin(t, 0, 0.25), lin(t, 4.75, 0.25));
+
+    // Progress track keeps travelling at the same pace as the 16:9 loop (330 + 26 t of 1152 px).
+    const x = (330 + 26 * t) / 1152 * TW;
+    done.style.width = x + 'px';
+    dot.style.left = x + 'px';
+    stops.forEach(s => s.el.classList.toggle('on', x >= s.x));
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

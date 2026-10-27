@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Loop: teach (portrait 4:5)</title>
+<script>
+  // Portrait recomposition of media/loop-teach.mp4: demo-course-module.html, scene s-recap,
+  // source time 41.4 to 46.4 s, with the same 0.25 s fade in and out to #F7F4F1.
+  window.SCENE = { name: 'loop-teach-45', width: 1080, height: 1350, fps: 30, duration: 5, kind: 'loop', outWidth: 720, outHeight: 900 };
+</script>
+<style>
+  /* Same system as demo-course-module.html, scaled for a 1080x1350 portrait master */
+  html, body { margin: 0; width: 1080px; height: 1350px; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  [data-in] { will-change: transform, opacity; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; text-align: center; text-wrap: balance; }
+  .pill { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 12px 34px; white-space: nowrap; }
+  .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
+  .card { background: #FCFBFA; border-radius: 40px; box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
+
+  /* Course chrome */
+  #chrome { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; top: 84px; left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
+  .brand i { width: 44px; height: 44px; border-radius: 50%; border: 10px solid #E8940A; display: block; }
+  .bar { position: absolute; left: 72px; right: 72px; bottom: 92px; display: flex; gap: 12px; }
+  .seg { flex: 1; height: 10px; border-radius: 999px; background: #DDD6CD; overflow: hidden; }
+  .seg b { display: block; height: 100%; width: 100%; background: #E8940A; border-radius: 999px; transform-origin: left center; }
+  .seg.off b { transform: scaleX(0); }
+
+  /* Recap, stacked for portrait */
+  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .head { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-bottom: 56px; }
+  .head .h { font-size: 68px; width: 900px; }
+  .checks { display: flex; flex-direction: column; gap: 26px; width: 936px; }
+  .check { display: flex; align-items: center; gap: 36px; padding: 36px 44px; }
+  .box { width: 84px; height: 84px; border-radius: 50%; border: 3px solid #DDD6CD; position: relative; flex-shrink: 0; }
+  .box .fill { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; }
+  .box svg { position: absolute; inset: -3px; width: 84px; height: 84px; }
+  .box path { fill: none; stroke: #fff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+  .check span { font-size: 56px; line-height: 1.18; letter-spacing: -0.01em; text-wrap: balance; }
+
+  #fade { position: absolute; inset: 0; background: #F7F4F1; z-index: 10; }
+</style>
+</head>
+<body>
+
+<div id="chrome">
+  <div class="top">
+    <div class="brand"><i></i>Brightline Training</div>
+    <div class="pill outline" style="color:#141413">Module 3 of 8</div>
+  </div>
+  <div class="bar">
+    <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg" id="cur"><b></b></div>
+    <div class="seg off"><b></b></div><div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+    <div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+  </div>
+</div>
+
+<!-- data-in values are source-scene times (s), mapped from loop time by +41.4 -->
+<section class="scene" id="s-recap">
+  <div class="head">
+    <div class="eyebrow" data-in="40.3">Recap</div>
+    <h2 class="h" data-in="40.5">Three checks before you give feedback</h2>
+  </div>
+  <div class="checks">
+    <div class="card check" data-in="41.0">
+      <div class="box"><div class="fill" data-in="41.8" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="42.0" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Describe what you saw, not what you assumed</span>
+    </div>
+    <div class="card check" data-in="42.8">
+      <div class="box"><div class="fill" data-in="43.6" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="43.8" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Name the impact on the work or the team</span>
+    </div>
+    <div class="card check" data-in="44.6">
+      <div class="box"><div class="fill" data-in="45.4" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="45.6" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Ask for one clear change you both agree on</span>
+    </div>
+  </div>
+</section>
+
+<div id="fade"></div>
+
+<script>
+  const START = 41.4, DUR = window.SCENE.duration, FADE = 0.25;
+  // Entrance travel scaled with the layout (26 px on the 1280x720 source)
+  const RISE = 48;
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
+  const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+
+  const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
+  const cur = document.querySelector('#cur b');
+  const fade = document.getElementById('fade');
+  const C0 = 4.5;
+
+  window.seek = function (lt) {
+    const t = START + lt;
+    for (const it of items) {
+      const k = prog(t, it.a, it.d), s = it.el.style;
+      switch (it.fx) {
+        case 'draw': s.strokeDashoffset = 1 - k; s.opacity = k > 0 ? 1 : 0; break;
+        case 'pop': s.opacity = k; s.transform = `scale(${0.6 + 0.4 * k})`; break;
+        default: s.opacity = k; s.transform = `translateY(${(1 - k) * RISE}px)`;
+      }
+    }
+    cur.style.transform = `scaleX(${0.04 + 0.96 * lin(t, C0, 51 - C0)})`;
+    // Linear 0.25 s fade from and to the page colour, as excerpt.sh does
+    const f = Math.max(0, 1 - lt / FADE, (lt - (DUR - FADE)) / FADE);
+    fade.style.opacity = Math.min(1, f);
+  };
+  window.seek(0);
+</script>
+</body>
+</html>
