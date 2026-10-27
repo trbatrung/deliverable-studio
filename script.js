@@ -23,9 +23,9 @@ function toggleMenu(){
   update();
 })();
 
-// Example loops: muted, decorative, optional. Play only while visible,
-// never under reduced motion unless the visitor presses Play, and always
-// with a real keyboard-operable control.
+// Example loops: muted, decorative, optional. Play only while visible and
+// never on their own under reduced motion; the video itself is the
+// keyboard-operable pause/play control.
 (function loops(){
   var vids = document.querySelectorAll('video.loop');
   if(!vids.length) return;
@@ -55,28 +55,23 @@ function toggleMenu(){
     var p = v.play();
     if(p && p.catch) p.catch(function(){});
   }
-  function label(btn, v){
-    var playing = !v.paused;
-    btn.textContent = playing ? 'Pause' : 'Play';
-    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
-    btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the example loop');
+  function toggle(v){
+    if(v.paused){ v.dataset.user = 'playing'; safePlay(v); }
+    else { v.dataset.user = 'paused'; v.pause(); }
   }
 
+  // No visible control: the loop plays while in view. Clicking or tapping it,
+  // or Enter/Space when focused, pauses and resumes it (WCAG 2.2.2).
   Array.prototype.forEach.call(vids, function(v){
-    var win = v.closest('.shot-win') || v.parentNode;
-    var btn = win.querySelector('[data-ctl]');
     v.muted = true;
+    v.tabIndex = 0;
+    v.setAttribute('aria-label', (v.getAttribute('aria-label') || 'Example loop') + '. Select to pause or play.');
     if(!still && io) io.observe(v);
     if(!still && !io) safePlay(v);
-    if(btn){
-      btn.addEventListener('click', function(){
-        if(v.paused){ v.dataset.user = 'playing'; safePlay(v); }
-        else { v.dataset.user = 'paused'; v.pause(); }
-      });
-      v.addEventListener('play', function(){ label(btn, v); });
-      v.addEventListener('pause', function(){ label(btn, v); });
-      label(btn, v);
-    }
+    v.addEventListener('click', function(){ toggle(v); });
+    v.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(v); }
+    });
   });
 })();
 
