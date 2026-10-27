@@ -14,6 +14,26 @@ function toggleMenu(){
   if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
+// Close the mobile menu when one of its links is followed (most jump within the homepage).
+(function closeMenuOnLink(){
+  var menu = document.getElementById('mobileMenu');
+  if(!menu) return;
+  menu.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if(!a || !menu.classList.contains('open')) return;
+    toggleMenu();
+    // Closing the menu shifts the layout and cancels a native smooth scroll,
+    // so same-page jumps scroll explicitly.
+    var url = new URL(a.href);
+    var target = url.pathname === location.pathname && url.hash ? document.querySelector(url.hash) : null;
+    if(!target) return;
+    e.preventDefault();
+    history.pushState(null, '', url.hash);
+    var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    target.scrollIntoView({behavior: still ? 'auto' : 'smooth'});
+  });
+})();
+
 // Hairline under the nav once the page has scrolled.
 (function navShadow(){
   var shell = document.getElementById('navShell');
