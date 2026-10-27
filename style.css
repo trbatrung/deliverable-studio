@@ -105,9 +105,9 @@ p+p{margin-top:12px}
    section whose story they tell, at different positions and slight tilts, so
    the page reads as a working studio rather than a gallery grid. */
 .win{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;position:relative}
-.win-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2)}
-.win-tag{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
-.win-tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber)}
+/* .win-bar removed: windows show media and caption only */
+
+
 .win-media{position:relative;aspect-ratio:4/3;background:var(--warm);overflow:hidden}
 .win-media.wide{aspect-ratio:16/9;background:var(--canvas)}
 .win-media video,.win-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--canvas)}
@@ -116,7 +116,7 @@ p+p{margin-top:12px}
 .win-cap{padding:18px 20px 20px;font-size:15px;color:var(--ink-2);line-height:1.5}
 .win-cap strong{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
 .win-status{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-tint);border-radius:999px;padding:5px 10px}
-.win-side{max-width:460px}
+.win-side{max-width:520px}
 .finished-grid{display:grid;gap:28px}
 @media(min-width:900px){
   .tilt-r{transform:rotate(1.2deg)}
