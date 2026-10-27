@@ -1,3 +1,11 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/work", "destination": "/#examples", "permanent": false },
+    { "source": "/work.html", "destination": "/#examples", "permanent": false },
+    { "source": "/how-it-works", "destination": "/#process", "permanent": false },
+    { "source": "/how-it-works.html", "destination": "/#process", "permanent": false },
+    { "source": "/who-its-for", "destination": "/#fit", "permanent": false },
+    { "source": "/who-its-for.html", "destination": "/#fit", "permanent": false }
+  ]
 }

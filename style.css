@@ -105,6 +105,8 @@ p+p{margin-top:12px}
 .list li{position:relative;padding-left:26px;color:var(--ink)}
 .card-foot{margin-top:var(--s5);font-size:var(--t-small);color:var(--ink-2)}
 .faq{margin-top:var(--s6)}
+.contact-who{margin-top:var(--s4);font-size:var(--t-small);color:var(--ink-2)}
+main [id]{scroll-margin-top:72px}
 .list li::before{content:'';position:absolute;left:0;top:0.62em;width:12px;height:12px;border-radius:50%;background:var(--amber-tint);border:1.5px solid var(--amber)}
 
 /* ---------- Opening statement ---------- */
