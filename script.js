@@ -87,6 +87,31 @@ function toggleMenu(){
   });
 })();
 
+(function sceneLists(){
+  var pieces = document.querySelectorAll('[data-piece]');
+  Array.prototype.forEach.call(pieces, function(piece){
+    var v = piece.querySelector('video');
+    var links = piece.querySelectorAll('[data-seek]');
+    if(!v || !links.length) return;
+    var starts = Array.prototype.map.call(links, function(a){ return parseFloat(a.getAttribute('data-seek')); });
+    Array.prototype.forEach.call(links, function(a, i){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var btn = v.parentNode.querySelector('.play-full');
+        if(btn) btn.hidden = true;
+        v.controls = true;
+        v.currentTime = starts[i];
+        var p = v.play(); if(p && p.catch) p.catch(function(){});
+      });
+    });
+    v.addEventListener('timeupdate', function(){
+      var cur = -1;
+      for(var i = 0; i < starts.length; i++){ if(v.currentTime >= starts[i]) cur = i; }
+      Array.prototype.forEach.call(links, function(a, i){ a.classList.toggle('on', i === cur && (v.currentTime > 0)); });
+    });
+  });
+})();
+
 async function handleContactSubmit(e){
   e.preventDefault();
   var form = e.target;

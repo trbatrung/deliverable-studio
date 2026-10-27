@@ -2,7 +2,7 @@
 import puppeteer from 'puppeteer-core';
 const [outDir, ...widths] = process.argv.slice(2);
 const ws = widths.length ? widths.map(Number) : [1380, 390];
-const pages = ['index', 'about', 'contact', '404'];
+const pages = ['index', 'work', 'about', 'contact', '404'];
 const browser = await puppeteer.launch({
   executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   headless: true,

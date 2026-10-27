@@ -90,7 +90,7 @@ p+p{margin-top:12px}
    dotted hairline, not by alternating tinted bands. */
 .section{padding:var(--s8) var(--px);position:relative}
 .section::before,.footer::before{content:'';position:absolute;top:0;left:var(--px);right:var(--px);border-top:1px dotted #CFCFC5}
-.rows+.section::before,.opening+.section::before{display:none}
+.opening+.section::before{display:none}
 .section-head{max-width:62ch;margin-bottom:var(--s7)}
 .grid-2{display:grid;gap:var(--s6)}
 .grid-3{display:grid;gap:var(--s6)}
@@ -196,6 +196,23 @@ main [id]{scroll-margin-top:72px}
 .win-side{max-width:520px}
 .finished-grid{display:grid;gap:28px}
 .process-film{margin-bottom:var(--s8)}
+.rows-more{margin:0}
+.piece{display:grid;gap:var(--s6)}
+.piece-text .row-h{font-size:var(--t-title);margin-bottom:var(--s2)}
+.piece-text .row-p{font-size:16px;color:var(--ink-2)}
+.piece-text .win-status{margin-top:var(--s4)}
+.scenes-k{margin-top:var(--s6);font-family:var(--mono);font-size:var(--t-meta);letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2)}
+.scenes{list-style:none;margin-top:var(--s3);border-top:1px solid var(--ink)}
+.scenes a{display:grid;grid-template-columns:44px 1fr;gap:var(--s3);padding:10px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink-2);font-size:var(--t-small);line-height:1.45}
+.scenes .t{font-family:var(--mono);font-size:var(--t-meta);color:var(--amber-ink);padding-top:2px}
+.scenes a:hover,.scenes a.on{color:var(--ink)}
+.scenes a.on .d{box-shadow:inset 0 -0.45em 0 var(--amber-tint)}
+@media(min-width:900px){
+  .piece{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:var(--s7);align-items:start}
+  .piece.alt{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}
+  .piece.alt .piece-text{order:-1}
+}
+.opening+.piece-sec{padding-top:var(--s5)}
 @media(min-width:900px){
   .finished-grid{grid-template-columns:7fr 5fr;align-items:start}
   .finished-grid .win-wide:last-child{margin-top:64px}
