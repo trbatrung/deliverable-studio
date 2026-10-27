@@ -1,120 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get in Touch | Deliverable</title>
-<meta name="description" content="Send a brief or just say hello. We respond within one business day, and the first concept is free for qualified briefs.">
+<title>Start a Project | Deliverable</title>
+<meta name="description" content="Tell me about your business, who the explanation is for, and where you want to use it. We can work out whether video is the right fit.">
 <link rel="canonical" href="https://deliverable-project.vercel.app/contact">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deliverable">
-<meta property="og:title" content="Get in Touch | Deliverable">
-<meta property="og:description" content="Send a brief or just say hello. We respond within one business day, and the first concept is free for qualified briefs.">
+<meta property="og:title" content="Start a Project | Deliverable">
+<meta property="og:description" content="Tell me about your business, who the explanation is for, and where you want to use it. We can work out whether video is the right fit.">
 <meta property="og:url" content="https://deliverable-project.vercel.app/contact">
 <meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Get in Touch | Deliverable">
-<meta name="twitter:description" content="Send a brief or just say hello. We respond within one business day, and the first concept is free for qualified briefs.">
-<meta name="twitter:image" content="https://deliverable-project.vercel.app/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
-<style>
-/* Page-specific: contact */
-/* First element on the page, so it carries the fixed-nav clearance */
-.cta-section{padding:112px var(--px) 64px;background:var(--band)}
-.cta-h{font-size:32px;font-weight:500;color:var(--ink);margin-bottom:14px;letter-spacing:-0.64px;line-height:1.15;text-wrap:balance}
-.cta-h em{font-style:normal;color:var(--amber)}
-.cta-sub{font-size:15px;font-weight:450;color:#4A4744;margin-bottom:28px;line-height:1.5}
-.cta-checks{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.cta-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#4A4744;line-height:1.5}
-.cta-check-icon{width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber);flex-shrink:0;margin-top:1px}
-.cta-note{font-size:12px;color:#8A8681;margin-top:24px;line-height:1.6}
-.contact-form-card{background:#fff;border:none;border-radius:var(--r-media);padding:32px;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
-@media(min-width:768px){
-  .cta-section{padding:150px var(--px) 88px}
-  .cta-h{font-size:40px;letter-spacing:-0.8px}
-  .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-}
-</style>
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link" href="work.html">Our work</a>
-      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="work.html">Examples</a>
+      <a class="nav-link" href="how-it-works.html">Process</a>
       <a class="nav-link" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta current" href="contact.html" style="background:#c4780a">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<section class="cta-section">
-  <div class="cta-inner">
+<main>
+
+<section class="section" id="contact" style="padding-top:56px">
+  <div class="split">
     <div>
-      <p class="section-eyebrow">Get in touch</p>
-      <h1 class="cta-h">Let's build something <em>worth watching.</em></h1>
-      <p class="cta-sub">Send us a brief or just say hello. We'll show you what's possible before you commit to anything.</p>
-      <ul class="cta-checks">
-        <li class="cta-check"><span class="cta-check-icon">✓</span>We respond within one business day</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>First concept is free for qualified briefs</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>No minimum commitment to start, retainer available once you need ongoing video</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>Script optional, we write it if you don't have one</li>
-      </ul>
-      <p class="cta-note">Open to working with clients in Australia, UK, and Singapore.<br>Based in Ho Chi Minh City, available across time zones.</p>
-    </div>
-    <div>
-      <div class="contact-form-card">
-        <form onsubmit="handleContactSubmit(event)">
-          <div class="form-row">
-            <label class="form-label" for="f-name">Name</label>
-            <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-email">Email</label>
-            <input class="form-input" id="f-email" name="email" type="email" placeholder="you@company.com" required>
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-company">Company</label>
-            <input class="form-input" id="f-company" name="company" type="text" placeholder="Company name">
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-message">Message</label>
-            <textarea class="form-input" id="f-message" name="message" placeholder="Tell us what you need..." required></textarea>
-          </div>
-          <button class="form-submit" type="submit">Send message</button>
-          <div class="form-success" id="formSuccess">We got your message. We'll be in touch shortly.</div>
-          <div class="form-error" id="formError"></div>
-        </form>
+      <p class="eyebrow">Start a project</p>
+      <h1 style="font-size:clamp(34px,4.6vw,52px)">What do you need people to understand?</h1>
+      <p class="sub" style="margin-top:18px">Tell me about your business, who the explanation is for, and where you want to use it. We can work out whether video is the right fit. No animation terminology needed.</p>
+      <div class="faq" style="margin-top:36px">
+        <details>
+          <summary>What do you need from me to start?</summary>
+          <div class="a">Who the video is for, what they should understand or do, and the material you already have: notes, a presentation, a walkthrough, or a conversation. You do not need a script.</div>
+        </details>
+        <details>
+          <summary>How long does a project take?</summary>
+          <div class="a">It depends on the scope. The timeline is agreed with the quote, with approval points for the message and the visual approach before animation starts.</div>
+        </details>
+        <details>
+          <summary>What does it cost?</summary>
+          <div class="a">A first project is quoted on a defined scope: audience, length, format, deliverables and revision rounds. Ongoing work is agreed once the workload is understood.</div>
+        </details>
+        <details>
+          <summary>Can a video be updated later?</summary>
+          <div class="a">Yes. Updates are scoped by what changes. Approved layouts and styles carry forward, so a revision is usually smaller than the first piece.</div>
+        </details>
+        <details>
+          <summary>Do you need access to our systems or data?</summary>
+          <div class="a">No. For updates and recaps you provide the approved highlights and any figures you want shown. I work from that summary.</div>
+        </details>
       </div>
+      <p class="note" style="margin-top:28px">Prefer email? hello@deliverable.studio</p>
+    </div>
+    <div class="form-card">
+      <form onsubmit="handleContactSubmit(event)">
+        <div class="form-row">
+          <label class="form-label" for="f-name">Name</label>
+          <input class="form-input" id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-email">Email</label>
+          <input class="form-input" id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-company">Company</label>
+          <input class="form-input" id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-message">What should people understand?</label>
+          <textarea class="form-input" id="f-message" name="message" required></textarea>
+        </div>
+        <button class="btn form-submit" type="submit">Talk through a project</button>
+        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records.</p>
+        <div class="form-success" id="formSuccess" role="status">Thanks, your message is in. I'll reply by email.</div>
+        <div class="form-error" id="formError" role="alert"></div>
+      </form>
     </div>
   </div>
 </section>
 
-<footer class="footer dark">
+</main>
+
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>

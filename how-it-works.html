@@ -1,113 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How It Works | Deliverable</title>
-<meta name="description" content="Brief, script, production, delivery. Four steps from topic to finished file, revisions included, 3 to 5 day turnaround.">
+<title>Process | Deliverable</title>
+<meta name="description" content="How a project runs: your inputs, the message and visual approval, production, review, delivery and later updates. No animation terminology needed.">
 <link rel="canonical" href="https://deliverable-project.vercel.app/how-it-works">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deliverable">
-<meta property="og:title" content="How It Works | Deliverable">
-<meta property="og:description" content="Brief, script, production, delivery. Four steps from topic to finished file, revisions included, 3 to 5 day turnaround.">
+<meta property="og:title" content="Process | Deliverable">
+<meta property="og:description" content="How a project runs: your inputs, the message and visual approval, production, review, delivery and later updates. No animation terminology needed.">
 <meta property="og:url" content="https://deliverable-project.vercel.app/how-it-works">
 <meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How It Works | Deliverable">
-<meta name="twitter:description" content="Brief, script, production, delivery. Four steps from topic to finished file, revisions included, 3 to 5 day turnaround.">
-<meta name="twitter:image" content="https://deliverable-project.vercel.app/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link" href="work.html">Our work</a>
-      <a class="nav-link current" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="work.html">Examples</a>
+      <a class="nav-link current" href="how-it-works.html">Process</a>
       <a class="nav-link" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<div class="page-header">
-  <p class="page-eyebrow">How it works</p>
-  <h1 class="page-h">From brief to delivered. Four steps.</h1>
-  <p class="page-sub">No setup on your end. Send the topic, approve the script, receive the file.</p>
-</div>
+<main>
 
-<section class="section">
-  <div class="steps-col">
-    <div class="step-connector"></div>
-    <div class="step">
-      <div class="step-num-circle">01</div>
-      <div class="step-content">
-        <p class="step-title">Brief</p>
-        <p class="step-body">Share the topic, tone, and audience. Script optional.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">02</div>
-      <div class="step-content">
-        <p class="step-title">Script</p>
-        <p class="step-body">We write or refine the script. You approve before production starts.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">03</div>
-      <div class="step-content">
-        <p class="step-title">Production</p>
-        <p class="step-body">AI avatar, voiceover, motion, editing. Fully handled.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">04</div>
-      <div class="step-content">
-        <p class="step-title">Delivery</p>
-        <p class="step-body">Final file ready to publish. Revisions included.</p>
-      </div>
-    </div>
+<section class="opening">
+  <div class="opening-inner">
+    <p class="eyebrow">Process</p>
+    <h1>From your material to a finished file.</h1>
+    <p class="lede">You bring what you already have. I shape the explanation, propose the visuals, and take it through production and review. Two approval points before animation starts, so nothing is a surprise.</p>
   </div>
-  <p class="section-sub" style="margin-top:32px;margin-bottom:0">Need a new version next quarter? Same process, faster, we already have your brand voice and avatar setup on file.</p>
 </section>
 
-<section class="section alt">
-  <p class="section-eyebrow">Behind the scenes</p>
-  <h2 class="section-h">What the pipeline actually looks like</h2>
-  <p class="section-sub">A short walkthrough of a brief moving from script to finished file.</p>
-  <div class="media-slot has-media">
-        <video class="media-loop" autoplay muted loop playsinline preload="metadata" poster="media/process.webp" aria-label="Editing timeline: brief, script, production, delivery">
+<section class="rows" aria-label="How a project runs">
+  <div class="convo">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">I have a deck, some notes and a recording of me explaining it. Is that enough?</p>
+        <p class="bubble reply">That's plenty. I'll come back with a message outline for you to approve.</p>
+      </div>
+      <h2 class="row-h">It starts with what you have</h2>
+      <p class="row-p">A rough brief, a presentation, a walkthrough, a conversation. You do not need a script, a storyboard or any animation vocabulary.</p>
+    </div>
+    <div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><div><h3>Inputs</h3><p>Who the video is for, what they should understand or do, where it will be used, and the material you already have.</p></div></div>
+        <div class="step"><span class="n">02</span><div><h3>Message and script</h3><p>I propose the structure and write or refine the script. You approve it before anything is designed.</p></div></div>
+        <div class="step"><span class="n">03</span><div><h3>Visual approach</h3><p>A style frame and a scene plan: what is shown, when, and for how long. You approve it before animation starts.</p></div></div>
+        <div class="step"><span class="n">04</span><div><h3>Production</h3><p>Animation, editing, and audio or captions where agreed. Code-assisted animation and AI tools help with parts of this. I direct and check the result.</p></div></div>
+        <div class="step"><span class="n">05</span><div><h3>Review and delivery</h3><p>You review the piece. Revisions within the agreed scope, then final files in the formats you need.</p></div></div>
+        <div class="step"><span class="n">06</span><div><h3>Updates later</h3><p>When something changes, the update is scoped by what changed. Approved layouts and styles carry forward.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="split">
+    <div>
+      <p class="eyebrow">What is agreed up front</p>
+      <h2>A quote describes the work, not a package.</h2>
+      <p class="sub">Before production starts we agree the audience, the message, the approach, the deliverables, the revision scope and the price. For recurring work we agree a scope once the workload is understood.</p>
+    </div>
+    <div class="card">
+      <span class="k">In every quote</span>
+      <ul class="list">
+        <li>Audience and purpose</li>
+        <li>Length, format and where it will be used</li>
+        <li>What you provide and when</li>
+        <li>Approval points: script, visual approach, final review</li>
+        <li>Revision rounds included</li>
+        <li>Delivery formats and timeline</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Behind the scenes</p>
+      <h2>Build the visual approach once. Keep using what works.</h2>
+      <p class="sub">A repeatable series does not need a completely new visual language every time. Approved layouts, styles and production decisions can carry forward, while each video gets the explanation it needs.</p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>pipeline.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/process.webp" aria-label="An editing timeline: brief, script, production and delivery lanes with a playhead moving through them">
           <source src="media/process.webm" type="video/webm">
           <source src="media/process.mp4" type="video/mp4">
         </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
       </div>
+      <figcaption class="shot-cap">The production timeline, as a 6 s loop</figcaption>
+    </figure>
+  </div>
+  <p style="margin-top:36px"><a class="btn" href="contact.html">Talk through a project</a></p>
 </section>
 
-<footer class="footer dark">
+</main>
+
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>

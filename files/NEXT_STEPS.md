@@ -4,13 +4,11 @@ In priority order. Check off as completed.
 
 - [ ] Buy domain (deliverable.studio / getdeliverable.com / deliverable.co)
 - [ ] Set up domain email (hello@yourdomain), replace placeholder in index.html footer
-- [x] Produce 3 demo videos: HR onboarding (YouTube trailer), course module and professional services explainer (text-led motion demos rendered in-house, see `media/src/`)
-- [x] Embed the 3 demo videos on the home carousel and the Our work page
-- [x] Fill every ambient media slot (Who it's for portraits, About portrait, How it works pipeline loop) with rendered loops
-- [x] Favicon, social share image, meta descriptions, 404 page
-- [x] Deploy site live (Vercel, auto-deploys on push to main)
-- [x] Confirm site renders correctly in light mode on both mobile and desktop, across light and dark system settings
-- [ ] Optional: add voiceover and music to the two motion demos (they are built for sound-off viewing; audio can be layered on the mp4 without re-rendering)
+- [x] Three five-second loops (Explain, Update, Teach) cut from or built like finished concept pieces, plus two full concept explainers, all rendered in-house (`media/src/`)
+- [x] Site rebuilt on the redesign brief: conversation-plus-loop pattern, Geist, honest labels, favicon, social image, meta, 404
+- [ ] Approve and push the rebuild to main (currently a local commit on `claude/website-media-assets-1b1c48`)
+- [ ] Security work from `LAUNCH_PLAN.md` before calling the site launch-ready
+- [ ] Optional: voiceover and music on the two concept pieces
 - [ ] Write cold outreach email template
 - [ ] Identify and send to first 5 target companies (HR/training/professional services, AU/UK/SG focus)
 

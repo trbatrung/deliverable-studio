@@ -1,112 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Work | Deliverable</title>
-<meta name="description" content="Concept demos across HR onboarding, course modules and professional-services explainers, built to show exactly what Deliverable produces.">
+<title>Examples | Deliverable</title>
+<meta name="description" content="Concept examples organised by the job they do: explain a business, keep people up to date, share what you know. Every piece carries an honest status.">
 <link rel="canonical" href="https://deliverable-project.vercel.app/work">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deliverable">
-<meta property="og:title" content="Our Work | Deliverable">
-<meta property="og:description" content="Concept demos across HR onboarding, course modules and professional-services explainers, built to show exactly what Deliverable produces.">
+<meta property="og:title" content="Examples | Deliverable">
+<meta property="og:description" content="Concept examples organised by the job they do: explain a business, keep people up to date, share what you know. Every piece carries an honest status.">
 <meta property="og:url" content="https://deliverable-project.vercel.app/work">
 <meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Our Work | Deliverable">
-<meta name="twitter:description" content="Concept demos across HR onboarding, course modules and professional-services explainers, built to show exactly what Deliverable produces.">
-<meta name="twitter:image" content="https://deliverable-project.vercel.app/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
-<style>
-/* Page-specific: work listing */
-.work-section{padding:56px var(--px);background:var(--canvas)}
-.work-section.alt{background:var(--band)}
-.work-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#854F0B;margin-bottom:14px}
-.work-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.work-title{font-size:24px;font-weight:500;color:var(--ink);margin-bottom:8px;letter-spacing:-0.48px;line-height:1.2}
-.work-desc{font-size:15px;font-weight:450;color:#6B6763;line-height:1.5;margin-bottom:24px;max-width:620px}
-@media(min-width:768px){
-  .work-section{padding:80px var(--px)}
-  .work-title{font-size:28px;letter-spacing:-0.56px}
-}
-</style>
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link current" href="work.html">Our work</a>
-      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link current" href="work.html">Examples</a>
+      <a class="nav-link" href="how-it-works.html">Process</a>
       <a class="nav-link" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<div class="page-header">
-  <p class="page-eyebrow">Our work</p>
-  <h1 class="page-h">Real briefs. Real output.</h1>
-  <p class="page-sub">Every video here is a concept demo, built to show what's possible, not a client project. More added as we produce them.</p>
-</div>
+<main>
 
-<div class="work-section">
-  <span class="work-label">HR and onboarding</span>
-  <h2 class="work-title">Welcome and onboarding video</h2>
-  <p class="work-desc">Avatar-led onboarding covering company culture, policies, and first-week expectations. Produced once, used for every new hire.</p>
-  <button class="video-facade" type="button" data-yt="lCPMtNWJa7E" data-title="Welcome and onboarding video: Deliverable" onclick="playVideo(this)" aria-label="Play the welcome and onboarding video">
-    <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
-    <span class="video-tag">Concept demo</span>
-    <span class="facade-play"><span class="facade-tri"></span></span>
-  </button>
-</div>
+<section class="opening">
+  <div class="opening-inner">
+    <p class="eyebrow">Examples</p>
+    <h1>Give the idea a form people can follow.</h1>
+    <p class="lede">Organised by the job the video does. Every example here is an independently made concept piece, labelled as such. Client work appears once there is cleared client work to show.</p>
+  </div>
+</section>
 
-<div class="work-section alt">
-  <span class="work-label">Training and courses</span>
-  <h2 class="work-title">Course module video</h2>
-  <p class="work-desc">Text-led lesson module for a training provider. One point per scene, a framework revealed step by step, a recap at the end. Built for sound-off viewing and easy to update when the content changes.</p>
-  <button class="video-facade" type="button" data-src="media/demo-course-module.mp4" data-poster="media/demo-course-module.webp" data-title="Course module concept demo: Deliverable" onclick="playVideo(this)" aria-label="Play the course module concept demo">
-    <img class="facade-thumb" src="media/demo-course-module.webp" alt="" width="1280" height="720" loading="lazy">
-    <span class="video-tag">Concept demo</span>
-    <span class="facade-play"><span class="facade-tri"></span></span>
-  </button>
-</div>
+<section class="rows" aria-label="Examples by job">
 
-<div class="work-section">
-  <span class="work-label">Professional services</span>
-  <h2 class="work-title">Explainer video</h2>
-  <p class="work-desc">A professional-services explainer that takes one process change and makes it clear in under a minute. Before and after, three things to do, one mistake to avoid.</p>
-  <button class="video-facade" type="button" data-src="media/demo-explainer.mp4" data-poster="media/demo-explainer.webp" data-title="Explainer concept demo: Deliverable" onclick="playVideo(this)" aria-label="Play the explainer concept demo">
-    <img class="facade-thumb" src="media/demo-explainer.webp" alt="" width="1280" height="720" loading="lazy">
-    <span class="video-tag">Concept demo</span>
-    <span class="facade-play"><span class="facade-tri"></span></span>
-  </button>
-</div>
+  <div class="convo">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">Can this proposal be a video? Nobody reads the 14 pages.</p>
+        <p class="bubble reply">Yes. Same contract, two routes. Watch.</p>
+      </div>
+      <h2 class="row-h">Explain your business</h2>
+      <p class="row-p">A service, process or product that takes a long call to explain. Audience: prospective customers and new clients. Output: a service explainer, product walkthrough or FAQ video. <a class="link" href="#explainer">Watch the full explainer</a></p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>contract-explainer.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-explain.webp" aria-label="Five seconds from a client explainer: the same contract on a paper route and an e-signature route">
+          <source src="media/loop-explain.webm" type="video/webm">
+          <source src="media/loop-explain.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
+  </div>
 
-<footer class="footer dark">
+  <div class="convo alt">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">Can the Monday review be a one-minute video instead of the deck?</p>
+        <p class="bubble reply">Send me the approved highlights. I'll do the rest.</p>
+      </div>
+      <h2 class="row-h">Keep people up to date</h2>
+      <p class="row-p">Weekly or monthly highlights, project updates and product changes. Audience: a team, a board or customers. You provide the approved points and any figures you want shown; I script and visualise that summary. Output: a short recap or update video.</p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>week-5-review.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-update.webp" aria-label="Five seconds from a weekly review video: week five sales results highlighted on a simple chart">
+          <source src="media/loop-update.webm" type="video/webm">
+          <source src="media/loop-update.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
+  </div>
+
+  <div class="convo">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">Can this training slide become a lesson people actually finish?</p>
+        <p class="bubble reply">One idea per scene. Here's the recap.</p>
+      </div>
+      <h2 class="row-h">Share what you know</h2>
+      <p class="row-p">Lessons, onboarding and useful ideas made understandable. Audience: new hires, learners, a team. Output: a short lesson, an onboarding module or a knowledge-sharing series. <a class="link" href="#module">Watch the full module</a></p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>module-3-feedback.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-teach.webp" aria-label="Five seconds from a course module: three recap checks ticking off">
+          <source src="media/loop-teach.webm" type="video/webm">
+          <source src="media/loop-teach.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
+  </div>
+
+</section>
+
+<section class="section tint" id="finished">
+  <div class="section-head">
+    <p class="eyebrow">Full pieces</p>
+    <h2>The loops above are cut from these.</h2>
+    <p class="sub">Two complete concept pieces, built the way a client project is built: one point per scene, captions on screen, made to be watched with the sound off. Under a minute each.</p>
+  </div>
+  <div class="finished-grid">
+    <figure class="win win-wide" id="explainer">
+      <div class="win-media wide">
+        <video controls playsinline preload="metadata" poster="media/demo-explainer.webp" aria-label="Client explainer: what changes when your contract moves to e-signature">
+          <source src="media/demo-explainer.webm" type="video/webm">
+          <source src="media/demo-explainer.mp4" type="video/mp4">
+        </video>
+      </div>
+      <figcaption class="win-cap">
+        <strong>What changes when a contract moves to e-signature</strong>
+        For a professional-services firm's clients. A before-and-after, three things the client still has to do, one mistake to avoid. Fictional firm, illustrative timings.
+        <br><span class="win-status">Explain &middot; 52 s &middot; concept piece</span>
+      </figcaption>
+    </figure>
+    <figure class="win win-wide tilt-l" id="module">
+      <div class="win-media wide">
+        <video controls playsinline preload="metadata" poster="media/demo-course-module.webp" aria-label="Course module: giving feedback that lands">
+          <source src="media/demo-course-module.webm" type="video/webm">
+          <source src="media/demo-course-module.mp4" type="video/mp4">
+        </video>
+      </div>
+      <figcaption class="win-cap">
+        <strong>Module 3 of 8: Giving feedback that lands</strong>
+        For a training provider's learners. One learning objective, a three-step framework revealed one card at a time, a worked example and a recap. Fictional provider.
+        <br><span class="win-status">Teach &middot; 58 s &middot; concept piece</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Status and credits</p>
+      <h2>What these examples are, and are not.</h2>
+    </div>
+    <div>
+      <p>Each piece was written, designed and produced independently for Deliverable, with fictional companies and illustrative content. None is a client result, and none makes a claim about leads, retention or time saved.</p>
+      <p>What they show is the craft: how a message is structured, what is shown and when, how dense information is held long enough to read, and how a finished file looks. A client project goes through the same process with your material.</p>
+      <p style="margin-top:20px"><a class="btn" href="contact.html">Talk through a project</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>

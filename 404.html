@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page not found | Deliverable</title>
+<meta name="description" content="That page moved or never existed.">
 <meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Deliverable">
+<meta property="og:title" content="Page not found | Deliverable">
+<meta property="og:description" content="That page moved or never existed.">
+<meta property="og:url" content="https://deliverable-project.vercel.app/404">
+<meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link" href="work.html">Our work</a>
-      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="work.html">Examples</a>
+      <a class="nav-link" href="how-it-works.html">Process</a>
       <a class="nav-link" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<div class="page-header">
-  <p class="page-eyebrow">404</p>
-  <h1 class="page-h">That page moved or never existed.</h1>
-  <p class="page-sub">Try the home page, or have a look at the work.</p>
-</div>
-
-<section class="section" style="padding-top:0">
-  <div style="display:flex;gap:12px;flex-wrap:wrap">
-    <a class="btn-primary" href="index.html">Back to home</a>
-    <a class="btn-ghost" href="work.html">See our work</a>
+<main>
+<section class="opening" style="padding-bottom:80px">
+  <div class="opening-inner">
+    <p class="eyebrow">404</p>
+    <h1>That page moved or never existed.</h1>
+    <p class="lede">Try the home page, or have a look at the examples.</p>
+    <div class="btn-row">
+      <a class="btn" href="index.html">Back to home</a>
+      <a class="btn ghost" href="work.html">See examples</a>
+    </div>
   </div>
 </section>
+</main>
 
-<footer class="footer dark">
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>

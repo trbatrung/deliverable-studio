@@ -1,152 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Who It's For | Deliverable</title>
-<meta name="description" content="Training providers, HR and people teams, legal and professional services, and growing SMEs that need regular video without the overhead.">
+<meta name="description" content="Situations the service suits: a service that is hard to explain, updates people need to hear, lessons worth sharing. For businesses with a real communication need, not every industry.">
 <link rel="canonical" href="https://deliverable-project.vercel.app/who-its-for">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deliverable">
 <meta property="og:title" content="Who It's For | Deliverable">
-<meta property="og:description" content="Training providers, HR and people teams, legal and professional services, and growing SMEs that need regular video without the overhead.">
+<meta property="og:description" content="Situations the service suits: a service that is hard to explain, updates people need to hear, lessons worth sharing. For businesses with a real communication need, not every industry.">
 <meta property="og:url" content="https://deliverable-project.vercel.app/who-its-for">
 <meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Who It's For | Deliverable">
-<meta name="twitter:description" content="Training providers, HR and people teams, legal and professional services, and growing SMEs that need regular video without the overhead.">
-<meta name="twitter:image" content="https://deliverable-project.vercel.app/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
-<style>
-/* Page-specific: circular portrait constellation */
-.portrait-row{position:relative;display:grid;gap:40px;margin-top:40px}
-.portrait{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
-.portrait .media-slot.circle{width:100%;max-width:260px}
-.portrait-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#854F0B;margin-top:22px}
-.portrait-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.portrait-title{font-size:20px;font-weight:500;color:var(--ink);letter-spacing:-0.4px;margin-top:8px;line-height:1.25}
-.portrait-body{font-size:13px;color:#6B6763;line-height:1.5;margin-top:8px;max-width:280px}
-@media(min-width:768px){
-  .portrait-row{grid-template-columns:repeat(3,1fr);gap:32px}
-  /* Asymmetric placement — the constellation feel comes from the offset */
-  .portrait:nth-child(2){margin-top:56px}
-  .portrait:nth-child(3){margin-top:20px}
-}
-</style>
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link" href="work.html">Our work</a>
-      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="work.html">Examples</a>
+      <a class="nav-link" href="how-it-works.html">Process</a>
       <a class="nav-link current" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<div class="page-header">
-  <p class="page-eyebrow">Who it's for</p>
-  <h1 class="page-h">Built for teams that need video without the overhead</h1>
-  <p class="page-sub">Regular video content, without hiring in-house or paying full agency rates.</p>
-</div>
+<main>
 
-<section class="section">
-  <div class="portrait-row">
-    <!-- Orbital arcs: thin light-orange curves implying connection between the
-         portraits. Only reads correctly against the asymmetric offsets, so the
-         stylesheet hides this below 768px. -->
-    <svg class="orbit-svg" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <path d="M 150 190 C 270 90, 400 300, 500 250" />
-      <path d="M 500 250 C 620 200, 720 90, 850 175" />
-      <path d="M 60 300 C 180 380, 300 250, 380 330" />
-    </svg>
-    <div class="portrait">
-      <div class="media-slot circle has-media">
-        <video class="media-loop" autoplay muted loop playsinline preload="metadata" poster="media/portrait-training.webp" aria-label="Course modules produced at scale">
-          <source src="media/portrait-training.webm" type="video/webm">
-          <source src="media/portrait-training.mp4" type="video/mp4">
-        </video>
-      </div>
-      <span class="portrait-label">Services</span>
-      <h2 class="portrait-title">Training providers</h2>
-      <p class="portrait-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
-    </div>
-    <div class="portrait">
-      <div class="media-slot circle has-media">
-        <video class="media-loop" autoplay muted loop playsinline preload="metadata" poster="media/portrait-hr.webp" aria-label="Onboarding checklist, every new hire">
-          <source src="media/portrait-hr.webm" type="video/webm">
-          <source src="media/portrait-hr.mp4" type="video/mp4">
-        </video>
-      </div>
-      <span class="portrait-label">Services</span>
-      <h2 class="portrait-title">HR and people teams</h2>
-      <p class="portrait-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
-    </div>
-    <div class="portrait">
-      <div class="media-slot circle has-media">
-        <video class="media-loop" autoplay muted loop playsinline preload="metadata" poster="media/portrait-legal.webp" aria-label="Complex topics explained clearly">
-          <source src="media/portrait-legal.webm" type="video/webm">
-          <source src="media/portrait-legal.mp4" type="video/mp4">
-        </video>
-      </div>
-      <span class="portrait-label">Services</span>
-      <h2 class="portrait-title">Legal and professional services</h2>
-      <p class="portrait-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
-    </div>
+<section class="opening">
+  <div class="opening-inner">
+    <p class="eyebrow">Who it's for</p>
+    <h1>For businesses with something people need to understand.</h1>
+    <p class="lede">Not an industry list. Three situations where a clear video earns its place, and a few signs that it is the right fit.</p>
   </div>
 </section>
 
-<section class="section alt">
-  <p class="section-eyebrow">Also a fit</p>
-  <h2 class="section-h">Growing SMEs</h2>
-  <div class="for-grid">
-    <div class="for-card">
-      <p class="for-card-title">No in-house video team</p>
-      <p class="for-card-body">You need video regularly but not enough to justify a full-time hire.</p>
+<section class="rows" aria-label="Situations">
+
+  <div class="convo">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">We explain the same thing on every first call. Can we stop doing that?</p>
+        <p class="bubble reply">Yes. Put the explanation where they look before the call.</p>
+      </div>
+      <h2 class="row-h">A service that is hard to explain</h2>
+      <p class="row-p">Professional services, consultancies, specialised suppliers. A prospective customer goes back to your website, a proposal or a document. A clear explainer gives them something they can revisit and share.</p>
     </div>
-    <div class="for-card">
-      <p class="for-card-title">Content that changes</p>
-      <p class="for-card-body">Policies, products and processes shift. Reshooting every time is not viable.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Multiple audiences</p>
-      <p class="for-card-body">Same core message, different framing per team, region or client segment.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Fixed budget</p>
-      <p class="for-card-body">Retainer or per project, so the cost is known before the work starts.</p>
-    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>contract-explainer.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-explain.webp" aria-label="Five seconds from a client explainer: the same contract on a paper route and an e-signature route">
+          <source src="media/loop-explain.webm" type="video/webm">
+          <source src="media/loop-explain.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
   </div>
-  <a class="section-link" href="contact.html">Talk to us about your team →</a>
+
+  <div class="convo alt">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">Our monthly update is a 30-slide deck nobody opens.</p>
+        <p class="bubble reply">Three to five approved highlights. One minute. Watch.</p>
+      </div>
+      <h2 class="row-h">An update people need to hear</h2>
+      <p class="row-p">Teams, boards, customers and users who need to know what changed and what happens next. You choose the highlights and the figures; the video makes them easy to take in.</p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>week-5-review.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-update.webp" aria-label="Five seconds from a weekly review video: week five sales results highlighted on a simple chart">
+          <source src="media/loop-update.webm" type="video/webm">
+          <source src="media/loop-update.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
+  </div>
+
+  <div class="convo">
+    <div class="convo-text">
+      <div class="bubbles">
+        <p class="bubble client">Every new hire gets a different version of the onboarding talk.</p>
+        <p class="bubble reply">One module, one idea per scene, the same for everyone.</p>
+      </div>
+      <h2 class="row-h">A lesson worth sharing</h2>
+      <p class="row-p">Training providers, people teams, founders and subject experts. Onboarding, frameworks, lessons learned and useful ideas, made understandable in a form that is easy to update.</p>
+    </div>
+    <figure class="shot">
+      <div class="shot-bar"><span>module-3-feedback.mp4</span></div>
+      <div class="win-media wide">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/loop-teach.webp" aria-label="Five seconds from a course module: three recap checks ticking off">
+          <source src="media/loop-teach.webm" type="video/webm">
+          <source src="media/loop-teach.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="shot-cap">5 s from a concept piece, not a client project</figcaption>
+    </figure>
+  </div>
+
 </section>
 
-<footer class="footer dark">
+<section class="section tint">
+  <div class="section-head">
+    <p class="eyebrow">Signs it is a fit</p>
+    <h2>You will get the most from this if</h2>
+  </div>
+  <div class="grid-2">
+    <div class="card"><span class="k">Recurring need</span><h3>You explain the same things often</h3><p>To prospects, to new hires, to a team. A video does the first pass so conversations start further along.</p></div>
+    <div class="card"><span class="k">Changing content</span><h3>The content changes and reshooting is not viable</h3><p>A policy, a product or a process shifts. Updating a script and a few scenes is smaller than a new production.</p></div>
+    <div class="card"><span class="k">No in-house capacity</span><h3>Nobody has the time to produce it</h3><p>You know what needs saying. You need someone to shape it and carry it through production and review.</p></div>
+    <div class="card"><span class="k">Known scope</span><h3>You want the cost known before work starts</h3><p>A first project is quoted on a defined scope. Ongoing work is agreed once the workload is understood.</p></div>
+  </div>
+  <p style="margin-top:32px"><a class="btn" href="contact.html">Talk through a project</a></p>
+</section>
+
+</main>
+
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>

@@ -47,7 +47,7 @@ Single avatar, talking head, ~75 seconds. Built to be a real, usable example (no
 
 ---
 
-## Demo Videos: Course Module & Explainer — STATUS: Produced (text-led motion demos) ✅
+## Demo Videos: Course Module & Explainer — STATUS: Produced (text-led concept pieces) ✅
 
 Both were produced in-house as silent, caption-led motion-graphic videos, no avatar, no external generator. Source scenes live in `media/src/scenes/demo-course-module.html` and `media/src/scenes/demo-explainer.html`; re-render with `cd media/src && npm install && node render.mjs`. Scene plans with on-screen text and timings: `files/scripts/course-module-demo.md` and `files/scripts/explainer-demo.md`. Voiceover and music can be added later on top of the rendered mp4.
 
@@ -55,10 +55,10 @@ Both were produced in-house as silent, caption-led motion-graphic videos, no ava
 
 ## Remaining Checklist
 - [ ] Secure domain
-- [x] Produce course module demo video (text-led motion demo)
-- [x] Produce explainer demo video (text-led motion demo)
+- [x] Produce course module demo video (text-led concept piece)
+- [x] Produce explainer demo video (text-led concept piece)
 - [ ] Set up domain email
-- [x] Get site live with trailer + demos embedded
+- [ ] Push the redesigned site (local commit, awaiting approval). Note: the site no longer leads with the avatar trailer; positioning is motion graphics and explainers, see WEBSITE_DIRECTION.md in the main checkout
 - [ ] Send cold outreach to first 5 target prospects
 
 ---
