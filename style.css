@@ -106,6 +106,20 @@ p+p{margin-top:12px}
 .card-foot{margin-top:var(--s5);font-size:var(--t-small);color:var(--ink-2)}
 .faq{margin-top:var(--s6)}
 .contact-who{margin-top:var(--s4);font-size:var(--t-small);color:var(--ink-2)}
+.nowrap{white-space:nowrap}
+.contact-page{padding-top:var(--s8)}
+.contact-page h1{font-size:clamp(34px,4.6vw,52px)}
+.contact-page .note{margin-top:var(--s5)}
+.contact-page .sub{margin-top:var(--s4)}
+/* Phones: heading, then the form, then the questions */
+@media(max-width:759px){
+  .contact-split{gap:0}
+  .contact-split .eyebrow{justify-self:start}
+  .contact-split > div:first-child{display:contents}
+  .contact-split .form-card{order:1;margin-top:var(--s6)}
+  .contact-split .faq{order:2;margin-top:var(--s7)}
+  .contact-split .note{order:3}
+}
 main [id]{scroll-margin-top:72px}
 .list li::before{content:'';position:absolute;left:0;top:0.62em;width:12px;height:12px;border-radius:50%;background:var(--amber-tint);border:1.5px solid var(--amber)}
 
@@ -296,6 +310,7 @@ textarea.form-input{min-height:130px;resize:vertical}
 .footer-logo{font-size:var(--t-title);font-weight:500;color:var(--amber);text-decoration:none}
 .footer-links{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5)}
 .footer-links a{font-size:var(--t-small);color:var(--ink-2);text-decoration:none}
+@media(max-width:519px){.footer-links{display:grid;grid-template-columns:repeat(2,max-content);gap:var(--s3) var(--s7)}}
 .footer-links a:hover{color:var(--ink)}
 .footer-right{font-family:var(--mono);font-size:var(--t-meta);color:var(--ink-2);letter-spacing:0.02em}
 
