@@ -1,0 +1,9 @@
+# Keep render sources, planning notes and agent config out of the deployment.
+media/src
+files
+skills
+.agents
+.claude
+*.md
+.gitignore
+.github
