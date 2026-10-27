@@ -6,6 +6,7 @@
 <script>
   // Portrait 4:5 recomposition of loop-explain (cut from demo-explainer.mp4 at 8.8 s for 5 s).
   // Same scene, words, timings and easing; the two routes stack instead of sitting side by side.
+  // Phone version: no firm mark, label pill or progress track, so the content gets the air.
   window.SCENE = { name: 'loop-explain-45', width: 1080, height: 1350, fps: 30, duration: 5, hold: { at: 4.75, for: 2 }, posterTime: 4.5, kind: 'loop', outWidth: 720, outHeight: 900 };
 </script>
 <style>
@@ -20,36 +21,24 @@
   .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; }
   .muted { color: #6B6763; }
   .pill { display: inline-flex; align-items: center; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 8px 30px; white-space: nowrap; line-height: 1.2; }
-  .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
   .pill.band { background: #FEF3E2; color: #854F0B; }
   .pill.red { background: #F6DFD8; color: #A32D2D; }
 
-  /* Persistent chrome: firm name, label, travelling progress dot */
-  #chrome { position: absolute; inset: 0; pointer-events: none; }
-  .top { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; }
-  .firm { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
-  .firm i { width: 50px; height: 50px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 26px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
-  .track { position: absolute; left: 64px; right: 64px; bottom: 62px; height: 3px; background: #DDD6CD; border-radius: 999px; }
-  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
-  .track .stop { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #DDD6CD; }
-  .track .stop.on { background: #E8940A; }
-  .track .dot { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #E8940A; }
-
-  /* Before / after, stacked */
-  #s-split { position: absolute; left: 64px; right: 64px; top: 174px; display: flex; flex-direction: column; }
-  .head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; padding: 0 4px; }
+  /* Before / after, stacked. About 8 percent side margins; the stack is centred vertically. */
+  #s-split { position: absolute; left: 88px; right: 88px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; }
+  .head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; padding: 0 4px; }
   .headrow { display: flex; justify-content: space-between; align-items: center; }
   .headrow .muted { font-size: 40px; }
   #s-split .h { font-size: 64px; }
-  .col { border-radius: 36px; padding: 22px 40px 20px; display: flex; flex-direction: column; }
-  .col + .col { margin-top: 20px; }
+  .col { border-radius: 36px; padding: 28px 38px 26px; display: flex; flex-direction: column; }
+  .col + .col { margin-top: 36px; }
   .col.before { background: #FBF1EE; }
   .col.after { background: #FCFBFA; box-shadow: 0 18px 40px rgba(0,0,0,0.07); }
-  .col-h { display: flex; align-items: center; gap: 22px; margin-bottom: 8px; }
+  .col-h { display: flex; align-items: center; gap: 22px; margin-bottom: 14px; }
   .col-h h3 { margin: 0; font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
   .before .col-h h3 { color: #A32D2D; }
   .rows { position: relative; display: flex; flex-direction: column; }
-  .row { display: flex; align-items: center; gap: 26px; height: 58px; }
+  .row { display: flex; align-items: center; gap: 26px; height: 62px; }
   .node { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #DDD6CD; background: #F7F4F1; position: relative; flex-shrink: 0; z-index: 1; }
   .before .node { border-color: #E9C9C0; background: #FBF1EE; }
   .node b { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; opacity: 0; }
@@ -60,7 +49,7 @@
   .before .runner { background: #A32D2D; }
   .txt { flex: 1; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; font-size: 44px; letter-spacing: -0.01em; white-space: nowrap; }
   .txt .when { font-size: 40px; color: #6B6763; font-variant-numeric: tabular-nums; letter-spacing: 0; }
-  .total { margin-top: 10px; border-top: 2px solid #DDD6CD; padding-top: 8px; display: flex; justify-content: space-between; align-items: baseline; }
+  .total { margin-top: 14px; border-top: 2px solid #DDD6CD; padding-top: 12px; display: flex; justify-content: space-between; align-items: baseline; }
   .before .total { border-color: #E9C9C0; }
   .total span:first-child { font-size: 40px; color: #6B6763; }
   .total strong { font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
@@ -71,19 +60,6 @@
 </style>
 </head>
 <body>
-
-<div id="chrome">
-  <div class="top">
-    <div class="firm"><i>H</i>Harwood &amp; Co</div>
-    <div class="pill outline">Client explainer</div>
-  </div>
-  <div class="track">
-    <div class="done"></div>
-    <div class="stop" data-at="4.5"></div><div class="stop" data-at="16.5"></div><div class="stop" data-at="30"></div>
-    <div class="stop" data-at="39"></div><div class="stop" data-at="44.5"></div>
-    <div class="dot"></div>
-  </div>
-</div>
 
 <!-- Times below are in the source piece's clock (demo-explainer.html); the loop shows 8.8 s to 13.8 s. -->
 <section id="s-split">
@@ -150,11 +126,6 @@
   });
 
   const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
-  const C0 = 4.5, C1 = 45;
-  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
-  const TW = 1080 - 128;
-  const stops = [...document.querySelectorAll('.track .stop')].map(el => ({ el, at: +el.dataset.at }));
-  stops.forEach(s => { s.el.style.left = ((s.at - C0) / (C1 - 0.5 - C0) * TW) + 'px'; });
   const cover = document.getElementById('cover');
 
   window.seek = function (t) {
@@ -175,10 +146,6 @@
       r.run.style.opacity = prog(T, r.times[0] - 0.3, 0.3);
       r.fills.forEach((f, i) => { f.style.opacity = prog(T, r.times[i], 0.25); });
     }
-    const x = lin(T, C0, C1 - 0.5 - C0) * TW;
-    done.style.width = x + 'px';
-    dot.style.left = x + 'px';
-    stops.forEach(s => s.el.classList.toggle('on', T >= s.at));
 
     // Same 0.25 s fade from and to #F7F4F1 that excerpt.sh applies to the 16:9 cut.
     cover.style.opacity = Math.max(1 - lin(t, 0, 0.25), lin(t, 4.75, 0.25));
