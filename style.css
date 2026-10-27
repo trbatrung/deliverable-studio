@@ -93,37 +93,47 @@ p+p{margin-top:12px}
 .list li{position:relative;padding-left:26px;color:var(--ink)}
 .list li::before{content:'';position:absolute;left:0;top:0.62em;width:12px;height:12px;border-radius:50%;background:var(--amber-tint);border:1.5px solid var(--amber)}
 
-/* ---------- Opening ---------- */
-.opening{padding:56px var(--px) 24px;text-align:left}
-.opening-inner{max-width:760px}
-.opening .lede{margin-top:22px}
+/* ---------- Hero: statement beside the first example window ---------- */
+.hero{position:relative;padding:48px var(--px) 40px;display:grid;gap:36px;align-items:center}
+.hero-text{max-width:620px}
+.hero .lede{margin-top:22px}
+@media(min-width:900px){.hero{grid-template-columns:1.05fr 0.95fr;gap:56px;padding:64px var(--px) 72px}.hero-text{padding-right:12px}}
 
 /* ---------- Example windows ---------- */
 /* Original "studio window": a label strip, the media, a caption in real HTML.
-   Not browser chrome: no traffic lights, no address bar. */
-.studio{padding:52px var(--px) 80px;position:relative}
-.studio-grid{display:grid;gap:28px}
-.win{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+   Not browser chrome: no traffic lights, no address bar. Windows sit in the
+   section whose story they tell, at different positions and slight tilts, so
+   the page reads as a working studio rather than a gallery grid. */
+.win{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;position:relative}
 .win-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2)}
 .win-tag{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
 .win-tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber)}
 .win-media{position:relative;aspect-ratio:4/3;background:var(--warm);overflow:hidden}
-.win-media video,.win-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.win-media.wide{aspect-ratio:16/9;background:var(--canvas)}
+.win-media video,.win-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--canvas)}
 .win-ctl{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1px solid var(--rule);background:rgba(255,254,250,0.92);color:var(--ink);font:inherit;font-size:13px;font-weight:500;cursor:pointer}
 .win-ctl:hover{background:#fff}
 .win-cap{padding:18px 20px 20px;font-size:15px;color:var(--ink-2);line-height:1.5}
 .win-cap strong{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
 .win-status{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-tint);border-radius:999px;padding:5px 10px}
-@media(min-width:860px){
-  .studio-grid{grid-template-columns:repeat(12,1fr);grid-auto-rows:min-content;align-items:start}
-  .win-explain{grid-column:1/8;grid-row:1/3}
-  .win-update{grid-column:8/13;grid-row:1;margin-top:48px}
-  .win-teach{grid-column:8/13;grid-row:2;margin-left:40px;margin-top:28px}
+.win-side{max-width:460px}
+.finished-grid{display:grid;gap:28px}
+@media(min-width:900px){
+  .tilt-r{transform:rotate(1.2deg)}
+  .tilt-l{transform:rotate(-1.2deg)}
+  .win:hover{transform:rotate(0)}
+  .win{transition:transform .35s cubic-bezier(0.22,0.61,0.36,1)}
+  .finished-grid{grid-template-columns:7fr 5fr;align-items:start}
+  .finished-grid .win-wide:last-child{margin-top:64px}
+  .media-left{grid-template-columns:0.95fr 1.05fr}
+  .media-left .win-side{margin-left:0}
+  .split .win-side{margin-left:auto}
 }
-/* small studio annotation hanging off the main window */
+/* small studio annotation hanging off the hero window */
 .annot{display:inline-flex;align-items:center;gap:8px;max-width:calc(100% - 2 * var(--px));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:7px 12px;box-shadow:var(--shadow-sm)}
 .annot b{font-weight:500;color:var(--ink)}
-.studio .annot{position:absolute;left:var(--px);top:8px;z-index:2}
+.annot-hero{position:absolute;right:calc(var(--px) + 8px);bottom:44px;z-index:2;display:none}
+@media(min-width:900px){.annot-hero{display:inline-flex}}
 
 /* Static first-frame compositions for examples whose loop is still in production */
 .comp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:7%}
@@ -161,7 +171,7 @@ p+p{margin-top:12px}
 .step p{color:var(--ink-2);font-size:16px}
 
 /* ---------- Founder note ---------- */
-.noteblock{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);max-width:720px}
+.noteblock{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);max-width:720px;margin-top:8px}
 .noteblock p{font-size:17px;color:var(--ink)}
 .noteblock .sig{margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:0.04em;color:var(--ink-2)}
 
