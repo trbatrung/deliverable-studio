@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept demo: course module (portrait 4:5)</title>
+<script>
+  // Portrait recomposition of demo-course-module.html for phones. Same scenes, words,
+  // timeline and beats (every scene start/end and data-in time is unchanged), so the
+  // two versions are interchangeable for the site's chapter seeking.
+  window.SCENE = { name: 'demo-course-module-45', width: 1080, height: 1350, fps: 30, duration: 57.5, kind: 'video', outWidth: 720, outHeight: 900, posterTime: 1.0 };
+</script>
+<style>
+  /* Same system as demo-course-module.html, scaled for a 1080x1350 portrait master */
+  html, body { margin: 0; width: 1080px; height: 1350px; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  [data-in] { will-change: transform, opacity; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; text-align: center; text-wrap: balance; }
+  .muted { color: #6B6763; }
+  .pill { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 12px 34px; white-space: nowrap; }
+  .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
+  .pill.band { background: #FEF3E2; color: #854F0B; }
+  .pill.red { background: #FBF1EE; color: #A32D2D; }
+  .card { background: #FCFBFA; border-radius: 40px; box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
+
+  /* Persistent course chrome */
+  #chrome { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; top: 84px; left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
+  .brand i { width: 44px; height: 44px; border-radius: 50%; border: 10px solid #E8940A; display: block; }
+  .bar { position: absolute; left: 72px; right: 72px; bottom: 92px; display: flex; gap: 12px; }
+  .seg { flex: 1; height: 10px; border-radius: 999px; background: #DDD6CD; overflow: hidden; }
+  .seg b { display: block; height: 100%; width: 100%; background: #E8940A; border-radius: 999px; transform-origin: left center; }
+  .seg.off b { transform: scaleX(0); }
+
+  /* (a) title slate */
+  #s-title { top: 0; bottom: 0; }
+  #s-title .demo { position: absolute; top: 84px; left: 50%; transform: translateX(-50%); }
+  #s-title .stack { display: flex; flex-direction: column; align-items: center; gap: 48px; margin-top: 20px; }
+  #s-title .h { font-size: 116px; }
+  .mini { display: flex; gap: 10px; width: 640px; }
+  .mini .seg { height: 12px; }
+  .mini-wrap { display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 8px; }
+  .mini-wrap .muted { font-size: 40px; text-align: center; text-wrap: balance; width: 840px; }
+
+  /* (b) objective */
+  #s-obj .wrap { width: 936px; display: flex; flex-direction: column; align-items: flex-start; gap: 44px; }
+  #s-obj .h { font-size: 84px; text-align: left; line-height: 1.16; }
+  #s-obj .h em { font-style: normal; color: #D18409; }
+  .w { display: inline-block; }
+
+  /* (c) framework: three cards stacked (as loop-carry-45) */
+  #s-frame .head { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 40px; }
+  #s-frame .h { font-size: 62px; width: 760px; }
+  .cards { display: flex; flex-direction: column; gap: 20px; width: 936px; }
+  .fcard { display: flex; align-items: center; gap: 36px; padding: 26px 44px 28px; }
+  .num { width: 92px; height: 92px; border-radius: 50%; background: #E8940A; color: #fff; font-size: 42px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fcard h3 { margin: 0 0 6px; font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; }
+  .fcard p { margin: 0; font-size: 40px; line-height: 1.3; color: #6B6763; text-wrap: balance; }
+
+  /* (d) worked example: Instead of / Try stacked */
+  #s-ex .head { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 30px; }
+  #s-ex .h { font-size: 62px; }
+  .excard { width: 936px; padding: 36px 44px 40px; display: flex; flex-direction: column; gap: 24px; }
+  .line { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .quote { font-size: 54px; line-height: 1.24; letter-spacing: -0.01em; text-wrap: pretty; }
+  .weak .quote { color: #6B6763; }
+  .weak .quote > span { display: block; }
+  .weak .quote > span > span { position: relative; display: inline-block; }
+  .strike { position: absolute; left: -4px; right: -4px; top: 54%; height: 5px; background: #A32D2D; border-radius: 999px; transform-origin: left center; }
+  .divider { height: 2px; background: #DDD6CD; }
+  .tags { display: flex; gap: 14px; }
+  .tags .pill { font-size: 36px; padding: 10px 26px; gap: 12px; }
+  .tags .pill b { width: 50px; height: 50px; border-radius: 50%; background: #E8940A; color: #fff; font-size: 34px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; margin-left: -12px; }
+
+  /* (e) recap (as loop-teach-45) */
+  #s-recap .head { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-bottom: 56px; }
+  #s-recap .h { font-size: 68px; width: 900px; }
+  .checks { display: flex; flex-direction: column; gap: 26px; width: 936px; }
+  .check { display: flex; align-items: center; gap: 36px; padding: 36px 44px; }
+  .box { width: 84px; height: 84px; border-radius: 50%; border: 3px solid #DDD6CD; position: relative; flex-shrink: 0; }
+  .box .fill { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; }
+  .box svg { position: absolute; inset: -3px; width: 84px; height: 84px; }
+  .box path { fill: none; stroke: #fff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+  .check span { font-size: 56px; line-height: 1.18; letter-spacing: -0.01em; text-wrap: balance; }
+
+  /* (f) next */
+  #s-next .stack { display: flex; flex-direction: column; align-items: center; gap: 44px; }
+  #s-next .h { font-size: 104px; width: 900px; }
+
+  /* (g) Deliverable slate */
+  #s-dlv { top: 0; bottom: 0; }
+  #s-dlv .word { font-size: 176px; font-weight: 500; letter-spacing: -0.03em; color: #E8940A; line-height: 1; }
+  #s-dlv .sub { font-size: 44px; color: #6B6763; margin-top: 48px; width: 820px; text-align: center; text-wrap: balance; line-height: 1.3; }
+</style>
+</head>
+<body>
+
+<!-- Persistent chrome: provider, module chip, eight-segment course bar -->
+<div id="chrome">
+  <div class="top">
+    <div class="brand"><i></i>Brightline Training</div>
+    <div class="pill outline" style="color:#141413">Module 3 of 8</div>
+  </div>
+  <div class="bar">
+    <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg" id="cur"><b></b></div>
+    <div class="seg off"><b></b></div><div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+    <div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+  </div>
+</div>
+
+<!-- (a) Title slate: also the poster frame -->
+<section class="scene" id="s-title" data-s="0" data-e="4.5">
+  <div class="pill outline demo">Concept demo</div>
+  <div class="stack">
+    <div class="pill band">Module 3 of 8</div>
+    <h1 class="h">Giving feedback<br>that lands</h1>
+    <div class="mini-wrap">
+      <div class="mini">
+        <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg"><b style="transform:scaleX(0.5)"></b></div>
+        <div class="seg off"><b></b></div><div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+        <div class="seg off"><b></b></div><div class="seg off"><b></b></div>
+      </div>
+      <div class="muted">Brightline Training, Leadership essentials</div>
+    </div>
+  </div>
+</section>
+
+<!-- (b) Learning objective -->
+<section class="scene" id="s-obj" data-s="4.5" data-e="12">
+  <div class="wrap">
+    <div class="eyebrow" data-in="4.8">Learning objective</div>
+    <h2 class="h" data-words="5.0">By the end of this module, you can give feedback that is <em>specific, fair and easy to act on.</em></h2>
+  </div>
+</section>
+
+<!-- (c) Three-step framework, cards stacked -->
+<section class="scene" id="s-frame" data-s="12" data-e="28">
+  <div class="head">
+    <div class="eyebrow" data-in="12.3">The framework</div>
+    <h2 class="h" data-in="12.5">Build feedback in three steps</h2>
+  </div>
+  <div class="cards">
+    <div class="card fcard" data-in="13.6" data-d="0.7">
+      <div class="num">1</div>
+      <div><h3>Observation</h3><p>Describe what you saw or heard, not what you assume.</p></div>
+    </div>
+    <div class="card fcard" data-in="18.2" data-d="0.7">
+      <div class="num">2</div>
+      <div><h3>Impact</h3><p>Explain the effect it had on the work, the team or you.</p></div>
+    </div>
+    <div class="card fcard" data-in="22.8" data-d="0.7">
+      <div class="num">3</div>
+      <div><h3>Request</h3><p>Ask for one specific change, and agree on it together.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- (d) Worked example, Instead of / Try stacked -->
+<section class="scene" id="s-ex" data-s="28" data-e="40">
+  <div class="head">
+    <div class="eyebrow" data-in="28.3">Worked example</div>
+    <h2 class="h" data-in="28.5">Same message, rewritten</h2>
+  </div>
+  <div class="card excard" data-in="29.0" data-d="0.7">
+    <div class="line weak">
+      <div class="pill red">Instead of</div>
+      <!-- Two set lines, each with its own strike; together they wipe over the source's 30.5 to 31.2 s -->
+      <div class="quote"><span><span>“You’re always late<span class="strike" data-in="30.5" data-fx="wipe" data-d="0.38"></span></span></span><span><span>with your reports.”<span class="strike" data-in="30.84" data-fx="wipe" data-d="0.36"></span></span></span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="line" data-in="31.4">
+      <div class="pill band">Try</div>
+      <div class="quote">“The last two reports arrived after Friday’s deadline, so the client update slipped. Can we agree on Thursday drafts?”</div>
+    </div>
+    <div class="tags">
+      <div class="pill outline" data-in="32.8" data-fx="scale" data-d="0.5"><b>1</b>Observation</div>
+      <div class="pill outline" data-in="33.3" data-fx="scale" data-d="0.5"><b>2</b>Impact</div>
+      <div class="pill outline" data-in="33.8" data-fx="scale" data-d="0.5"><b>3</b>Request</div>
+    </div>
+  </div>
+</section>
+
+<!-- (e) Recap checklist -->
+<section class="scene" id="s-recap" data-s="40" data-e="49.5">
+  <div class="head">
+    <div class="eyebrow" data-in="40.3">Recap</div>
+    <h2 class="h" data-in="40.5">Three checks before you give feedback</h2>
+  </div>
+  <div class="checks">
+    <div class="card check" data-in="41.0">
+      <div class="box"><div class="fill" data-in="41.8" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="42.0" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Describe what you saw, not what you assumed</span>
+    </div>
+    <div class="card check" data-in="42.8">
+      <div class="box"><div class="fill" data-in="43.6" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="43.8" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Name the impact on the work or the team</span>
+    </div>
+    <div class="card check" data-in="44.6">
+      <div class="box"><div class="fill" data-in="45.4" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="45.6" data-fx="draw" data-d="0.45"/></svg></div>
+      <span>Ask for one clear change you both agree on</span>
+    </div>
+  </div>
+</section>
+
+<!-- (f) Next module -->
+<section class="scene" id="s-next" data-s="49.5" data-e="53.5">
+  <div class="stack">
+    <div class="eyebrow" data-in="49.8">Module 3 complete</div>
+    <div class="pill band" data-in="50.1">Next: Module 4 of 8</div>
+    <h2 class="h" data-in="50.3">Handling pushback with care</h2>
+  </div>
+</section>
+
+<!-- (g) Deliverable closing slate -->
+<section class="scene" id="s-dlv" data-s="53.5" data-e="57.5">
+  <div class="word" data-in="53.8" data-d="0.7">Deliverable</div>
+  <div class="sub" data-in="54.2">Concept demo, built to show what’s possible</div>
+</section>
+
+<script>
+  const DUR = window.SCENE.duration;
+  // Entrance travel scaled with the layout (26 px on the 1280x720 source)
+  const RISE = 48;
+  // cubic-bezier(0.22,0.61,0.36,1)
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
+  const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+
+  // Split headline words into staggered spans (done once, synchronously at load)
+  document.querySelectorAll('[data-words]').forEach(h => {
+    let start = +h.dataset.words;
+    const walk = node => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const s = document.createElement('span');
+            s.className = 'w'; s.textContent = part;
+            s.dataset.in = start.toFixed(2); s.dataset.d = '0.55';
+            start += 0.07;
+            frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(h);
+  });
+
+  const scenes = [...document.querySelectorAll('.scene')].map(el => ({ el, s: +el.dataset.s, e: +el.dataset.e }));
+  const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
+  const chrome = document.getElementById('chrome');
+  const cur = document.querySelector('#cur b');
+  const C0 = 4.5, C1 = 53.5; // chrome visible window
+
+  window.seek = function (t) {
+    for (const sc of scenes) {
+      let o = 1;
+      if (sc.s > 0) o = Math.min(o, prog(t, sc.s, 0.4));
+      if (sc.e < DUR) o = Math.min(o, 1 - prog(t, sc.e - 0.4, 0.4));
+      if (t < sc.s || t >= sc.e) o = 0;
+      sc.el.style.opacity = o;
+      sc.el.style.visibility = o > 0.001 ? 'visible' : 'hidden';
+    }
+    for (const it of items) {
+      const k = prog(t, it.a, it.d), s = it.el.style;
+      switch (it.fx) {
+        case 'fade': s.opacity = k; break;
+        case 'wipe': s.transform = `scaleX(${k})`; s.opacity = k > 0 ? 1 : 0; break;
+        case 'draw': s.strokeDashoffset = 1 - k; s.opacity = k > 0 ? 1 : 0; break;
+        case 'pop': s.opacity = k; s.transform = `scale(${0.6 + 0.4 * k})`; break;
+        case 'scale': s.opacity = k; s.transform = `scale(${0.9 + 0.1 * k})`; break;
+        default: s.opacity = k; s.transform = `translateY(${(1 - k) * RISE}px)`;
+      }
+    }
+    // Chrome: fades in with scene (b), out before the Deliverable slate
+    const co = Math.min(prog(t, C0, 0.4), 1 - prog(t, C1 - 0.4, 0.4));
+    chrome.style.opacity = co;
+    chrome.style.visibility = co > 0.001 ? 'visible' : 'hidden';
+    // Current module segment fills across the lesson
+    cur.style.transform = `scaleX(${0.04 + 0.96 * lin(t, C0, 51 - C0)})`;
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

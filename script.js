@@ -43,25 +43,28 @@ function toggleMenu(){
   update();
 })();
 
+// Phones get the portrait 4:5 version of a video where one exists
+// (data-portrait="media/name-45"); everything else, and no-JS, keeps 16:9.
+(function portraitVideos(){
+  if(!window.matchMedia('(max-width:599px)').matches) return;
+  var vids = document.querySelectorAll('video[data-portrait]');
+  Array.prototype.forEach.call(vids, function(v){
+    var base = v.getAttribute('data-portrait');
+    Array.prototype.forEach.call(v.querySelectorAll('source'), function(src){
+      src.src = base + (src.type === 'video/webm' ? '.webm' : '.mp4');
+    });
+    v.poster = base + '.webp';
+    v.parentNode.classList.add('portrait');
+    v.load();
+  });
+})();
+
 // Example loops: muted, decorative, optional. Play only while visible and
 // never on their own under reduced motion; the video itself is the
 // keyboard-operable pause/play control.
 (function loops(){
   var vids = document.querySelectorAll('video.loop');
   if(!vids.length) return;
-  // Phones get the portrait 4:5 version where one exists (data-portrait="media/name-45").
-  if(window.matchMedia('(max-width:599px)').matches){
-    Array.prototype.forEach.call(vids, function(v){
-      var base = v.getAttribute('data-portrait');
-      if(!base) return;
-      Array.prototype.forEach.call(v.querySelectorAll('source'), function(src){
-        src.src = base + (src.type === 'video/webm' ? '.webm' : '.mp4');
-      });
-      v.poster = base + '.webp';
-      v.parentNode.classList.add('portrait');
-      v.load();
-    });
-  }
   var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
     entries.forEach(function(en){
@@ -129,6 +132,12 @@ function toggleMenu(){
         if(btn) btn.hidden = true;
         v.controls = true;
         v.currentTime = starts[i];
+        // On phones the list sits below the video: bring the video back into view.
+        var r = v.getBoundingClientRect();
+        if(r.top < 0 || r.bottom > window.innerHeight){
+          var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+          v.scrollIntoView({behavior: still ? 'auto' : 'smooth', block: 'center'});
+        }
         var p = v.play(); if(p && p.catch) p.catch(function(){});
       });
     });

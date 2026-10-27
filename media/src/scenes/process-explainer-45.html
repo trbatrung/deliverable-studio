@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Process explainer, portrait: how a project runs</title>
+<script>
+  // Portrait 4:5 recomposition of process-explainer.html for phones.
+  // Same scenes, words, beats and timeline (every data-s / data-e / data-in is unchanged, 47.4 s);
+  // rows that sat side by side are stacked, type is scaled up, the step track stays as the through-line.
+  window.SCENE = { name: 'process-explainer-45', width: 1080, height: 1350, fps: 30, duration: 47.4, kind: 'video', outWidth: 720, outHeight: 900, posterTime: 44.6 };
+</script>
+<style>
+  /* Visual language from process-explainer.html, scaled for a 1080 x 1350 portrait master. */
+  html, body { margin: 0; width: 1080px; height: 1350px; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  /* Content sits between the top row and the step track */
+  .scene { position: absolute; left: 0; right: 0; top: 150px; bottom: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  [data-in] { will-change: transform, opacity; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  .eyebrow b { font-weight: 500; color: #D18409; margin-right: 6px; }
+  .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; text-align: center; text-wrap: balance; }
+  .sub { font-size: 44px; line-height: 1.32; color: #6B6763; margin: 0; text-align: center; text-wrap: balance; letter-spacing: -0.01em; }
+  .say { font-size: 56px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.18; margin: 0; text-align: center; text-wrap: balance; }
+  .muted { color: #6B6763; }
+  .pill { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 10px 32px; white-space: nowrap; line-height: 1.2; }
+  .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
+  .card { background: #FCFBFA; border-radius: 36px; box-shadow: 0 18px 36px rgba(0,0,0,0.06); position: relative; }
+  .head { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .w { display: inline-block; }
+
+  /* Persistent chrome: studio name, label, six-stop step track */
+  #chrome { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; top: 68px; left: 80px; right: 80px; display: flex; justify-content: space-between; align-items: center; }
+  .firm { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
+  .firm i { width: 50px; height: 50px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 26px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .track { position: absolute; left: 80px; right: 80px; bottom: 92px; height: 3px; background: #DDD6CD; border-radius: 999px; }
+  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
+  .track .stop { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #DDD6CD; }
+  .track .stop.on { background: #E8940A; }
+  .track .stop span { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); font-size: 40px; font-weight: 500; color: #B4ADA5; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .track .stop.on span { color: #854F0B; }
+  .track .stop.cur span { color: #141413; }
+  .track .dot { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #E8940A; }
+
+  /* Reusable approval badge: lands on the thing being approved */
+  .approval { position: absolute; display: inline-flex; align-items: center; gap: 16px; background: #E8940A; color: #fff; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; padding: 12px 34px 12px 12px; border-radius: 999px; box-shadow: 0 14px 30px rgba(0,0,0,0.10); white-space: nowrap; z-index: 3; line-height: 1.2; }
+  .approval .tick { width: 52px; height: 52px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
+  .approval svg { width: 34px; height: 34px; }
+  .approval path { fill: none; stroke: #E8940A; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .card .approval { top: -38px; right: -40px; }
+  .ring { position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 3px #E8940A; pointer-events: none; }
+
+  /* The project's own picture, reused as style frame, plan, piece and files */
+  .motif { position: relative; background: #F2E3C4; border-radius: 14px; overflow: hidden; flex-shrink: 0; }
+  .motif > i { position: absolute; display: block; border-radius: 999px; }
+  .motif .b1 { left: 9%; top: 30%; width: 40%; height: 9%; background: #141413; }
+  .motif .b2 { left: 9%; top: 47%; width: 30%; height: 6%; background: #C2B191; }
+  .motif .b3 { left: 9%; top: 59%; width: 34%; height: 6%; background: #C2B191; }
+  .motif .c { right: 10%; top: 50%; width: 30%; aspect-ratio: 1; transform: translateY(-50%); background: #FCFBFA; border-radius: 50%; }
+  .motif .c .d { position: absolute; left: 36%; top: 36%; width: 28%; height: 28%; border-radius: 50%; background: #E8940A; }
+  .motif.sq .b1 { top: 64%; width: 60%; height: 7%; }
+  .motif.sq .b2 { top: 76%; width: 44%; height: 5%; }
+  .motif.sq .b3 { display: none; }
+  .motif.sq .c { top: 32%; right: 12%; width: 40%; }
+  .motif.vt .c { left: 20%; right: auto; top: 30%; width: 60%; }
+  .motif.vt .b1 { left: 14%; top: 62%; width: 72%; height: 5%; }
+  .motif.vt .b2 { left: 14%; top: 71%; width: 54%; height: 3.5%; }
+  .motif.vt .b3 { left: 14%; top: 78%; width: 62%; height: 3.5%; }
+  .motif.noc .c { display: none; }
+  .motif.nob .b1, .motif.nob .b2, .motif.nob .b3 { display: none; }
+  .motif.cc .c { right: auto; left: 50%; transform: translate(-50%, -50%); width: 44%; }
+
+  /* (0) opening */
+  #s-open .stack { display: flex; flex-direction: column; align-items: center; gap: 56px; }
+  #s-open .h { font-size: 104px; width: 900px; line-height: 1.08; }
+  .rule { width: 104px; height: 6px; border-radius: 999px; background: #E8940A; }
+
+  /* (1) inputs: four cards as a 2 x 2 grid */
+  #s1 .head { margin-bottom: 60px; }
+  #s1 .h { font-size: 68px; width: 900px; }
+  .inputs { display: grid; grid-template-columns: 440px 440px; gap: 28px; margin-bottom: 56px; }
+  .input { height: 220px; padding: 38px 36px 34px; display: flex; flex-direction: column; justify-content: space-between; }
+  .input svg { width: 90px; height: 70px; }
+  .input svg * { fill: none; stroke: #6B6763; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .input svg .f { fill: #E3E9EA; }
+  .input span { font-size: 48px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.12; }
+  #s1 .sub { width: 880px; }
+
+  /* (2) script */
+  #s2 .head { margin-bottom: 64px; }
+  #s2 .h { font-size: 64px; width: 920px; }
+  .script { width: 780px; padding: 46px 62px; display: flex; flex-direction: column; gap: 28px; margin-bottom: 56px; }
+  .sec { display: flex; flex-direction: column; gap: 15px; }
+  .sec .t { height: 22px; border-radius: 999px; background: #141413; transform-origin: left center; }
+  .sec .l { height: 15px; border-radius: 999px; background: #DDD6CD; transform-origin: left center; }
+  #s2 .say { width: 900px; }
+
+  /* (3) visual approach: style frame above, scene plan below */
+  #s3 .head { margin-bottom: 58px; gap: 16px; }
+  #s3 .h { font-size: 64px; width: 940px; }
+  .visual { display: flex; flex-direction: column; align-items: stretch; gap: 24px; padding: 28px; margin-bottom: 40px; }
+  .plan { display: flex; gap: 16px; }
+  .shot { display: flex; flex-direction: column; gap: 14px; }
+  .len { height: 10px; border-radius: 999px; background: #DDD6CD; position: relative; overflow: hidden; }
+  .len b { position: absolute; left: 0; top: 0; bottom: 0; background: #6B6763; border-radius: 999px; transform-origin: left center; }
+  .vdiv { height: 2px; align-self: stretch; background: #DDD6CD; }
+  #s3 .say { width: 900px; }
+
+  /* (4) production: three steps as stacked rows */
+  #s4 .eyebrow { margin-bottom: 52px; }
+  .prod { display: flex; flex-direction: column; gap: 26px; margin-bottom: 64px; width: 840px; }
+  .pcard { height: 178px; padding: 0 48px; display: flex; flex-direction: row; align-items: center; gap: 40px; }
+  .pcard span { font-size: 60px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.08; }
+  .pcard small { display: block; font-size: 44px; font-weight: 400; color: #6B6763; letter-spacing: -0.01em; margin-top: 8px; line-height: 1.1; }
+  .box { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #DDD6CD; position: relative; flex-shrink: 0; }
+  .box .fill { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; }
+  .box svg { position: absolute; inset: -3px; width: 80px; height: 80px; }
+  .box path { fill: none; stroke: #fff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+  #s4 .h { font-size: 72px; width: 900px; }
+
+  /* (5) review and delivery: piece above, files below */
+  #s5 .head { margin-bottom: 36px; }
+  #s5 .h { font-size: 72px; }
+  .deliver { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-bottom: 40px; }
+  .piece { padding: 20px; border-radius: 30px; }
+  .pinw { position: absolute; inset: 0; }
+  .pin { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #E8940A; border: 6px solid #FCFBFA; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
+  .arrow { width: 66px; height: 30px; }
+  .arrow path { fill: none; stroke: #B4ADA5; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow.down { width: 30px; height: 56px; }
+  .files { display: flex; align-items: center; gap: 30px; }
+  .filew { filter: drop-shadow(0 14px 22px rgba(0,0,0,0.07)); }
+  .file { background: #FCFBFA; padding: 14px; border-radius: 16px; position: relative; clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%); }
+  .file::after { content: ''; position: absolute; top: 0; right: 0; width: 30px; height: 30px; background: #DDD6CD; clip-path: polygon(0 0, 100% 100%, 0 100%); border-bottom-left-radius: 6px; }
+  #s5 .sub { width: 900px; }
+
+  /* (6) updates later: approved card above, updated card below */
+  #s6 .head { margin-bottom: 50px; }
+  #s6 .h { font-size: 62px; width: 940px; }
+  .update { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-bottom: 36px; }
+  .ucard { padding: 16px; border-radius: 30px; }
+  .ok { position: absolute; top: -20px; right: -20px; width: 54px; height: 54px; border-radius: 50%; background: #E8940A; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(0,0,0,0.10); }
+  .ok svg { width: 34px; height: 34px; }
+  .ok path { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .motif .n2 { left: 9%; top: 47%; width: 22%; height: 6%; background: #141413; opacity: 0; }
+  .motif .n3 { left: 9%; top: 59%; width: 38%; height: 6%; background: #141413; opacity: 0; }
+  .motif .chg { position: absolute; left: 5%; top: 41%; width: 46%; height: 30%; border-radius: 14px; box-shadow: inset 0 0 0 4px #E8940A; }
+  #s6 .sub { width: 900px; }
+
+  /* (7) close */
+  #s-close .h { font-size: 68px; width: 920px; margin-bottom: 84px; }
+  .steps { position: relative; width: 920px; height: 196px; }
+  .steps .line { position: absolute; left: 42px; right: 42px; top: 41px; height: 3px; background: #DDD6CD; }
+  .steps .n { position: absolute; top: 0; width: 84px; height: 84px; border-radius: 50%; background: #FCFBFA; border: 3px solid #DDD6CD; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 500; color: #141413; font-variant-numeric: tabular-nums; }
+  .steps .approval { top: 118px; }
+  .steps .stem { position: absolute; top: 48px; width: 3px; height: 70px; margin-left: -1.5px; background: #E8940A; transform-origin: 50% 0; }
+
+  /* (8) end card */
+  #s-end { top: 0; bottom: 0; }
+  #s-end .word { font-size: 168px; font-weight: 500; letter-spacing: -0.03em; color: #E8940A; line-height: 1; }
+</style>
+</head>
+<body>
+
+<div id="chrome">
+  <div class="top">
+    <div class="firm"><i>D</i>Deliverable</div>
+    <div class="pill outline">How a project runs</div>
+  </div>
+  <div class="track">
+    <div class="done"></div>
+    <div class="stop"><span>01</span></div><div class="stop"><span>02</span></div><div class="stop"><span>03</span></div>
+    <div class="stop"><span>04</span></div><div class="stop"><span>05</span></div><div class="stop"><span>06</span></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<!-- All data-in / data-words times inside a scene are relative to that scene's data-s (same values as the 16:9 source). -->
+
+<!-- (0) Opening, settled at t = 0 -->
+<section class="scene" id="s-open" data-s="0" data-e="3">
+  <div class="stack">
+    <h1 class="h">From your material to a finished file.</h1>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<!-- (1) Inputs -->
+<section class="scene" id="s1" data-s="3" data-e="9" data-step="0">
+  <div class="head">
+    <div class="eyebrow" data-in="0.25"><b>01</b>Inputs</div>
+    <h2 class="h" data-words="0.4">You bring what you already have.</h2>
+  </div>
+  <div class="inputs">
+    <div class="card input" data-in="1.0">
+      <svg viewBox="0 0 56 44"><rect class="f" x="8" y="3" width="34" height="38" rx="4"/><path d="M15 14 H35 M15 22 H31 M15 30 H26"/></svg>
+      <span>A rough brief</span>
+    </div>
+    <div class="card input" data-in="1.3">
+      <svg viewBox="0 0 56 44"><rect class="f" x="3" y="6" width="50" height="30" rx="4"/><path d="M11 16 H31 M11 24 H23"/><circle cx="42" cy="21" r="5"/></svg>
+      <span>A presentation</span>
+    </div>
+    <div class="card input" data-in="1.6">
+      <svg viewBox="0 0 56 44"><rect class="f" x="3" y="6" width="50" height="30" rx="4"/><path d="M24 14 L34 21 L24 28 Z"/></svg>
+      <span>A walkthrough</span>
+    </div>
+    <div class="card input" data-in="1.9">
+      <svg viewBox="0 0 56 44"><path class="f" d="M5 8 a4 4 0 0 1 4 -4 h22 a4 4 0 0 1 4 4 v12 a4 4 0 0 1 -4 4 h-14 l-7 6 v-6 h-1 a4 4 0 0 1 -4 -4 z"/><path class="f" d="M23 22 a4 4 0 0 1 4 -4 h20 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-1 v6 l-7 -6 h-12 a4 4 0 0 1 -4 -4 z"/></svg>
+      <span>A conversation</span>
+    </div>
+  </div>
+  <p class="sub" data-in="2.5">You do not need a script or any animation vocabulary.</p>
+</section>
+
+<!-- (2) Message and script, Approval 1 -->
+<section class="scene" id="s2" data-s="9" data-e="15.4" data-step="1">
+  <div class="head">
+    <div class="eyebrow" data-in="0.25"><b>02</b>Message and script</div>
+    <h2 class="h" data-words="0.4">I propose the structure and write or refine the script.</h2>
+  </div>
+  <div class="card script" data-in="1.0">
+    <div class="sec"><div class="t" style="width:255px" data-in="1.35" data-fx="wipe" data-d="0.4"></div><div class="l" style="width:100%" data-in="1.8" data-fx="wipe" data-d="0.35"></div><div class="l" style="width:72%" data-in="1.92" data-fx="wipe" data-d="0.35"></div></div>
+    <div class="sec"><div class="t" style="width:323px" data-in="1.5" data-fx="wipe" data-d="0.4"></div><div class="l" style="width:94%" data-in="2.04" data-fx="wipe" data-d="0.35"></div><div class="l" style="width:84%" data-in="2.16" data-fx="wipe" data-d="0.35"></div></div>
+    <div class="sec"><div class="t" style="width:204px" data-in="1.65" data-fx="wipe" data-d="0.4"></div><div class="l" style="width:98%" data-in="2.28" data-fx="wipe" data-d="0.35"></div><div class="l" style="width:58%" data-in="2.4" data-fx="wipe" data-d="0.35"></div></div>
+    <div class="ring" data-in="3.0" data-fx="fade" data-d="0.4"></div>
+    <div class="approval" data-in="2.95" data-fx="land" data-d="0.5"><span class="tick"><svg viewBox="0 0 24 24"><path d="M6 12.5 L10 16.5 L18 8"/></svg></span>Approval 1</div>
+  </div>
+  <p class="say" data-in="3.15">You approve it before anything is designed.</p>
+</section>
+
+<!-- (3) Visual approach, Approval 2 -->
+<section class="scene" id="s3" data-s="15.4" data-e="22.2" data-step="2">
+  <div class="head">
+    <div class="eyebrow" data-in="0.25"><b>03</b>Visual approach</div>
+    <h2 class="h" data-words="0.4">A style frame and a scene plan</h2>
+    <p class="sub" data-in="0.95">What is shown, when, and for how long.</p>
+  </div>
+  <div class="card visual" data-in="1.1">
+    <div class="motif" style="width:520px;height:293px"></div>
+    <div class="vdiv"></div>
+    <div class="plan">
+      <div class="shot" data-in="1.5"><div class="motif noc" style="width:118px;height:66px"></div><div class="len"><b style="width:46%" data-in="1.9" data-fx="wipe" data-d="0.4"></b></div></div>
+      <div class="shot" data-in="1.62"><div class="motif nob cc" style="width:118px;height:66px"></div><div class="len"><b style="width:72%" data-in="2.02" data-fx="wipe" data-d="0.4"></b></div></div>
+      <div class="shot" data-in="1.74"><div class="motif" style="width:118px;height:66px"></div><div class="len"><b style="width:100%" data-in="2.14" data-fx="wipe" data-d="0.4"></b></div></div>
+      <div class="shot" data-in="1.86"><div class="motif noc" style="width:118px;height:66px"></div><div class="len"><b style="width:58%" data-in="2.26" data-fx="wipe" data-d="0.4"></b></div></div>
+    </div>
+    <div class="ring" data-in="2.95" data-fx="fade" data-d="0.4"></div>
+    <div class="approval" data-in="2.9" data-fx="land" data-d="0.5"><span class="tick"><svg viewBox="0 0 24 24"><path d="M6 12.5 L10 16.5 L18 8"/></svg></span>Approval 2</div>
+  </div>
+  <p class="say" data-in="3.1">You approve it before animation starts.</p>
+</section>
+
+<!-- (4) Production -->
+<section class="scene" id="s4" data-s="22.2" data-e="27.6" data-step="3">
+  <div class="eyebrow" data-in="0.25"><b>04</b>Production</div>
+  <div class="prod">
+    <div class="card pcard" data-in="0.35">
+      <div class="box"><div class="fill" data-in="1.75" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="1.9" data-fx="draw" data-d="0.4"/></svg></div>
+      <span>Animation</span>
+    </div>
+    <div class="card pcard" data-in="0.6">
+      <div class="box"><div class="fill" data-in="1.9" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="2.05" data-fx="draw" data-d="0.4"/></svg></div>
+      <span>Editing</span>
+    </div>
+    <div class="card pcard" data-in="0.85">
+      <div class="box"><div class="fill" data-in="2.05" data-fx="pop" data-d="0.4"></div><svg viewBox="0 0 46 46"><path pathLength="1" d="M14 23.5 L20.5 30 L32.5 17" data-in="2.2" data-fx="draw" data-d="0.4"/></svg></div>
+      <span>Audio or captions<small>where agreed</small></span>
+    </div>
+  </div>
+  <h2 class="h" data-words="1.3">I direct and check the result.</h2>
+</section>
+
+<!-- (5) Review and delivery: the piece starts centred, then moves up as the files arrive below it -->
+<section class="scene" id="s5" data-s="27.6" data-e="34.4" data-step="4">
+  <div class="head">
+    <div class="eyebrow" data-in="0.25"><b>05</b>Review and delivery</div>
+    <h2 class="h" data-words="0.4">You review the piece.</h2>
+  </div>
+  <div class="deliver">
+    <div id="pieceshift" data-fx="shift" data-in="2.4" data-d="0.8">
+      <div class="card piece" data-in="0.7">
+        <div class="motif" style="width:448px;height:252px"></div>
+        <div class="pinw" data-in="2.2" data-fx="out" data-d="0.35"><div class="pin" style="left:95px;top:78px" data-in="1.0" data-fx="pop" data-d="0.4"></div></div>
+        <div class="pinw" data-in="2.2" data-fx="out" data-d="0.35"><div class="pin" style="left:392px;top:52px" data-in="1.2" data-fx="pop" data-d="0.4"></div></div>
+      </div>
+    </div>
+    <svg class="arrow down" viewBox="0 0 20 44" data-in="2.75" data-fx="fade" data-d="0.4"><path d="M10 3 V39 M3 31 L10 39 L17 31"/></svg>
+    <div class="files">
+      <div class="filew" data-in="2.85"><div class="file"><div class="motif" style="width:248px;height:140px"></div></div></div>
+      <div class="filew" data-in="3.0"><div class="file"><div class="motif sq" style="width:160px;height:160px"></div></div></div>
+      <div class="filew" data-in="3.15"><div class="file"><div class="motif vt" style="width:114px;height:202px"></div></div></div>
+    </div>
+  </div>
+  <p class="sub" data-in="2.6">Revisions within the agreed scope, then final files in the formats you need.</p>
+</section>
+
+<!-- (6) Updates later: the updated copy slides down out of the approved one -->
+<section class="scene" id="s6" data-s="34.4" data-e="40.4" data-step="5">
+  <div class="head">
+    <div class="eyebrow" data-in="0.25"><b>06</b>Updates later</div>
+    <h2 class="h" data-words="0.4">When something changes, the update is scoped by what changed.</h2>
+  </div>
+  <div class="update">
+    <div class="card ucard" id="ucard1" data-in="1.0">
+      <div class="motif" style="width:352px;height:198px"></div>
+      <div class="ok"><svg viewBox="0 0 24 24"><path d="M6 12.5 L10 16.5 L18 8"/></svg></div>
+    </div>
+    <svg class="arrow down" viewBox="0 0 20 44" data-in="1.45" data-fx="fade" data-d="0.4"><path d="M10 3 V39 M3 31 L10 39 L17 31"/></svg>
+    <div class="card ucard" id="ucard2" data-in="1.45" data-fx="slide" data-d="0.75">
+      <div class="motif" style="width:352px;height:198px">
+        <i class="b1"></i>
+        <i class="b2" data-in="2.3" data-fx="out" data-d="0.4"></i><i class="b3" data-in="2.3" data-fx="out" data-d="0.4"></i>
+        <i class="n2" data-in="2.35" data-fx="fade" data-d="0.4"></i><i class="n3" data-in="2.35" data-fx="fade" data-d="0.4"></i>
+        <i class="c"><i class="d"></i></i>
+        <div class="chg" data-in="2.25" data-fx="scale" data-d="0.45"></div>
+      </div>
+    </div>
+  </div>
+  <p class="sub" data-in="2.75">Approved layouts and styles carry forward.</p>
+</section>
+
+<!-- (7) Close: badges hang from stems between 02 and 03, and between 03 and 04; they open outward so they do not collide -->
+<section class="scene" id="s-close" data-s="40.4" data-e="45.2">
+  <h2 class="h" data-words="0.3">Two approval points before animation starts, so nothing is a surprise.</h2>
+  <div class="steps" data-in="1.0" data-fx="fade" data-d="0.5">
+    <div class="line"></div>
+    <div class="n" data-k="0">01</div><div class="n" data-k="1">02</div><div class="n" data-k="2">03</div>
+    <div class="n" data-k="3">04</div><div class="n" data-k="4">05</div><div class="n" data-k="5">06</div>
+    <div class="stem" data-k="1.5" data-in="1.6" data-fx="grow" data-d="0.35"></div>
+    <div class="stem" data-k="2.5" data-in="1.9" data-fx="grow" data-d="0.35"></div>
+    <div class="approval" data-k="1.5" data-side="left" data-in="1.75" data-fx="land" data-d="0.5"><span class="tick"><svg viewBox="0 0 24 24"><path d="M6 12.5 L10 16.5 L18 8"/></svg></span>Approval 1</div>
+    <div class="approval" data-k="2.5" data-side="right" data-in="2.05" data-fx="land" data-d="0.5"><span class="tick"><svg viewBox="0 0 24 24"><path d="M6 12.5 L10 16.5 L18 8"/></svg></span>Approval 2</div>
+  </div>
+</section>
+
+<!-- (8) End card -->
+<section class="scene" id="s-end" data-s="45.2" data-e="47.4">
+  <div class="word" data-in="0.1" data-d="0.7">Deliverable</div>
+</section>
+
+<script>
+  const DUR = window.SCENE.duration;
+  const K = 1.6;   // source translate distances scaled with the type
+  // cubic-bezier(0.22,0.61,0.36,1)
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
+
+  // Fill empty motif boxes with the project's picture (synchronously, at load)
+  document.querySelectorAll('.motif').forEach(m => {
+    if (!m.children.length) m.innerHTML = '<i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="c"><i class="d"></i></i>';
+  });
+
+  // Close scene: six numbered stops across the width; stems at the midpoints; badges open outward from their stems
+  {
+    const steps = document.querySelector('.steps');
+    const W = steps.offsetWidth, N = 84, gap = (W - N) / 5, cx = k => N / 2 + k * gap, INSET = 46;
+    steps.querySelectorAll('.n').forEach(n => { n.style.left = (cx(+n.dataset.k) - N / 2) + 'px'; });
+    steps.querySelectorAll('.stem').forEach(s => { s.style.left = cx(+s.dataset.k) + 'px'; });
+    steps.querySelectorAll('.approval').forEach(b => {
+      const x = cx(+b.dataset.k), w = b.offsetWidth;
+      if (b.dataset.side === 'left') { b.style.left = (x + INSET - w) + 'px'; b.style.transformOrigin = `${w - INSET}px 0`; }
+      else { b.style.left = (x - INSET) + 'px'; b.style.transformOrigin = `${INSET}px 0`; }
+    });
+  }
+
+  // Review: the piece starts centred in the delivery column, then moves up to make room for the files
+  {
+    const sh = document.getElementById('pieceshift'), col = sh.parentElement;
+    sh.dataset.dy = (col.offsetHeight / 2 - (sh.offsetTop - col.offsetTop + sh.offsetHeight / 2)).toFixed(1);
+  }
+  // Updates: the second card starts on top of the first and slides down into place
+  {
+    const a = document.getElementById('ucard1'), b = document.getElementById('ucard2');
+    b.dataset.dy = (a.offsetTop - b.offsetTop).toFixed(1);
+  }
+
+  // Relative times: every data-in / data-words inside a scene is offset by the scene start
+  const sceneStart = el => { const s = el.closest('.scene'); return s ? +s.dataset.s : 0; };
+
+  // Split headline words into staggered spans (done once, at load)
+  document.querySelectorAll('[data-words]').forEach(h => {
+    let start = +h.dataset.words + sceneStart(h);
+    const walk = node => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const s = document.createElement('span');
+            s.className = 'w'; s.textContent = part;
+            s.dataset.abs = start.toFixed(2); s.dataset.d = '0.55';
+            start += 0.07;
+            frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(h);
+  });
+
+  const scenes = [...document.querySelectorAll('.scene')].map(el => ({ el, s: +el.dataset.s, e: +el.dataset.e }));
+  const items = [
+    ...[...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in + sceneStart(el) })),
+    ...[...document.querySelectorAll('[data-abs]')].map(el => ({ el, a: +el.dataset.abs })),
+  ].map(o => ({ ...o, d: +(o.el.dataset.d || 0.6), fx: o.el.dataset.fx || 'up', dx: +(o.el.dataset.dx || 0), dy: +(o.el.dataset.dy || 0) }));
+
+  // Step track: six stops, one per step; the dot eases to the next stop as each step opens
+  const chrome = document.getElementById('chrome');
+  const C1 = +document.getElementById('s-end').dataset.s, CLOSE = +document.getElementById('s-close').dataset.s;
+  const track = document.querySelector('.track');
+  const TW = track.offsetWidth;
+  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
+  const stops = [...document.querySelectorAll('.track .stop')];
+  const stepAt = [...document.querySelectorAll('.scene[data-step]')].map(el => +el.dataset.s);
+  const xs = stops.map((_, i) => i / (stops.length - 1) * TW);
+  stops.forEach((el, i) => { el.style.left = xs[i] + 'px'; });
+  const MOVE = 0.8;
+
+  window.seek = function (t) {
+    for (const sc of scenes) {
+      let o = 1;
+      if (sc.s > 0) o = Math.min(o, prog(t, sc.s, 0.4));
+      if (sc.e < DUR) o = Math.min(o, 1 - prog(t, sc.e - 0.4, 0.4));
+      if (t < sc.s || t >= sc.e) o = 0;
+      sc.el.style.opacity = o;
+      sc.el.style.visibility = o > 0.001 ? 'visible' : 'hidden';
+    }
+    for (const it of items) {
+      const k = prog(t, it.a, it.d), s = it.el.style;
+      switch (it.fx) {
+        case 'fade': s.opacity = k; break;
+        case 'out': s.opacity = 1 - k; break;
+        case 'wipe': s.transform = `scaleX(${k})`; s.opacity = k > 0 ? 1 : 0; break;
+        case 'grow': s.transform = `scaleY(${k})`; s.opacity = k > 0 ? 1 : 0; break;
+        case 'draw': s.strokeDashoffset = 1 - k; s.opacity = k > 0 ? 1 : 0; break;
+        case 'pop': s.opacity = k; s.transform = `scale(${0.6 + 0.4 * k})`; break;
+        case 'scale': s.opacity = k; s.transform = `scale(${0.9 + 0.1 * k})`; break;
+        case 'land': s.opacity = Math.min(1, k * 1.6); s.transform = `translateY(${(1 - k) * -14 * K}px) scale(${1.28 - 0.28 * k})`; break;
+        case 'shift': s.transform = `translate(${(1 - k) * it.dx}px, ${(1 - k) * it.dy}px)`; break;
+        case 'slide': s.opacity = Math.min(1, k * 1.5); s.transform = `translate(${(1 - k) * it.dx}px, ${(1 - k) * it.dy}px)`; break;
+        default: s.opacity = k; s.transform = `translateY(${(1 - k) * 26 * K}px)`;
+      }
+    }
+    // Chrome is on from the first frame and leaves before the end card
+    const co = 1 - prog(t, C1 - 0.4, 0.4);
+    chrome.style.opacity = co;
+    chrome.style.visibility = co > 0.001 ? 'visible' : 'hidden';
+    track.style.opacity = 1 - prog(t, CLOSE, 0.4);
+    let x = 0, cur = -1;
+    for (let i = 0; i < stepAt.length; i++) {
+      if (t >= stepAt[i]) cur = i;
+      if (i > 0) x = x + (xs[i] - xs[i - 1]) * prog(t, stepAt[i], MOVE);
+    }
+    done.style.width = x + 'px';
+    dot.style.left = x + 'px';
+    dot.style.opacity = prog(t, stepAt[0], 0.4);
+    stops.forEach((el, i) => {
+      const lit = i === 0 ? t >= stepAt[0] + 0.2 : t >= stepAt[i] + MOVE * 0.6;
+      el.classList.toggle('on', lit);
+      el.classList.toggle('cur', i === cur && lit);
+    });
+  };
+  window.seek(0);
+</script>
+</body>
+</html>
