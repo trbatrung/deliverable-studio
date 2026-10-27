@@ -4,10 +4,12 @@
 <meta charset="utf-8">
 <title>Loop: carry (portrait 4:5)</title>
 <script>
-  // Portrait recomposition of media/loop-carry.mp4: 3.5 s of demo-course-module.html s-frame
-  // from source 24.0 s, straight cut to 3.5 s of demo-explainer.html s-three from source 26.0 s.
+  // Portrait recomposition of media/loop-carry.mp4: 3.75 s of demo-course-module.html s-frame,
+  // straight cut to 3.75 s of demo-explainer.html s-three. Site loop: each half builds its head and
+  // three cards in, with each piece's own entrance (the explainer keeps its number pop), on a
+  // compressed clock so the loop keeps moving; no progress bar or rail, a "Concept piece" pill.
   // Same 0.25 s fade in and out to #F7F4F1 at the loop ends only.
-  window.SCENE = { name: 'loop-carry-45', width: 1080, height: 1350, fps: 30, duration: 7, posterTime: 1.0, kind: 'loop', outWidth: 720, outHeight: 900 };
+  window.SCENE = { name: 'loop-carry-45', width: 1080, height: 1350, fps: 30, duration: 7.5, posterTime: 3.2, kind: 'loop', outWidth: 720, outHeight: 900 };
 </script>
 <style>
   /* Shared system of demo-course-module.html and demo-explainer.html, scaled for 1080x1350 */
@@ -28,27 +30,24 @@
   /* Course chrome (piece A) */
   .brand { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
   .brand i { width: 44px; height: 44px; border-radius: 50%; border: 10px solid #E8940A; display: block; }
-  .bar { position: absolute; left: 72px; right: 72px; bottom: 92px; display: flex; gap: 12px; }
-  .seg { flex: 1; height: 10px; border-radius: 999px; background: #DDD6CD; overflow: hidden; }
-  .seg b { display: block; height: 100%; width: 100%; background: #E8940A; border-radius: 999px; transform-origin: left center; }
-  .seg.off b { transform: scaleX(0); }
+  /* Quiet concept label where the course bar sat */
+  .tag { position: absolute; bottom: 66px; left: 50%; transform: translateX(-50%); font-size: 34px; padding: 6px 24px; }
 
   /* Explainer chrome (piece B) */
   .firm { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
   .firm i { width: 50px; height: 50px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 27px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
-  .track { position: absolute; left: 72px; right: 72px; bottom: 96px; height: 3px; background: #DDD6CD; border-radius: 999px; }
-  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
-  .track .stop { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #DDD6CD; }
-  .track .stop.on { background: #E8940A; }
-  .track .dot { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #E8940A; }
 
   /* Settled content: head plus three numbered cards stacked, same layout in both pieces */
-  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .head { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 40px; }
   .head .h { font-size: 62px; width: 760px; }
   .stack { display: flex; flex-direction: column; gap: 20px; width: 936px; }
   .item { display: flex; align-items: center; gap: 36px; padding: 26px 44px 28px; }
   .num { width: 92px; height: 92px; border-radius: 50%; background: #E8940A; color: #fff; font-size: 42px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  /* Explainer numbers: outlined, then the amber fill pops in (as demo-explainer-45) */
+  .tnum { width: 92px; height: 92px; border-radius: 50%; border: 3px solid #DDD6CD; position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 42px; font-weight: 500; color: #6B6763; }
+  .tnum b { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+  [data-in] { will-change: transform, opacity; }
   .item h3 { margin: 0 0 6px; font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; }
   .item p { margin: 0; font-size: 40px; line-height: 1.3; color: #6B6763; text-wrap: balance; }
 
@@ -57,51 +56,41 @@
 </head>
 <body>
 
-<!-- Piece A: course module, "The framework" settled (source 24.0 to 26.5 s) -->
+<!-- Piece A: course module, "The framework" building in. data-in times are loop seconds. -->
 <div class="piece" id="A">
   <div class="top">
     <div class="brand"><i></i>Brightline Training</div>
     <div class="pill outline" style="color:#141413">Module 3 of 8</div>
   </div>
-  <div class="bar">
-    <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg" id="cur"><b></b></div>
-    <div class="seg off"><b></b></div><div class="seg off"><b></b></div><div class="seg off"><b></b></div>
-    <div class="seg off"><b></b></div><div class="seg off"><b></b></div>
-  </div>
+  <div class="pill outline tag">Concept piece</div>
   <section class="scene">
     <div class="head">
-      <div class="eyebrow">The framework</div>
-      <h2 class="h">Build feedback in three steps</h2>
+      <div class="eyebrow" data-in="0.2">The framework</div>
+      <h2 class="h" data-in="0.35">Build feedback in three steps</h2>
     </div>
     <div class="stack">
-      <div class="card item"><div class="num">1</div><div><h3>Observation</h3><p>Describe what you saw or heard, not what you assume.</p></div></div>
-      <div class="card item"><div class="num">2</div><div><h3>Impact</h3><p>Explain the effect it had on the work, the team or you.</p></div></div>
-      <div class="card item"><div class="num">3</div><div><h3>Request</h3><p>Ask for one specific change, and agree on it together.</p></div></div>
+      <div class="card item" data-in="0.65" data-d="0.7"><div class="num">1</div><div><h3>Observation</h3><p>Describe what you saw or heard, not what you assume.</p></div></div>
+      <div class="card item" data-in="1.15" data-d="0.7"><div class="num">2</div><div><h3>Impact</h3><p>Explain the effect it had on the work, the team or you.</p></div></div>
+      <div class="card item" data-in="1.65" data-d="0.7"><div class="num">3</div><div><h3>Request</h3><p>Ask for one specific change, and agree on it together.</p></div></div>
     </div>
   </section>
 </div>
 
-<!-- Piece B: client explainer, "Your part" settled (source 26.0 to 28.5 s) -->
+<!-- Piece B: client explainer, "Your part" building in. data-in times are seconds after the cut. -->
 <div class="piece" id="B">
   <div class="top">
     <div class="firm"><i>H</i>Harwood &amp; Co</div>
-    <div class="pill outline">Client explainer</div>
-  </div>
-  <div class="track">
-    <div class="done"></div>
-    <div class="stop" data-at="4.5"></div><div class="stop" data-at="16.5"></div><div class="stop" data-at="30"></div>
-    <div class="stop" data-at="39"></div><div class="stop" data-at="44.5"></div>
-    <div class="dot"></div>
+    <div class="pill outline">Concept piece</div>
   </div>
   <section class="scene">
     <div class="head">
-      <div class="eyebrow">Your part</div>
-      <h2 class="h">Three things you still need to do</h2>
+      <div class="eyebrow" data-in="0.1">Your part</div>
+      <h2 class="h" data-in="0.25">Three things you still need to do</h2>
     </div>
     <div class="stack">
-      <div class="card item"><div class="num">1</div><div><h3>Confirm who can sign</h3><p>Each signer must be authorised for their party.</p></div></div>
-      <div class="card item"><div class="num">2</div><div><h3>Check the document type</h3><p>Some deeds still need a witness present.</p></div></div>
-      <div class="card item"><div class="num">3</div><div><h3>Keep the audit trail</h3><p>Store the signing certificate with the contract.</p></div></div>
+      <div class="card item" data-in="0.55"><div class="tnum">1<b data-in="0.95" data-fx="pop" data-d="0.4">1</b></div><div><h3>Confirm who can sign</h3><p>Each signer must be authorised for their party.</p></div></div>
+      <div class="card item" data-in="1.05"><div class="tnum">2<b data-in="1.45" data-fx="pop" data-d="0.4">2</b></div><div><h3>Check the document type</h3><p>Some deeds still need a witness present.</p></div></div>
+      <div class="card item" data-in="1.55"><div class="tnum">3<b data-in="1.95" data-fx="pop" data-d="0.4">3</b></div><div><h3>Keep the audit trail</h3><p>Store the signing certificate with the contract.</p></div></div>
     </div>
   </section>
 </div>
@@ -110,31 +99,37 @@
 
 <script>
   const DUR = window.SCENE.duration, HALF = DUR / 2, FADE = 0.25;
-  const A0 = 24.0, B0 = 26.0;
-  const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+  const MOVE = 1.8;        // source translate distances scaled with the type
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
 
   const A = document.getElementById('A'), B = document.getElementById('B');
-  const cur = document.querySelector('#cur b');
-  // Explainer progress track, same mapping as demo-explainer.html
-  const EC0 = 4.5, EC1 = 45, TW = 1080 - 144;
-  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
-  const stops = [...document.querySelectorAll('.track .stop')].map(el => ({ el, at: +el.dataset.at }));
-  stops.forEach(s => { s.el.style.left = ((s.at - EC0) / (EC1 - 0.5 - EC0) * TW) + 'px'; });
+  const collect = (root, off) => [...root.querySelectorAll('[data-in]')].map(el => ({ el, a: off + +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
+  const items = [...collect(A, 0), ...collect(B, HALF)];
   const fade = document.getElementById('fade');
 
   window.seek = function (lt) {
     const inA = lt < HALF;
     A.style.visibility = inA ? 'visible' : 'hidden';
     B.style.visibility = inA ? 'hidden' : 'visible';
-    // Course bar: current module segment fills across the lesson
-    const ta = A0 + lt;
-    cur.style.transform = `scaleX(${0.04 + 0.96 * lin(ta, 4.5, 51 - 4.5)})`;
-    // Explainer track: dot travels with the piece
-    const tb = B0 + (lt - HALF);
-    const x = lin(tb, EC0, EC1 - 0.5 - EC0) * TW;
-    done.style.width = x + 'px';
-    dot.style.left = x + 'px';
-    stops.forEach(s => s.el.classList.toggle('on', tb >= s.at));
+    for (const it of items) {
+      const k = prog(lt, it.a, it.d), s = it.el.style;
+      if (it.fx === 'pop') { s.opacity = k; s.transform = `scale(${0.6 + 0.4 * k})`; }
+      else { s.opacity = k; s.transform = `translateY(${(1 - k) * 26 * MOVE}px)`; }
+    }
     // Fades at the loop ends only; the middle is a straight cut
     const f = Math.max(0, 1 - lt / FADE, (lt - (DUR - FADE)) / FADE);
     fade.style.opacity = Math.min(1, f);

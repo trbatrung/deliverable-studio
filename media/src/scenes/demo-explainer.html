@@ -5,6 +5,11 @@
 <title>Concept demo: explainer</title>
 <script>
   window.SCENE = { name: 'demo-explainer', width: 1280, height: 720, fps: 30, duration: 52, kind: 'video' };
+  // ?loop: the version the homepage loops are cut from (no rail, "Concept piece" label)
+  if (new URLSearchParams(location.search).has('loop')) {
+    window.SCENE.name += '-loopsrc';
+    document.documentElement.classList.add('loop');
+  }
 </script>
 <style>
   html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #F7F4F1; }
@@ -37,6 +42,9 @@
   .track .stop { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #DDD6CD; }
   .track .stop.on { background: #E8940A; }
   .track .dot { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #E8940A; }
+  .lbl-loop { display: none; }
+  html.loop .track, html.loop .lbl-full { display: none; }
+  html.loop .lbl-loop { display: inline; }
 
   /* (a) hook */
   #s-hook .demo { position: absolute; top: 44px; left: 50%; transform: translateX(-50%); }
@@ -113,7 +121,7 @@
 <div id="chrome">
   <div class="top">
     <div class="firm"><i>H</i>Harwood &amp; Co</div>
-    <div class="pill outline">Client explainer</div>
+    <div class="pill outline"><span class="lbl-full">Client explainer</span><span class="lbl-loop">Concept piece</span></div>
   </div>
   <div class="track">
     <div class="done"></div>

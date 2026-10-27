@@ -5,8 +5,9 @@
 <title>Loop: teach (portrait 4:5)</title>
 <script>
   // Portrait recomposition of media/loop-teach.mp4: demo-course-module.html, scene s-recap,
-  // source time 41.4 to 46.4 s, with the same 0.25 s fade in and out to #F7F4F1.
-  window.SCENE = { name: 'loop-teach-45', width: 1080, height: 1350, fps: 30, duration: 5, hold: { at: 4.75, for: 2 }, posterTime: 4.7, kind: 'loop', outWidth: 720, outHeight: 900 };
+  // source time 40.1 to 47.5 s (the recap builds from an empty scene, no hold), with the same
+  // 0.25 s fade in and out to #F7F4F1. Site loop: no course progress bar, a "Concept piece" pill.
+  window.SCENE = { name: 'loop-teach-45', width: 1080, height: 1350, fps: 30, duration: 7.4, posterTime: 6.5, kind: 'loop', outWidth: 720, outHeight: 900 };
 </script>
 <style>
   /* Same system as demo-course-module.html, scaled for a 1080x1350 portrait master */
@@ -27,13 +28,11 @@
   .top { position: absolute; top: 84px; left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; }
   .brand { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 500; letter-spacing: -0.01em; }
   .brand i { width: 44px; height: 44px; border-radius: 50%; border: 10px solid #E8940A; display: block; }
-  .bar { position: absolute; left: 72px; right: 72px; bottom: 92px; display: flex; gap: 12px; }
-  .seg { flex: 1; height: 10px; border-radius: 999px; background: #DDD6CD; overflow: hidden; }
-  .seg b { display: block; height: 100%; width: 100%; background: #E8940A; border-radius: 999px; transform-origin: left center; }
-  .seg.off b { transform: scaleX(0); }
+  /* Quiet concept label where the course bar sat */
+  .tag { position: absolute; bottom: 66px; left: 50%; transform: translateX(-50%); font-size: 34px; padding: 6px 24px; }
 
   /* Recap, stacked for portrait */
-  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .scene { position: absolute; left: 0; right: 0; top: 160px; bottom: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .head { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-bottom: 56px; }
   .head .h { font-size: 68px; width: 900px; }
   .checks { display: flex; flex-direction: column; gap: 26px; width: 936px; }
@@ -54,14 +53,10 @@
     <div class="brand"><i></i>Brightline Training</div>
     <div class="pill outline" style="color:#141413">Module 3 of 8</div>
   </div>
-  <div class="bar">
-    <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg" id="cur"><b></b></div>
-    <div class="seg off"><b></b></div><div class="seg off"><b></b></div><div class="seg off"><b></b></div>
-    <div class="seg off"><b></b></div><div class="seg off"><b></b></div>
-  </div>
+  <div class="pill outline tag">Concept piece</div>
 </div>
 
-<!-- data-in values are source-scene times (s), mapped from loop time by +41.4 -->
+<!-- data-in values are source-scene times (s), mapped from loop time by +40.1 -->
 <section class="scene" id="s-recap">
   <div class="head">
     <div class="eyebrow" data-in="40.3">Recap</div>
@@ -86,7 +81,7 @@
 <div id="fade"></div>
 
 <script>
-  const START = 41.4, DUR = window.SCENE.duration, FADE = 0.25;
+  const START = 40.1, DUR = window.SCENE.duration, FADE = 0.25;
   // Entrance travel scaled with the layout (26 px on the 1280x720 source)
   const RISE = 48;
   function bez(x1, y1, x2, y2) {
@@ -107,9 +102,7 @@
   const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
 
   const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
-  const cur = document.querySelector('#cur b');
   const fade = document.getElementById('fade');
-  const C0 = 4.5;
 
   window.seek = function (lt) {
     const t = START + lt;
@@ -121,7 +114,6 @@
         default: s.opacity = k; s.transform = `translateY(${(1 - k) * RISE}px)`;
       }
     }
-    cur.style.transform = `scaleX(${0.04 + 0.96 * lin(t, C0, 51 - C0)})`;
     // Linear 0.25 s fade from and to the page colour, as excerpt.sh does
     const f = Math.max(0, 1 - lt / FADE, (lt - (DUR - FADE)) / FADE);
     fade.style.opacity = Math.min(1, f);

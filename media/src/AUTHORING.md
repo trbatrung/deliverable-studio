@@ -18,6 +18,13 @@ with the Read tool before calling a scene done. A still is not proof of motion.
 - Optional `hold: { at, for }` (seconds) freezes the scene at time `at` for `for`
   seconds, so a loop lasts `duration + for`. Put `at` at the latest moment the
   end state is fully settled, before any exit or fade; the action is unchanged.
+  Do not use a hold on site loops: Ethan read the frozen end as lag (2026-10-27).
+  A site loop keeps moving for its whole length (about 7 to 8 s) and restarts.
+- Site loops carry no progress rail, timeline dot or module progress bar, and
+  show a small "Concept piece" pill inside the frame (the page has no caption
+  under them). The full pieces render with `?loop` (`node render.mjs
+  demo-explainer?loop`) to get that version as `<name>-loopsrc.mp4`, the
+  source `excerpt.sh` and `carry.sh` cut from; delete the loopsrc files after.
 - Optional `posterTime` (seconds, in output time, so after a hold add `for`)
   picks the poster frame; the default is frame 0, which is blank on a loop
   that fades in, so point it at a settled frame.

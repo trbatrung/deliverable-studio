@@ -25,10 +25,12 @@ const mediaDir = resolve(here, '..');
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const FFMPEG = execFileSync('python3', ['-c', 'import imageio_ffmpeg as i; print(i.get_ffmpeg_exe())']).toString().trim();
 
-const wanted = process.argv.slice(2);
+// Each argument is a scene name, optionally with a query the scene can read,
+// e.g. `demo-explainer?loop` (the scene then picks its own output name).
+const wanted = new Map(process.argv.slice(2).map(a => { const [n, q = ''] = a.split('?'); return [n, q]; }));
 const files = readdirSync(scenesDir)
   .filter(f => f.endsWith('.html'))
-  .filter(f => !wanted.length || wanted.includes(f.replace(/\.html$/, '')));
+  .filter(f => !wanted.size || wanted.has(f.replace(/\.html$/, '')));
 if (!files.length) { console.error('No scenes matched'); process.exit(1); }
 
 const browser = await puppeteer.launch({
@@ -48,7 +50,8 @@ function ffmpeg(args) {
 
 for (const file of files) {
   const page = await browser.newPage();
-  await page.goto(pathToFileURL(join(scenesDir, file)).href, { waitUntil: 'load' });
+  const query = wanted.get(file.replace(/\.html$/, ''));
+  await page.goto(pathToFileURL(join(scenesDir, file)).href + (query ? '?' + query : ''), { waitUntil: 'load' });
   const scene = await page.evaluate(() => window.SCENE);
   if (!scene) { console.error(`${file}: no window.SCENE declared, skipped`); await page.close(); continue; }
   const { name, width, height, fps = 30, duration = 0, kind = 'loop' } = scene;

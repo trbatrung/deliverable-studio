@@ -5,6 +5,11 @@
 <title>Concept demo: course module</title>
 <script>
   window.SCENE = { name: 'demo-course-module', width: 1280, height: 720, fps: 30, duration: 57.5, kind: 'video' };
+  // ?loop: the version the homepage loops are cut from (no course bar, "Concept piece" label)
+  if (new URLSearchParams(location.search).has('loop')) {
+    window.SCENE.name += '-loopsrc';
+    document.documentElement.classList.add('loop');
+  }
 </script>
 <style>
   html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #F7F4F1; }
@@ -32,6 +37,10 @@
   .seg { flex: 1; height: 6px; border-radius: 999px; background: #DDD6CD; overflow: hidden; }
   .seg b { display: block; height: 100%; width: 100%; background: #E8940A; border-radius: 999px; transform-origin: left center; }
   .seg.off b { transform: scaleX(0); }
+  .top .right { display: flex; align-items: center; gap: 12px; }
+  .lbl-loop { display: none; }
+  html.loop .bar { display: none; }
+  html.loop .lbl-loop { display: inline-flex; }
 
   /* (a) title slate */
   #s-title .demo { position: absolute; top: 44px; left: 50%; transform: translateX(-50%); }
@@ -96,7 +105,10 @@
 <div id="chrome">
   <div class="top">
     <div class="brand"><i></i>Brightline Training</div>
-    <div class="pill outline" style="color:#141413">Module 3 of 8</div>
+    <div class="right">
+      <div class="pill outline lbl-loop">Concept piece</div>
+      <div class="pill outline" style="color:#141413">Module 3 of 8</div>
+    </div>
   </div>
   <div class="bar">
     <div class="seg"><b></b></div><div class="seg"><b></b></div><div class="seg" id="cur"><b></b></div>

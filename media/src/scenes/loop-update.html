@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Loop 02: update, weekly review</title>
 <script>
-  window.SCENE = { name: 'loop-update', width: 1280, height: 720, fps: 30, duration: 5, hold: { at: 4.5, for: 2 }, posterTime: 0.3, kind: 'loop', outWidth: 960, outHeight: 540, gif: { width: 640, fps: 15 } };
+  window.SCENE = { name: 'loop-update', width: 1280, height: 720, fps: 30, duration: 7.5, posterTime: 5.2, kind: 'loop', outWidth: 960, outHeight: 540, gif: { width: 640, fps: 15 } };
 </script>
 <style>
   /* Visual language copied from demo-explainer.html so the loop reads as a cut from a finished piece. */
@@ -21,23 +21,18 @@
   .pill.outline { background: #FCFBFA; border: 1.5px solid #DDD6CD; color: #6B6763; }
   .card { background: #FCFBFA; border-radius: 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
 
-  /* Persistent chrome: firm name, label, travelling progress dot */
+  /* Persistent chrome: firm name and the concept label (no progress rail on site loops) */
   #chrome { position: absolute; inset: 0; pointer-events: none; }
   .top { position: absolute; top: 36px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; }
   .firm { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
   .firm i { width: 28px; height: 28px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 15px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
-  .track { position: absolute; left: 64px; right: 64px; bottom: 44px; height: 2px; background: #DDD6CD; border-radius: 999px; }
-  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
-  .track .stop { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #DDD6CD; }
-  .track .stop.on { background: #E8940A; }
-  .track .dot { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #E8940A; }
 
   /* Two columns: title block left, simple five-week bar diagram right */
   #s-review { flex-direction: row; gap: 64px; padding-top: 8px; }
   .titleblock { width: 420px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
   .titleblock .h { font-size: 60px; }
   .titleblock .sub { font-size: 26px; color: #6B6763; }
-  .titleblock .rule { width: 64px; height: 4px; border-radius: 999px; background: #E8940A; margin-top: 8px; }
+  .titleblock .rule { width: 64px; height: 4px; border-radius: 999px; background: #E8940A; margin-top: 8px; transform-origin: left center; }
   .chart { width: 600px; height: 420px; padding: 0 56px 34px; display: flex; flex-direction: column; justify-content: flex-end; }
   .bars { display: flex; align-items: flex-end; justify-content: space-between; height: 300px; border-bottom: 2px solid #DDD6CD; }
   .bar { position: relative; width: 72px; display: flex; justify-content: center; }
@@ -57,22 +52,16 @@
 <div id="chrome">
   <div class="top">
     <div class="firm"><i>H</i>Harbour Lane</div>
-    <div class="pill outline">Weekly review</div>
-  </div>
-  <div class="track">
-    <div class="done"></div>
-    <div class="stop" data-at="0.16"></div><div class="stop" data-at="0.42"></div>
-    <div class="stop" data-at="0.66"></div><div class="stop" data-at="0.86"></div>
-    <div class="dot"></div>
+    <div class="pill outline">Concept piece</div>
   </div>
 </div>
 
 <section class="scene" id="s-review">
   <div class="titleblock">
-    <div class="eyebrow">Week 5 &middot; Q2</div>
-    <h2 class="h">Sales results</h2>
-    <div class="sub">Approved highlights</div>
-    <div class="rule"></div>
+    <div class="eyebrow tb">Week 5 &middot; Q2</div>
+    <h2 class="h tb">Sales results</h2>
+    <div class="sub tb">Approved highlights</div>
+    <div class="rule" id="rule"></div>
   </div>
   <div class="card chart">
     <div class="bars">
@@ -107,38 +96,46 @@
   const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
 
   const scene = document.getElementById('s-review');
-  const bar5 = document.getElementById('b5');
+  const bars = [...document.querySelectorAll('.bar i')];
   const label5 = document.getElementById('l5');
   const call = document.getElementById('call');
+  const rule = document.getElementById('rule');
+  const tbs = [...document.querySelectorAll('.tb')];
   const cover = document.getElementById('cover');
-  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
-  const TW = 1152;
-  const stops = [...document.querySelectorAll('.track .stop')].map(el => ({ el, x: +el.dataset.at * TW }));
-  stops.forEach(s => { s.el.style.left = s.x + 'px'; });
+  const DUR = window.SCENE.duration;
 
   window.seek = function (t) {
-    // Week 5 rises into place, its label lands, then the callout settles above it.
-    const k = prog(t, 0.7, 0.9);
-    bar5.style.transform = `scaleY(${k})`;
-    bar5.style.opacity = k > 0 ? 1 : 0;
-    const l = prog(t, 1.25, 0.5);
+    // A slow, steady push-in over the whole loop so nothing ever sits still.
+    // At t = 0 and t = DUR the cover hides everything, so the reset is unseen.
+    scene.style.transform = `scale(${1 + 0.035 * lin(t, 0, DUR)})`;
+
+    // Title block builds in, then its amber rule draws.
+    tbs.forEach((el, i) => {
+      const k = prog(t, 0.2 + 0.2 * i, 0.6);
+      el.style.opacity = k;
+      el.style.transform = `translateY(${(1 - k) * 18}px)`;
+    });
+    rule.style.transform = `scaleX(${prog(t, 0.8, 0.6)})`;
+
+    // Weeks 1 to 4 grow in turn, then Week 5 rises in amber, its label lands
+    // and the callout settles above it.
+    bars.forEach((el, i) => {
+      const k = i < 4 ? prog(t, 0.9 + 0.3 * i, 0.7) : prog(t, 2.5, 0.9);
+      el.style.transform = `scaleY(${k})`;
+      el.style.opacity = k > 0 ? 1 : 0;
+    });
+    const l = prog(t, 3.0, 0.5);
     label5.style.opacity = l;
     label5.style.transform = `translateY(${(1 - l) * 12}px)`;
-    const c = prog(t, 1.85, 0.45);
+    const c = prog(t, 3.6, 0.5);
     call.style.opacity = c;
     call.style.transform = `translateX(-50%) translateY(${(1 - c) * 14}px) scale(${0.9 + 0.1 * c})`;
 
     // Scene change the explainer way: content fades to cream over 0.4 s.
-    scene.style.opacity = 1 - prog(t, 4.5, 0.4);
+    scene.style.opacity = 1 - prog(t, 6.8, 0.4);
 
     // 0.25 s fade from and to the canvas colour, matching the sibling excerpts.
-    cover.style.opacity = Math.max(1 - lin(t, 0, 0.25), lin(t, 4.75, 0.25));
-
-    // Progress track keeps travelling at the finished video's pace.
-    const x = 330 + 26 * t;
-    done.style.width = x + 'px';
-    dot.style.left = x + 'px';
-    stops.forEach(s => s.el.classList.toggle('on', x >= s.x));
+    cover.style.opacity = Math.max(1 - lin(t, 0, 0.25), lin(t, DUR - 0.25, 0.25));
   };
   window.seek(0);
 </script>
