@@ -18,8 +18,6 @@
   --amber-tint:#FBF0DC;
   --slate:#E3E9EA;
   --warm:#F2E3C4;
-  --shadow:0 18px 40px rgba(32,33,30,0.10);
-  --shadow-sm:0 6px 18px rgba(32,33,30,0.08);
   --r:16px;
   --r-sm:10px;
   --maxw:1080px;
@@ -34,10 +32,11 @@
   --track:-0.011em;--track-head:-0.03em;
   /* One shadow recipe for anything that floats. */
   --lift:0 1px 2px rgba(32,33,30,0.04),0 24px 48px -20px rgba(32,33,30,0.18);
+  --shadow:var(--lift);--shadow-sm:var(--lift);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{color-scheme:light only;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--canvas);color:var(--ink);font-size:17px;line-height:1.55;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--canvas);color:var(--ink);font-size:var(--t-body);line-height:1.55;letter-spacing:var(--track);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 body,html{background:var(--canvas) !important;color:var(--ink) !important}
 img,video{display:block;max-width:100%}
 a{color:inherit}
@@ -46,8 +45,9 @@ strong{font-weight:500}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- Type ---------- */
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber-ink);margin-bottom:16px}
-.eyebrow::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0}
+/* Section label: a small outlined tag, used only where the page changes subject. */
+.eyebrow{display:inline-flex;align-items:center;gap:var(--s2);height:26px;padding:0 var(--s3);border:1px solid var(--rule);border-radius:999px;background:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:var(--s5)}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
 h1{font-size:clamp(38px,6.2vw,68px);font-weight:500;letter-spacing:-0.03em;line-height:1.04;text-wrap:balance}
 h2{font-size:clamp(28px,3.6vw,42px);font-weight:500;letter-spacing:-0.025em;line-height:1.1;text-wrap:balance;margin-bottom:14px}
 h3{font-size:20px;font-weight:500;letter-spacing:-0.01em;line-height:1.25;margin-bottom:6px}
@@ -86,19 +86,25 @@ p+p{margin-top:12px}
 @media(min-width:860px){.nav-links{display:flex}.hamburger,.mobile-menu{display:none !important}}
 
 /* ---------- Layout ---------- */
-.section{padding:72px var(--px)}
-.section.tint{background:var(--paper);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.section-head{max-width:62ch;margin-bottom:36px}
-.grid-2{display:grid;gap:20px}
-.grid-3{display:grid;gap:20px}
+/* One background for the whole page. Sections are separated by space and a
+   dotted hairline, not by alternating tinted bands. */
+.section{padding:var(--s8) var(--px);position:relative}
+.section::before{content:'';position:absolute;top:0;left:var(--px);right:var(--px);border-top:1px dotted #CFCFC5}
+.rows+.section::before,.opening+.section::before{display:none}
+.section-head{max-width:62ch;margin-bottom:var(--s7)}
+.grid-2{display:grid;gap:var(--s6)}
+.grid-3{display:grid;gap:var(--s6)}
 .split{display:grid;gap:36px;align-items:start}
-@media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}.split{grid-template-columns:1.05fr 1fr;gap:64px}.section{padding:104px var(--px)}}
+@media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}.split{grid-template-columns:1.05fr 1fr;gap:var(--s8)}.section{padding:var(--s9) var(--px)}}
 
-.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:26px}
+/* Cards are ruled columns: a rule above, type below, no box. */
+.card{border-top:1px solid var(--ink);padding:var(--s4) 0 0}
 .card p{color:var(--ink-2);font-size:16px}
-.card .k{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber-ink);margin-bottom:10px;display:block}
+.card .k{font-family:var(--mono);font-size:var(--t-meta);letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:var(--s3);display:block}
 .list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .list li{position:relative;padding-left:26px;color:var(--ink)}
+.card-foot{margin-top:var(--s5);font-size:var(--t-small);color:var(--ink-2)}
+.faq{margin-top:var(--s6)}
 .list li::before{content:'';position:absolute;left:0;top:0.62em;width:12px;height:12px;border-radius:50%;background:var(--amber-tint);border:1.5px solid var(--amber)}
 
 /* ---------- Opening statement ---------- */
@@ -233,9 +239,13 @@ p+p{margin-top:12px}
 .step p{color:var(--ink-2);font-size:16px}
 
 /* ---------- Founder note ---------- */
-.noteblock{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);max-width:720px;margin-top:8px}
-.noteblock p{font-size:17px;color:var(--ink)}
-.noteblock .sig{margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:0.04em;color:var(--ink-2)}
+/* Founder note: a plain text file, same window language as the examples. */
+.noteblock{background:var(--paper);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--lift);max-width:640px;padding:calc(36px + var(--s6)) var(--s6) var(--s6);position:relative;overflow:hidden}
+.noteblock::before{content:'note-from-ethan.txt';position:absolute;top:0;left:0;right:0;height:36px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:var(--t-meta);color:var(--ink-2);letter-spacing:0.02em}
+.noteblock p{font-size:var(--t-title);line-height:1.5;letter-spacing:var(--track);color:var(--ink-2)}
+.noteblock p+p{margin-top:var(--s4)}
+.noteblock mark{background:var(--amber-tint);color:var(--ink);padding:0 2px;border-radius:3px}
+.noteblock .sig{margin-top:var(--s5);font-family:var(--mono);font-size:var(--t-meta);line-height:1.5;letter-spacing:0.02em;color:var(--ink-2)}
 
 /* ---------- FAQ ---------- */
 .faq{display:grid;gap:0;border-top:1px solid var(--rule)}
@@ -256,7 +266,7 @@ textarea.form-input{min-height:130px;resize:vertical}
 .form-success,.form-error{display:none;margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);font-size:15px}
 .form-success{background:var(--amber-tint);color:var(--amber-ink)}
 .form-error{background:#FBF1EE;color:#A32D2D}
-.form-card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm)}
+.form-card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:var(--s6);box-shadow:var(--lift)}
 .privacy{font-size:13px;color:var(--ink-2);margin-top:12px}
 
 /* ---------- Footer ---------- */
@@ -272,6 +282,6 @@ textarea.form-input{min-height:130px;resize:vertical}
 /* Forced light: the palette above is the only palette. */
 @media(prefers-color-scheme:dark){
   body,html,.section,.footer,.nav-shell{background:var(--canvas) !important;color:var(--ink) !important}
-  .card,.job,.win,.noteblock,.form-card,.section.tint{background:var(--paper) !important}
+  .job,.win,.noteblock,.form-card{background:var(--paper) !important}
   .form-input{background:#fff !important;color:var(--ink) !important}
 }
