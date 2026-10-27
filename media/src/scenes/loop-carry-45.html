@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>Loop: carry (portrait 4:5)</title>
 <script>
-  // Portrait recomposition of media/loop-carry.mp4: 2.5 s of demo-course-module.html s-frame
-  // from source 24.0 s, straight cut to 2.5 s of demo-explainer.html s-three from source 26.0 s.
+  // Portrait recomposition of media/loop-carry.mp4: 3.5 s of demo-course-module.html s-frame
+  // from source 24.0 s, straight cut to 3.5 s of demo-explainer.html s-three from source 26.0 s.
   // Same 0.25 s fade in and out to #F7F4F1 at the loop ends only.
-  window.SCENE = { name: 'loop-carry-45', width: 1080, height: 1350, fps: 30, duration: 5, kind: 'loop', outWidth: 720, outHeight: 900 };
+  window.SCENE = { name: 'loop-carry-45', width: 1080, height: 1350, fps: 30, duration: 7, posterTime: 1.0, kind: 'loop', outWidth: 720, outHeight: 900 };
 </script>
 <style>
   /* Shared system of demo-course-module.html and demo-explainer.html, scaled for 1080x1350 */
@@ -109,7 +109,7 @@
 <div id="fade"></div>
 
 <script>
-  const DUR = window.SCENE.duration, HALF = 2.5, FADE = 0.25;
+  const DUR = window.SCENE.duration, HALF = DUR / 2, FADE = 0.25;
   const A0 = 24.0, B0 = 26.0;
   const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
 

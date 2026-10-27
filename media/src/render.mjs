@@ -2,6 +2,8 @@
 //
 // Each scene is a self-contained HTML file in ./scenes that declares
 //   window.SCENE = { name, width, height, fps, duration, kind }
+// optional: hold: { at, for } (freeze scene time `at` for `for` s; output
+// lasts duration + for) and posterTime (output seconds; default 0).
 // kind: "loop" | "video" (mp4 + webm + webp poster into ../)  or
 //       "still" (one PNG, written to `out`, relative to ../).
 // Motion must be driven by CSS animations / Web Animations API, or by an
@@ -71,7 +73,14 @@ for (const file of files) {
     continue;
   }
 
-  const frames = Math.round(duration * fps);
+  // Optional hold: freeze scene time `at` for `for` seconds, so output time t
+  // shows scene time t (t < at), at (at <= t < at + for), t - for (after).
+  // Optional posterTime (output seconds) picks the poster frame; default frame 0.
+  const hold = scene.hold ? { at: +scene.hold.at, for: +scene.hold.for } : { at: Infinity, for: 0 };
+  const frames = Math.round((duration + hold.for) * fps);
+  const posterFrame = Math.min(frames - 1, Math.max(0, Math.round((scene.posterTime || 0) * fps)));
+  const EPS = 1e-6;
+  const sceneTime = (t) => t < hold.at - EPS ? t : t < hold.at + hold.for - EPS ? hold.at : t - hold.for;
   const mp4 = join(mediaDir, `${name}.mp4`);
   const webm = join(mediaDir, `${name}.webm`);
   const poster = join(mediaDir, `${name}.webp`);
@@ -87,10 +96,11 @@ for (const file of files) {
     ...(scene.master ? ['-map', '0:v', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-an', join(mediaDir, `${name}-master.mp4`)] : []),
   ]);
   const stdin = ffmpeg.current.stdin;
+  let lastT = null, png = null;
   for (let i = 0; i < frames; i++) {
-    await seek(i / fps);
-    const png = await page.screenshot({ type: 'png' });
-    if (i === 0) {
+    const st = sceneTime(i / fps);
+    if (st !== lastT) { await seek(st); png = await page.screenshot({ type: 'png' }); lastT = st; }
+    if (i === posterFrame) {
       writeFileSync(poster + '.png', png);
     }
     if (!stdin.write(png)) await new Promise(r => stdin.once('drain', r));

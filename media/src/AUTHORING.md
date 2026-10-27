@@ -2,7 +2,7 @@
 
 Scenes live in `media/src/scenes/<name>.html`. Render one with
 `cd media/src && node render.mjs <name>`. For a loop it writes `media/<name>.mp4`,
-`media/<name>.webm`, a first-frame poster `media/<name>.webp`, optionally
+`media/<name>.webm`, a poster `media/<name>.webp` (frame 0 unless `posterTime`), optionally
 `media/<name>-master.mp4` (full scene size) and `media/<name>.gif`.
 Then `sh sheet.sh <name>` writes `frames/<name>-sheet.png` (evenly spaced
 frames) and `frames/<name>-loop.png` (last frame beside first). Look at both
@@ -15,6 +15,12 @@ with the Read tool before calling a scene done. A still is not proof of motion.
   `width/height` is the master canvas the scene is laid out at; `outWidth/outHeight`
   is the web export size (ffmpeg scales down). `kind` is `"loop"` or `"still"`
   (a still takes `out: "../<file>.png"` relative to `media/`).
+- Optional `hold: { at, for }` (seconds) freezes the scene at time `at` for `for`
+  seconds, so a loop lasts `duration + for`. Put `at` at the latest moment the
+  end state is fully settled, before any exit or fade; the action is unchanged.
+- Optional `posterTime` (seconds, in output time, so after a hold add `for`)
+  picks the poster frame; the default is frame 0, which is blank on a loop
+  that fades in, so point it at a settled frame.
 - `html, body` must be exactly `width x height`, `margin:0`, `overflow:hidden`.
 - The renderer pauses every animation and sets time frame by frame, so ALL
   motion must come from CSS `animation` declared in the stylesheet, Web
