@@ -25,3 +25,11 @@ What the site has now, what to add when it exists, and what to keep out. Ordered
 - A favicon and mark pass once the domain and brand mark are settled (the favicon is an amber "D").
 - Privacy-respecting analytics (Vercel Web Analytics) once outreach brings traffic to learn from.
 - Re-render the videos in Geist if the brand moves fully to Geist (they use Inter today).
+
+## Finishing pass, 2026-10-27 (local commits after the ship at 0d94112)
+- Portrait 4:5 versions of the process video and both full pieces, same timelines as 16:9 so scene jumps work on either; phones swap via `data-portrait` (`portraitVideos` in script.js).
+- Contact sections: on phones the form comes straight after the heading, questions after (CSS order only, form markup untouched for the security branch merge). Homepage CTAs jump to the form on the page; homepage FAQ gains "What does it cost?".
+- Phone menu closes after a link and scrolls same-page jumps itself (closing it had cancelled the smooth scroll).
+- On phones, tapping a scene on Examples brings the video back into view.
+- robots.txt and sitemap.xml; unused portrait-hr/legal/training media removed; Contact page inline styles became classes; phone footer links in two columns.
+- Note for local testing: python http.server does not advertise byte ranges, so seeking long videos fails locally in Chrome; the live host sends `accept-ranges: bytes`.
