@@ -75,11 +75,16 @@ for (const file of files) {
   const mp4 = join(mediaDir, `${name}.mp4`);
   const webm = join(mediaDir, `${name}.webm`);
   const poster = join(mediaDir, `${name}.webp`);
+  // Optional web export size (scene renders at its master size, ffmpeg scales
+  // down for the site). Optional GIF derivative for placements that need one.
+  const ow = scene.outWidth || width, oh = scene.outHeight || height;
+  const vf = `scale=${ow}:${oh}:flags=lanczos`;
   const t0 = Date.now();
   const enc = ffmpeg([
     '-f', 'image2pipe', '-framerate', String(fps), '-i', '-',
-    '-map', '0:v', '-c:v', 'libx264', '-preset', 'medium', '-crf', '22', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-an', mp4,
-    '-map', '0:v', '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34', '-row-mt', '1', '-pix_fmt', 'yuv420p', '-an', webm,
+    '-map', '0:v', '-vf', vf, '-c:v', 'libx264', '-preset', 'medium', '-crf', '22', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-an', mp4,
+    '-map', '0:v', '-vf', vf, '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34', '-row-mt', '1', '-pix_fmt', 'yuv420p', '-an', webm,
+    ...(scene.master ? ['-map', '0:v', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-an', join(mediaDir, `${name}-master.mp4`)] : []),
   ]);
   const stdin = ffmpeg.current.stdin;
   for (let i = 0; i < frames; i++) {
@@ -93,8 +98,14 @@ for (const file of files) {
   }
   stdin.end();
   await enc;
-  await ffmpeg(['-i', poster + '.png', '-c:v', 'libwebp', '-quality', '82', poster]);
+  await ffmpeg(['-i', poster + '.png', '-vf', vf, '-c:v', 'libwebp', '-quality', '82', poster]);
   execFileSync('rm', ['-f', poster + '.png']);
+  if (scene.gif) {
+    // Two-pass palette GIF from the web mp4: smaller frame, lower frame rate.
+    const gw = scene.gif.width || Math.round(ow / 2), gfps = scene.gif.fps || 15;
+    const gif = join(mediaDir, `${name}.gif`);
+    await ffmpeg(['-i', mp4, '-vf', `fps=${gfps},scale=${gw}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle`, '-loop', '0', gif]);
+  }
   console.log(`\r${name}: ${frames} frames in ${((Date.now() - t0) / 1000).toFixed(0)}s -> ${name}.mp4 / .webm / .webp`);
   await page.close();
 }

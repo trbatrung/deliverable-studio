@@ -1,7 +1,6 @@
 /* ============================================================
-   Deliverable — shared behaviour
-   Every page loads this. Safe to run on pages that lack any
-   given element; each block no-ops if its target is absent.
+   Deliverable, shared behaviour. Every page loads this; each
+   block no-ops when its target is absent.
    ============================================================ */
 
 var SUPABASE_URL = 'https://okduntsweecbxlaaywlx.supabase.co';
@@ -9,207 +8,64 @@ var SUPABASE_ANON_KEY = 'sb_publishable_0F8E-a9VDxJLgCyhxC9PpA_QRxZWBzt';
 
 function toggleMenu(){
   var menu = document.getElementById('mobileMenu');
-  if(menu) menu.classList.toggle('open');
+  var btn = document.querySelector('.hamburger');
+  if(!menu) return;
+  var open = menu.classList.toggle('open');
+  if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
-function switchTab(id, el){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
-  var target = document.getElementById('tab-' + id);
-  if(target) target.classList.add('active');
-  el.classList.add('active');
-}
-
-// Build the player for a facade: a YouTube iframe when data-yt is set, a
-// native <video> when data-src points at a file we rendered ourselves.
-// Both are created only on click, so nothing heavy loads up front.
-function buildPlayer(el){
-  var title = el.dataset.title || 'Video';
-  if(el.dataset.src){
-    var v = document.createElement('video');
-    v.className = 'facade-frame facade-video';
-    v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
-    v.setAttribute('title', title);
-    if(el.dataset.poster) v.poster = el.dataset.poster;
-    var base = el.dataset.src.replace(/\.(mp4|webm)$/, '');
-    [['webm','video/webm'],['mp4','video/mp4']].forEach(function(t){
-      var s = document.createElement('source');
-      s.src = base + '.' + t[0]; s.type = t[1];
-      v.appendChild(s);
-    });
-    return v;
-  }
-  var frame = document.createElement('iframe');
-  frame.className = 'facade-frame';
-  frame.src = 'https://www.youtube.com/embed/' + el.dataset.yt + '?rel=0&autoplay=1';
-  frame.title = title;
-  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  frame.allowFullscreen = true;
-  return frame;
-}
-
-// Swap a poster facade for the real player. Keeps the ~1MB YouTube player
-// (or the demo file) off the initial page load until someone wants to watch.
-function playVideo(btn){
-  var frame = buildPlayer(btn);
-  var shell = document.createElement('div');
-  shell.className = 'video-facade is-playing';
-  shell.appendChild(frame);
-  btn.replaceWith(shell);
-  frame.focus();
-}
-
-// Play the hero video in place: the poster stage becomes the player.
-function playHero(btn){
-  var stage = document.querySelector('.hero-stage');
-  if(!stage) return;
-  var frame = buildPlayer(stage);
-  stage.innerHTML = '';
-  stage.appendChild(frame);
-  frame.focus();
-}
-
-// Play a carousel card in place. Swaps the card's contents rather than the
-// card itself, so the carousel keeps its node references, and halts the
-// auto-advance so the slide can't scroll away mid-watch.
-function playCard(btn){
-  var card = btn.closest('.carousel-card');
-  if(!card) return;
-  var root = card.closest('.carousel');
-  if(root) root.dispatchEvent(new CustomEvent('carousel:stop'));
-
-  var frame = buildPlayer(card);
-  card.innerHTML = '';
-  card.classList.add('is-playing');
-  card.appendChild(frame);
-  frame.focus();
-}
-
-// Stadium-card carousel: scroll-snap for the motion, buttons and dots for
-// control, auto-advance with a pause toggle.
-(function carousel(){
-  var root = document.querySelector('.carousel');
-  if(!root) return;
-  var track = root.querySelector('.carousel-track');
-  var cards = Array.prototype.slice.call(root.querySelectorAll('.carousel-card'));
-  var dots = Array.prototype.slice.call(root.querySelectorAll('.carousel-dot'));
-  var pauseBtn = root.querySelector('.carousel-pause');
-  if(!track || !cards.length) return;
-
-  var index = 0, timer = null, playing = true;
-
-  // Only the centred card shows its chip, title and play control — a
-  // half-scrolled card would have its pill sliced by the track edge.
-  function mark(){
-    cards.forEach(function(c, n){ c.classList.toggle('is-active', n === index); });
-    dots.forEach(function(d, n){ d.classList.toggle('active', n === index); });
-  }
-
-  function goTo(i){
-    index = (i + cards.length) % cards.length;
-    var card = cards[index];
-    // scrollLeft rather than scrollIntoView so the page itself never jumps
-    track.scrollTo({left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: 'smooth'});
-    mark();
-  }
-
-  function start(){ stop(); if(playing) timer = setInterval(function(){goTo(index + 1)}, 5000); }
-  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
-
-  // A card that starts playing halts auto-advance for good, so the slide
-  // cannot scroll out from under someone watching it.
-  root.addEventListener('carousel:stop', function(){ playing = false; stop(); if(pauseBtn) pauseBtn.textContent = '▶'; });
-
-  root.querySelector('.carousel-prev').addEventListener('click', function(){goTo(index - 1); start();});
-  root.querySelector('.carousel-next').addEventListener('click', function(){goTo(index + 1); start();});
-  dots.forEach(function(d, n){ d.addEventListener('click', function(){goTo(n); start();}); });
-
-  if(pauseBtn){
-    pauseBtn.addEventListener('click', function(){
-      playing = !playing;
-      pauseBtn.textContent = playing ? '❚❚' : '▶';
-      pauseBtn.setAttribute('aria-label', playing ? 'Pause carousel' : 'Play carousel');
-      if(playing) start(); else stop();
-    });
-  }
-
-  // Respect a reduced-motion preference: no auto-advance at all.
-  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-    playing = false;
-    if(pauseBtn) pauseBtn.textContent = '▶';
-  }
-
-  root.addEventListener('mouseenter', stop);
-  root.addEventListener('mouseleave', start);
-  // Keep the dots honest when someone swipes the track directly.
-  var settle;
-  track.addEventListener('scroll', function(){
-    clearTimeout(settle);
-    settle = setTimeout(function(){
-      var mid = track.scrollLeft + track.clientWidth / 2;
-      var nearest = 0, best = Infinity;
-      cards.forEach(function(c, n){
-        var d = Math.abs(c.offsetLeft + c.clientWidth / 2 - mid);
-        if(d < best){ best = d; nearest = n; }
-      });
-      index = nearest;
-      mark();
-    }, 120);
-  });
-
-  goTo(0);
-  start();
+// Hairline under the nav once the page has scrolled.
+(function navShadow(){
+  var shell = document.getElementById('navShell');
+  if(!shell) return;
+  var update = function(){ shell.classList.toggle('scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', update, {passive:true});
+  update();
 })();
 
-// Staggered hero entrance, then reveal each band as it scrolls into view.
-(function revealOnScroll(){
-  var hero = document.querySelector('.hero');
-  if(hero){
-    var showHero = function(){hero.classList.add('in')};
-    requestAnimationFrame(showHero);
-    // rAF never fires while a tab is backgrounded, which would leave the hero
-    // stuck at opacity 0. The timer guarantees the content appears either way.
-    setTimeout(showHero, 400);
-  }
-
-  var els = document.querySelectorAll('.section,.cta-section,.trust-bar,.work-section,.page-header');
-  var showAll = function(){
-    Array.prototype.forEach.call(els, function(el){el.classList.add('in')});
-  };
-  if(!('IntersectionObserver' in window)){ showAll(); return; }
-
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting) return;
-      en.target.classList.add('in');
-      io.unobserve(en.target);
-    });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:0.05});
-  Array.prototype.forEach.call(els, function(el){io.observe(el)});
-
-  // Failsafe for throttled tabs where the observer is never scheduled.
-  setTimeout(showAll, 3000);
-})();
-
-// Ambient loops: honour reduced motion (poster only), and pause any loop
-// that scrolls out of view so phones are not decoding video nobody can see.
+// Example loops: muted, decorative, optional. Play only while visible,
+// never under reduced motion unless the visitor presses Play, and always
+// with a real keyboard-operable control.
 (function loops(){
-  var vids = document.querySelectorAll('video.media-loop');
-  if(!vids.length) return;
+  var wins = document.querySelectorAll('.win-media');
+  if(!wins.length) return;
   var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  Array.prototype.forEach.call(vids, function(v){
-    if(still){ v.removeAttribute('autoplay'); v.pause(); return; }
-    v.muted = true;
-  });
-  if(still || !('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function(entries){
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
     entries.forEach(function(en){
       var v = en.target;
-      if(en.isIntersecting){ var p = v.play(); if(p && p.catch) p.catch(function(){}); }
-      else v.pause();
+      if(v.dataset.user === 'paused') return;
+      if(en.isIntersecting) safePlay(v); else v.pause();
     });
-  }, {threshold:0.2});
-  Array.prototype.forEach.call(vids, function(v){io.observe(v)});
+  }, {threshold:0.35}) : null;
+
+  function safePlay(v){
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+  function label(btn, v){
+    var playing = !v.paused;
+    btn.textContent = playing ? 'Pause' : 'Play';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the example loop');
+  }
+
+  Array.prototype.forEach.call(wins, function(win){
+    var v = win.querySelector('video.loop');
+    var btn = win.querySelector('[data-ctl]');
+    if(!v) return;
+    v.muted = true;
+    if(!still && io) io.observe(v);
+    if(!still && !io) safePlay(v);
+    if(btn){
+      btn.addEventListener('click', function(){
+        if(v.paused){ v.dataset.user = 'playing'; safePlay(v); }
+        else { v.dataset.user = 'paused'; v.pause(); }
+      });
+      v.addEventListener('play', function(){ label(btn, v); });
+      v.addEventListener('pause', function(){ label(btn, v); });
+      label(btn, v);
+    }
+  });
 })();
 
 async function handleContactSubmit(e){
@@ -218,6 +74,7 @@ async function handleContactSubmit(e){
   var btn = form.querySelector('.form-submit');
   var success = document.getElementById('formSuccess');
   var error = document.getElementById('formError');
+  var original = btn.textContent;
 
   btn.disabled = true;
   btn.textContent = 'Sending...';
@@ -249,10 +106,10 @@ async function handleContactSubmit(e){
       throw new Error('failed');
     }
   } catch(err){
-    error.textContent = 'Something went wrong. Email us directly at hello@deliverable.studio';
+    error.textContent = 'Something went wrong. Email me directly at hello@deliverable.studio';
     error.style.display = 'block';
   }
 
   btn.disabled = false;
-  btn.textContent = 'Send message';
+  btn.textContent = original;
 }

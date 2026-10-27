@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Explain: confirmed visit</title>
+<script>
+  window.SCENE = { name: 'explain-confirmed-visit', width: 1600, height: 1200, fps: 30, duration: 5, kind: 'loop',
+                   outWidth: 960, outHeight: 720, master: true, gif: { width: 480, fps: 15 } };
+</script>
+<link rel="stylesheet" href="../../../fonts/fonts.css">
+<style>
+  html, body { width: 1600px; height: 1200px; margin: 0; overflow: hidden; background: #F2E3C4; }
+  body { font-family: 'Geist', sans-serif; color: #20211E; position: relative;
+         -webkit-font-smoothing: antialiased; font-kerning: normal; }
+  * { box-sizing: border-box; }
+  .abs { position: absolute; }
+
+  /* One stage = warm surface + one paper object. The reset cover is a clone of
+     the stage in its opening state, so it lands exactly on frame 0. */
+  .stage { position: absolute; left: 0; top: 0; width: 1600px; height: 1200px; background: #F2E3C4; }
+  .dim { position: absolute; inset: 0; background: #20211E; opacity: 0; }
+
+  .card { position: absolute; left: 340px; top: 395px; width: 920px; height: 440px; transform-origin: 50% 50%; }
+  .paper { position: absolute; inset: 0; background: #FFFEFA; border-radius: 28px; overflow: hidden; }
+  .band { position: absolute; left: 0; top: 0; width: 100%; height: 88px; background: #20211E;
+          transform-origin: 50% 0; }
+  .lines b { position: absolute; left: 72px; height: 18px; border-radius: 9px; background: #EDE9DE; transform-origin: 0 50%; }
+  .ring { position: absolute; top: -34px; width: 22px; height: 76px; border-radius: 11px; background: #20211E;
+          box-shadow: 0 0 0 6px #FFFEFA; }
+  .marker { position: absolute; background: #E8940A; }
+  .title { position: absolute; left: 72px; white-space: nowrap; line-height: 1; letter-spacing: -0.025em; }
+  .check { position: absolute; left: 72px; top: 232px; width: 128px; height: 128px; overflow: visible; }
+  .check path { fill: none; stroke: #FFFEFA; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+  .confirm { position: absolute; left: 240px; top: 252px; font-size: 88px; line-height: 1; font-weight: 600;
+             letter-spacing: -0.03em; white-space: nowrap; }
+  .confirm span { display: inline-block; }
+</style>
+</head>
+<body>
+  <div class="stage" id="A">
+    <div class="card">
+      <div class="paper">
+        <div class="band"></div>
+        <div class="lines"><b></b><b></b></div>
+      </div>
+      <div class="ring" style="left:176px"></div>
+      <div class="ring" style="left:722px"></div>
+      <div class="marker"></div>
+      <div class="title">Your request</div>
+      <svg class="check" viewBox="0 0 128 128"><path pathLength="1" d="M40 66 L56 82 L89 47"/></svg>
+      <div class="confirm"><span>Visit confirmed</span></div>
+    </div>
+    <div class="dim"></div>
+  </div>
+<script>
+  // Brand entrance curve, plus a calm in-out for moving an object from rest.
+  function bez(x1, y1, x2, y2) {
+    return function (x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 12; i++) {
+        const xt = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const d = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(d) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - xt / d));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1), EIO = bez(0.6, 0, 0.25, 1);
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const seg = (t, a, b, f = E) => f(clamp((t - a) / (b - a)));
+  const mix = (a, b, p) => a + (b - a) * p;
+  const mixRGB = (a, b, p) => 'rgb(' + a.map((v, i) => Math.round(mix(v, b[i], p))).join(',') + ')';
+  const INK = [32, 33, 30], SECOND = [109, 110, 103];
+
+  // Build the cover once, at load, from the untouched stage.
+  const A = document.getElementById('A');
+  const B = A.cloneNode(true);
+  B.id = 'B';
+  B.style.boxShadow = '0 -18px 40px rgba(32,33,30,0.10)';
+  document.body.appendChild(B);
+
+  // Opening and final geometry, card-local px.
+  const T0 = { x: -18, y: 12, r: -6, s: 0.86 };
+  const LINES = [[262, 640], [306, 420]];
+  const TITLE0 = { top: 96, size: 92, weight: 620 }, TITLE1 = { top: 128, size: 48, weight: 500 };
+
+  function apply(root, t) {
+    const q = s => root.querySelector(s), qa = s => root.querySelectorAll(s);
+
+    // 0.70-1.50 the paper straightens and squares up into the card position.
+    const g = seg(t, 0.70, 1.50, EIO);
+    const card = q('.card');
+    card.style.transform = `translate(${mix(T0.x, 0, g)}px, ${mix(T0.y, 0, g)}px) rotate(${mix(T0.r, 0, g)}deg) scale(${mix(T0.s, 1, g)})`;
+    const lift = seg(t, 0.70, 1.60);
+    q('.paper').style.boxShadow = `0 ${mix(8, 18, lift)}px ${mix(22, 40, lift)}px rgba(32,33,30,${mix(0.08, 0.10, lift)})`;
+
+    // Note lines fold away (0.80-1.30).
+    qa('.lines b').forEach((b, i) => {
+      const p = seg(t, 0.80 + i * 0.08, 1.25 + i * 0.08);
+      b.style.top = LINES[i][0] + 'px';
+      b.style.width = LINES[i][1] + 'px';
+      b.style.transform = `scaleX(${1 - p})`;
+      b.style.opacity = 1 - p;
+    });
+
+    // Appointment binding: band drops in, rings follow (1.00-1.75).
+    const bp = seg(t, 1.00, 1.55);
+    q('.band').style.transform = `scaleY(${bp})`;
+    qa('.ring').forEach((r, i) => {
+      const p = seg(t, 1.25 + i * 0.06, 1.75 + i * 0.06);
+      r.style.opacity = p;
+      r.style.transform = `translateY(${mix(-22, 0, p)}px)`;
+    });
+
+    // "Your request" steps back to a secondary label (0.90-1.60).
+    const tp = seg(t, 0.90, 1.60);
+    const title = q('.title');
+    title.style.top = mix(TITLE0.top, TITLE1.top, tp) + 'px';
+    title.style.fontSize = mix(TITLE0.size, TITLE1.size, tp) + 'px';
+    title.style.fontWeight = Math.round(mix(TITLE0.weight, TITLE1.weight, tp));
+    title.style.color = mixRGB(INK, SECOND, tp);
+
+    // Amber marker: a highlighter stroke under the request that gathers into the
+    // confirmation dot (0.95-1.75).
+    const m = seg(t, 0.90, 1.55);
+    const W0 = measure(root) + 20, H0 = 34, X0 = 62, Y0 = TITLE0.top + 54;
+    const marker = q('.marker');
+    marker.style.left = mix(X0, 72, m) + 'px';
+    marker.style.top = mix(Y0, 232, m) + 'px';
+    marker.style.width = mix(W0, 128, m) + 'px';
+    marker.style.height = mix(H0, 128, m) + 'px';
+    marker.style.borderRadius = mix(8, 64, m) + 'px';
+
+    // Check draws, then the words arrive (1.65-2.30).
+    q('.check path').style.strokeDasharray = '1 1';
+    q('.check path').style.strokeDashoffset = 1 - seg(t, 1.42, 1.85);
+    const cp = seg(t, 1.60, 2.20);
+    const conf = q('.confirm');
+    conf.style.opacity = cp;
+    conf.style.transform = `translateY(${mix(18, 0, cp)}px)`;
+  }
+
+  // Width of "Your request" at the opening size, in card px (a hidden probe
+  // built at load; layout width ignores the card's transform).
+  const probe = document.createElement('span');
+  probe.textContent = 'Your request';
+  probe.style.cssText = `position:absolute;left:0;top:0;visibility:hidden;white-space:nowrap;font-family:Geist,sans-serif;font-size:${TITLE0.size}px;font-weight:${TITLE0.weight};letter-spacing:-0.025em;`;
+  document.body.appendChild(probe);
+  const measure = () => probe.offsetWidth || 560;
+
+  window.seek = function (t) {
+    t = ((t % 5) + 5) % 5;
+    apply(A, Math.min(t, 4.5));
+    apply(B, 0);
+    // 4.50-5.00 a fresh sheet (the opening state) slides up over the result.
+    const c = t >= 4.5 ? EIO(clamp((t - 4.5) / 0.45)) : 0;
+    B.style.display = t >= 4.5 ? 'block' : 'none';
+    B.style.transform = `translateY(${mix(1260, 0, c)}px)`;
+    A.style.transform = `translateY(${mix(0, -90, c)}px)`;
+    A.querySelector('.dim').style.opacity = mix(0, 0.06, c);
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

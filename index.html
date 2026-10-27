@@ -1,321 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.className+=' js'</script>
 <meta name="color-scheme" content="light">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deliverable | AI Video Production Service</title>
-<meta name="description" content="Training, onboarding and explainer videos produced end to end: script, AI production, editing and revisions. Built for teams that need video regularly, not once.">
-<link rel="canonical" href="https://deliverable-project.vercel.app">
+<title>Deliverable | Motion graphics and explainer videos</title>
+<meta name="description" content="Explainers, product walkthroughs and training videos, shaped around what your customers or team need to understand. You bring the knowledge. I handle the script, visuals and production.">
+<link rel="canonical" href="https://deliverable-project.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deliverable">
-<meta property="og:title" content="Deliverable | AI Video Production Service">
-<meta property="og:description" content="Training, onboarding and explainer videos produced end to end: script, AI production, editing and revisions. Built for teams that need video regularly, not once.">
-<meta property="og:url" content="https://deliverable-project.vercel.app">
+<meta property="og:title" content="Deliverable | Motion graphics and explainer videos">
+<meta property="og:description" content="Make your business easier to understand. Explainers, product walkthroughs and training videos, with the script, visuals and production handled.">
+<meta property="og:url" content="https://deliverable-project.vercel.app/">
 <meta property="og:image" content="https://deliverable-project.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Deliverable | AI Video Production Service">
-<meta name="twitter:description" content="Training, onboarding and explainer videos produced end to end: script, AI production, editing and revisions. Built for teams that need video regularly, not once.">
-<meta name="twitter:image" content="https://deliverable-project.vercel.app/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#F7F4F1">
+<meta name="theme-color" content="#F8F7F3">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
-<style>
-/* Hero entrance stagger — the stage fades up, its copy follows in sequence */
-.js .hero-inner>*{opacity:0;transform:translateY(16px);transition:opacity 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s),transform 0.6s cubic-bezier(0.22,0.61,0.36,1) var(--d,0s)}
-.js .hero.in .hero-inner>*{opacity:1;transform:none}
-.js .hero-inner>*:nth-child(1){--d:0.10s}
-.js .hero-inner>*:nth-child(2){--d:0.18s}
-.js .hero-inner>*:nth-child(3){--d:0.26s}
-.js .hero-inner>*:nth-child(4){--d:0.34s}
-.js .hero-inner>*:nth-child(5){--d:0.42s}
-
-/* ---------- TRUST BAR ---------- */
-.trust-bar{padding:18px var(--px);display:flex;gap:20px;flex-wrap:wrap;background:var(--band)}
-.trust-item{font-size:12px;color:#854F0B;display:flex;align-items:center;gap:6px}
-.trust-check{width:16px;height:16px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber);flex-shrink:0}
-
-/* ---------- COMPARISON TIMELINE ---------- */
-.tl-col-headers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:12px}
-.tl-col-head{font-size:11px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;padding:12px 16px;text-align:center}
-.tl-col-head.pain{background:#FBF1EE;color:#A32D2D;border-radius:var(--r-pill) 0 0 var(--r-pill)}
-.tl-col-head.gain{background:var(--band);color:#854F0B;border-radius:0 var(--r-pill) var(--r-pill) 0}
-.tl-row{display:grid;grid-template-columns:1fr 32px 1fr;gap:0;margin-bottom:10px;align-items:stretch}
-.tl-cell{padding:16px 20px;border-radius:var(--r-card);font-size:12px;line-height:1.6;transition:transform 0.18s ease,box-shadow 0.18s ease}
-.tl-cell:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(0,0,0,0.06)}
-.tl-cell.left{background:var(--lifted);color:#6B6763}
-.tl-cell.right{background:var(--band);color:#633806}
-.tl-mid{display:flex;align-items:center;justify-content:center;font-size:10px;color:#C4BFB9;font-weight:500}
-.tl-label{font-size:10px;font-weight:700;color:#A09B95;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
-.tl-label.amber{color:var(--amber)}
-
-/* ---------- CTA ---------- */
-.cta-section{padding:80px var(--px);background:var(--band);position:relative;overflow:hidden}
-.cta-inner{position:relative;z-index:1}
-.cta-h{font-size:32px;font-weight:500;color:var(--ink);margin-bottom:14px;letter-spacing:-0.64px;line-height:1.15;text-wrap:balance}
-.cta-h em{font-style:normal;color:var(--amber)}
-.cta-sub{font-size:15px;font-weight:450;color:#4A4744;margin-bottom:28px;line-height:1.5}
-.cta-checks{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.cta-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#4A4744;line-height:1.5}
-.cta-check-icon{width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber);flex-shrink:0;margin-top:1px}
-.cta-note{font-size:12px;color:#8A8681;margin-top:24px;line-height:1.6}
-.contact-form-card{background:#fff;border:none;border-radius:var(--r-media);padding:32px;box-shadow:0 24px 48px rgba(0,0,0,0.08)}
-
-@media(min-width:768px){
-  .trust-bar{padding:20px var(--px)}
-  .cta-h{font-size:40px;letter-spacing:-0.8px}
-  .cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-}
-</style>
 </head>
 <body>
 
-<div class="nav-shell">
-  <nav class="nav">
+<div class="nav-shell" id="navShell">
+  <nav class="nav" aria-label="Main">
     <a class="logo" href="index.html">Deliverable</a>
     <div class="nav-links">
-      <a class="nav-link" href="work.html">Our work</a>
-      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="work.html">Examples</a>
+      <a class="nav-link" href="how-it-works.html">Process</a>
       <a class="nav-link" href="who-its-for.html">Who it's for</a>
       <a class="nav-link" href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+      <a class="nav-cta" href="contact.html">Start a project</a>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="work.html" onclick="toggleMenu()">Our work</a>
-    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
-    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+    <a href="work.html">Examples</a>
+    <a href="how-it-works.html">Process</a>
+    <a href="who-its-for.html">Who it's for</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Start a project</a>
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-stage" data-yt="lCPMtNWJa7E" data-title="Deliverable: HR onboarding concept demo">
-    <img class="hero-poster" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" fetchpriority="high">
-    <div class="hero-scrim"></div>
-    <div class="hero-overlay">
-      <div class="hero-inner">
-        <div class="hero-eyebrow"><div class="hero-dot"></div><span>AI video production service</span></div>
-        <h1 class="hero-h">Training and onboarding videos that update <em>as fast as your business does.</em></h1>
-        <p class="hero-sub">Script, AI production, editing, and revisions, handled end to end. Built for teams that need video regularly, not once.</p>
-        <div class="hero-btns">
-          <a class="btn-primary" href="#work">See our work</a>
-          <a class="btn-ghost" href="#contact">Talk to us</a>
-        </div>
-        <span class="hero-tag">Concept demo, not a client project</span>
-      </div>
+<main>
+
+<section class="opening">
+  <div class="opening-inner">
+    <p class="eyebrow">Motion graphics &amp; explainer videos</p>
+    <h1>Make your business easier to understand.</h1>
+    <p class="lede">Explainers, product walkthroughs and training videos, shaped around what your customers or team need to understand. You bring the knowledge. I handle the script, visuals and production.</p>
+    <div class="btn-row">
+      <a class="btn" href="contact.html">Talk through a project</a>
+      <a class="btn ghost" href="#examples">See an example</a>
     </div>
-    <button class="hero-play" onclick="playHero(this)" aria-label="Play the concept demo"><span class="facade-tri"></span></button>
   </div>
 </section>
 
-<div class="trust-bar">
-  <div class="trust-item"><div class="trust-check">✓</div>No filming required</div>
-  <div class="trust-item"><div class="trust-check">✓</div>3 to 5 day turnaround</div>
-  <div class="trust-item"><div class="trust-check">✓</div>Revisions included</div>
-  <div class="trust-item"><div class="trust-check">✓</div>Retainer or per project</div>
-</div>
+<section class="studio" id="examples" aria-label="Examples">
+  <span class="annot" aria-hidden="true"><b>Studio</b> three short studies, five seconds each</span>
+  <div class="studio-grid">
 
-<section id="work" class="section alt">
-  <p class="section-eyebrow">Our work</p>
-  <h2 class="section-h">Real briefs. Real output.</h2>
-  <p class="section-sub">Concept demos built for each use case, to show what's possible. Not client projects.</p>
+    <figure class="win win-explain">
+      <div class="win-bar"><span class="win-tag">Explain</span><span>01 &middot; 5 s loop</span></div>
+      <div class="win-media">
+        <video class="loop" muted loop playsinline preload="metadata" poster="media/explain-confirmed-visit.webp" aria-label="A paper request becomes a confirmed visit card">
+          <source src="media/explain-confirmed-visit.webm" type="video/webm">
+          <source src="media/explain-confirmed-visit.mp4" type="video/mp4">
+        </video>
+        <button class="win-ctl" type="button" data-ctl aria-pressed="false">Play</button>
+      </div>
+      <figcaption class="win-cap">
+        <strong>Make the next step clear.</strong>
+        Show customers what happens next, in a form they can revisit and share.
+        <br><span class="win-status">Illustrative concept</span>
+      </figcaption>
+    </figure>
 
-  <div class="carousel">
-    <div class="carousel-nav">
-      <button class="carousel-btn carousel-prev" type="button" aria-label="Previous slide">←</button>
-      <button class="carousel-btn carousel-next" type="button" aria-label="Next slide">→</button>
+    <figure class="win win-update">
+      <div class="win-bar"><span class="win-tag">Update</span><span>02 &middot; in production</span></div>
+      <div class="win-media" style="background:var(--slate)">
+        <div class="comp" aria-hidden="true">
+          <div class="comp-card">
+            <span class="k">New this month</span>
+            <div class="t">Online booking</div>
+            <div class="slots"><span class="slot"></span><span class="slot on"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span></div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="win-cap">
+        <strong>Make the important update easy to see.</strong>
+        You provide the approved highlights. I turn them into a clear video.
+        <br><span class="win-status">Illustrative concept</span>
+      </figcaption>
+    </figure>
+
+    <figure class="win win-teach">
+      <div class="win-bar"><span class="win-tag">Teach</span><span>03 &middot; in production</span></div>
+      <div class="win-media">
+        <div class="comp" aria-hidden="true">
+          <div class="comp-card">
+            <div class="t">One task. One owner.</div>
+            <div class="diagram">
+              <div class="task"><i></i><i></i><i></i></div>
+              <div class="line"></div>
+              <div class="people"><span class="person"></span><span class="person owner"></span><span class="person"></span></div>
+            </div>
+            <div class="owner-label">Owner</div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="win-cap">
+        <strong>Make a useful idea stick.</strong>
+        Turn expertise and lessons learned into short visual explanations.
+        <br><span class="win-status">Illustrative concept</span>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="section-head">
+    <p class="eyebrow">A situation you know</p>
+    <h2>You explain it well on a call. What happens after?</h2>
+    <p class="sub">A prospective customer goes back to your website, a proposal or a document. A clear explanation gives them something they can revisit and share.</p>
+  </div>
+  <div class="grid-3">
+    <div class="job">
+      <span class="k">Explain your business</span>
+      <h3>A service that takes a long conversation to explain</h3>
+      <p>A service explainer that walks through what you do and what happens next, so the first call starts further along.</p>
     </div>
-    <div class="carousel-track">
-      <div class="carousel-card has-media" data-yt="lCPMtNWJa7E" data-title="Deliverable: HR onboarding concept demo">
-        <img class="facade-thumb" src="https://i.ytimg.com/vi/lCPMtNWJa7E/maxresdefault.jpg" alt="" loading="lazy">
-        <span class="carousel-chip">HR and onboarding</span>
-        <span class="carousel-title">Welcome and onboarding</span>
-        <button class="carousel-play" type="button" onclick="playCard(this)" aria-label="Play the HR onboarding concept demo"><span class="facade-tri"></span></button>
-      </div>
-      <div class="carousel-card has-media" data-src="media/demo-course-module.mp4" data-poster="media/demo-course-module.webp" data-title="Deliverable: Course module concept demo">
-        <img class="facade-thumb" src="media/demo-course-module.webp" alt="" loading="lazy">
-        <span class="carousel-chip">Training and courses</span>
-        <span class="carousel-title">Course module</span>
-        <button class="carousel-play" type="button" onclick="playCard(this)" aria-label="Play the course module concept demo"><span class="facade-tri"></span></button>
-      </div>
-      <div class="carousel-card has-media" data-src="media/demo-explainer.mp4" data-poster="media/demo-explainer.webp" data-title="Deliverable: Explainer concept demo">
-        <img class="facade-thumb" src="media/demo-explainer.webp" alt="" loading="lazy">
-        <span class="carousel-chip">Professional services</span>
-        <span class="carousel-title">Explainer</span>
-        <button class="carousel-play" type="button" onclick="playCard(this)" aria-label="Play the explainer concept demo"><span class="facade-tri"></span></button>
-      </div>
+    <div class="job">
+      <span class="k">Keep people up to date</span>
+      <h3>A change that needs showing, not another paragraph</h3>
+      <p>A short update or walkthrough that shows the change and why it matters to the people affected.</p>
+      <p class="q">You provide the approved highlights. I turn them into a clear video.</p>
     </div>
-    <div class="carousel-foot">
-      <div class="carousel-dots">
-        <button class="carousel-dot active" type="button" aria-label="Go to slide 1"></button>
-        <button class="carousel-dot" type="button" aria-label="Go to slide 2"></button>
-        <button class="carousel-dot" type="button" aria-label="Go to slide 3"></button>
-      </div>
-      <button class="carousel-pause" type="button" aria-label="Pause carousel">❚❚</button>
+    <div class="job">
+      <span class="k">Share what you know</span>
+      <h3>A process your team needs to learn consistently</h3>
+      <p>A lesson or onboarding module built around one idea at a time, in the same form for everyone who joins.</p>
     </div>
   </div>
-
-  <a class="section-link" href="work.html">See all work examples →</a>
 </section>
 
 <section class="section">
-  <p class="section-eyebrow">Why Deliverable</p>
-  <h2 class="section-h">You could do this yourself. Here's why most don't.</h2>
-  <p class="section-sub">The tools exist. The gap is time, expertise, and consistency under a real brief.</p>
-  <div class="tl-col-headers">
-    <div class="tl-col-head pain">Doing it in-house</div>
-    <div class="tl-col-head gain">With Deliverable</div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-cell left"><div class="tl-label">Getting started</div>Weeks of tool research, subscriptions, and trial and error before first usable output.</div>
-    <div class="tl-mid">vs</div>
-    <div class="tl-cell right"><div class="tl-label amber">Getting started</div>Send us a brief. First draft within 3 to 5 days. No setup on your end.</div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-cell left"><div class="tl-label">Consistency</div>Output quality varies by who made it, when, and how much time they had that week.</div>
-    <div class="tl-mid">vs</div>
-    <div class="tl-cell right"><div class="tl-label amber">Consistency</div>Same pipeline, same quality standard, every single time.</div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-cell left"><div class="tl-label">Cost</div>Tool subscriptions, staff time, training, iteration cycles. Hidden costs compound fast.</div>
-    <div class="tl-mid">vs</div>
-    <div class="tl-cell right"><div class="tl-label amber">Cost</div>Fixed retainer or per-project pricing. You know exactly what you're paying.</div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-cell left"><div class="tl-label">Scaling up</div>More videos means more internal time pulled away from core work. Bottleneck grows.</div>
-    <div class="tl-mid">vs</div>
-    <div class="tl-cell right"><div class="tl-label amber">Scaling up</div>5 videos or 50, we scale with you. No headcount required on your side.</div>
-  </div>
-</section>
-
-<section id="for" class="section alt">
-  <p class="section-eyebrow">Who it's for</p>
-  <h2 class="section-h">Built for teams that need video without the overhead</h2>
-  <div class="for-grid">
-    <div class="for-card">
-      <p class="for-card-title">Training providers</p>
-      <p class="for-card-body">Course modules produced at scale. Update content fast when things change, no reshooting required.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">HR and people teams</p>
-      <p class="for-card-body">Onboarding, compliance, policy explainers. Consistent content every new hire sees, without booking a studio.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Legal and professional services</p>
-      <p class="for-card-body">Complex topics explained clearly. Your expertise, in a format clients actually sit through.</p>
-    </div>
-    <div class="for-card">
-      <p class="for-card-title">Growing SMEs</p>
-      <p class="for-card-body">Regular video content without hiring in-house or paying full agency rates.</p>
-    </div>
-  </div>
-  <a class="section-link" href="who-its-for.html">See who we work with →</a>
-</section>
-
-<section id="how" class="section">
-  <p class="section-eyebrow">How it works</p>
-  <h2 class="section-h">From brief to delivered. Four steps.</h2>
-  <div class="steps-col">
-    <div class="step-connector"></div>
-    <div class="step">
-      <div class="step-num-circle">01</div>
-      <div class="step-content">
-        <p class="step-title">Brief</p>
-        <p class="step-body">Share the topic, tone, and audience. Script optional.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">02</div>
-      <div class="step-content">
-        <p class="step-title">Script</p>
-        <p class="step-body">We write or refine the script. You approve before production starts.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">03</div>
-      <div class="step-content">
-        <p class="step-title">Production</p>
-        <p class="step-body">AI avatar, voiceover, motion, editing. Fully handled.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num-circle">04</div>
-      <div class="step-content">
-        <p class="step-title">Delivery</p>
-        <p class="step-body">Final file ready to publish. Revisions included.</p>
-      </div>
-    </div>
-  </div>
-  <p class="section-sub" style="margin-top:28px;margin-bottom:0">Need a new version next quarter? Same process, faster, we already have your brand voice and avatar setup on file.</p>
-  <a class="section-link" href="how-it-works.html">See the full process →</a>
-</section>
-
-<section id="about" class="section alt">
-  <p class="section-eyebrow">About</p>
-  <h2 class="section-h">A production service, not a one-off studio gig.</h2>
-  <div class="about-text">
-    <p>Deliverable runs on the same AI video tools anyone can access, HeyGen, Veo3, ElevenLabs. The tools aren't the differentiator anymore; production discipline is.</p>
-    <p>That means scripts written for clarity and retention, not just text fed into a generator. A repeatable process, so output quality doesn't depend on which week you ask. And a setup where updating a video means editing the script, not re-booking a shoot.</p>
-    <p>This isn't a tool subscription, and it isn't a traditional production house either. It's the production capacity a team would want in-house, without the overhead of hiring one.</p>
-    <p>Based in Ho Chi Minh City. Open to clients across time zones.</p>
-  </div>
-  <a class="section-link" href="about.html">More about us →</a>
-</section>
-
-<section id="contact" class="cta-section">
-  <div class="cta-inner">
+  <div class="split">
     <div>
-      <h2 class="cta-h">Let's build something <em>worth watching.</em></h2>
-      <p class="cta-sub">Send us a brief or just say hello. We'll show you what's possible before you commit to anything.</p>
-      <ul class="cta-checks">
-        <li class="cta-check"><span class="cta-check-icon">✓</span>We respond within one business day</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>First concept is free for qualified briefs</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>No minimum commitment to start, retainer available once you need ongoing video</li>
-        <li class="cta-check"><span class="cta-check-icon">✓</span>Script optional, we write it if you don't have one</li>
+      <p class="eyebrow">Commissioning</p>
+      <h2>A video should not become another full-time job.</h2>
+      <p class="sub">Bring the material you already have: a rough brief, a product walkthrough, a presentation or a conversation. I help shape the explanation, propose the visuals, and take it through production and review.</p>
+    </div>
+    <div class="card">
+      <span class="k">Included in a project</span>
+      <ul class="list">
+        <li>Message and script</li>
+        <li>Visual direction</li>
+        <li>Animation and editing</li>
+        <li>Audio and captions where agreed</li>
+        <li>Final delivery in the formats you need</li>
       </ul>
-      <p class="cta-note">Open to working with clients in Australia, UK, and Singapore.<br>Based in Ho Chi Minh City, available across time zones.</p>
-    </div>
-    <div>
-      <div class="contact-form-card">
-        <form onsubmit="handleContactSubmit(event)">
-          <div class="form-row">
-            <label class="form-label" for="f-name">Name</label>
-            <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-email">Email</label>
-            <input class="form-input" id="f-email" name="email" type="email" placeholder="you@company.com" required>
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-company">Company</label>
-            <input class="form-input" id="f-company" name="company" type="text" placeholder="Company name">
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="f-message">Message</label>
-            <textarea class="form-input" id="f-message" name="message" placeholder="Tell us what you need..." required></textarea>
-          </div>
-          <button class="form-submit" type="submit">Send message</button>
-          <div class="form-success" id="formSuccess">We got your message. We'll be in touch shortly.</div>
-          <div class="form-error" id="formError"></div>
-        </form>
-      </div>
+      <p style="margin-top:18px">The revision scope is specified in the quote, so you know what is included before production starts.</p>
     </div>
   </div>
 </section>
 
-<footer class="footer dark">
+<section class="section tint">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Practical economics</p>
+      <h2>Build the visual approach once. Keep using what works.</h2>
+      <p class="sub">A repeatable series does not need a completely new visual language every time. Approved layouts, styles and production decisions can carry forward, while each video gets the explanation it needs.</p>
+    </div>
+    <div>
+      <p>Updates and additional pieces are scoped according to what changes. A short diagram-led piece and a bespoke film are different jobs, and the quote reflects that.</p>
+      <p>Code-assisted animation and AI tools help with parts of production. I direct the work and check the result.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">How to start</p>
+    <h2>Start with one useful explanation.</h2>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <span class="k">A first project</span>
+      <h3>One defined piece of work</h3>
+      <p>We agree the audience, the message, the approach, the deliverables and the quote before production begins.</p>
+    </div>
+    <div class="card">
+      <span class="k">Ongoing work</span>
+      <h3>When the need repeats</h3>
+      <p>For regular updates, lessons or recurring communication, we agree an ongoing scope once the workload is understood: capacity and priorities, not unlimited output.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="section-head">
+    <p class="eyebrow">A note from Ethan</p>
+    <h2>Why I do this work.</h2>
+  </div>
+  <div class="noteblock">
+    <p>I've spent more than seven years producing and editing video, from brand films and testimonials to long-form pieces, and more recently motion graphics built with code. The part I care about most is the moment something complicated becomes clear to the person watching.</p>
+    <p>Most businesses already know what they need to say. What they lack is the time to shape it and someone to carry it through production. That is the job I take on: the structure, the visual choices, the animation, the checking, and the revisions, until the explanation works.</p>
+    <p class="sig">Ethan Truong &middot; Ho Chi Minh City &middot; working with clients across time zones</p>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Start a project</p>
+      <h2>What do you need people to understand?</h2>
+      <p class="sub">Tell me about your business, who the explanation is for, and where you want to use it. We can work out whether video is the right fit.</p>
+      <div class="faq" style="margin-top:36px">
+        <details>
+          <summary>What do you need from me to start?</summary>
+          <div class="a">Who the video is for, what they should understand or do, and the material you already have: notes, a presentation, a walkthrough, or a conversation. You do not need a script or any animation terminology.</div>
+        </details>
+        <details>
+          <summary>How long does a project take?</summary>
+          <div class="a">It depends on the scope. The timeline is agreed with the quote, with approval points for the message and the visual approach before animation starts.</div>
+        </details>
+        <details>
+          <summary>Can a video be updated later?</summary>
+          <div class="a">Yes. Updates are scoped by what changes. Approved layouts and styles carry forward, so a revision is usually smaller than the first piece.</div>
+        </details>
+        <details>
+          <summary>Do you need access to our systems or data?</summary>
+          <div class="a">No. For updates and recaps you provide the approved highlights and any figures you want shown. I work from that summary.</div>
+        </details>
+      </div>
+    </div>
+    <div class="form-card">
+      <form onsubmit="handleContactSubmit(event)">
+        <div class="form-row">
+          <label class="form-label" for="f-name">Name</label>
+          <input class="form-input" id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-email">Email</label>
+          <input class="form-input" id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-company">Company</label>
+          <input class="form-input" id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-message">What should people understand?</label>
+          <textarea class="form-input" id="f-message" name="message" required></textarea>
+        </div>
+        <button class="btn form-submit" type="submit">Talk through a project</button>
+        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records.</p>
+        <div class="form-success" id="formSuccess" role="status">Thanks, your message is in. I'll reply by email.</div>
+        <div class="form-error" id="formError" role="alert"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
   <span class="footer-logo">Deliverable</span>
-  <span class="footer-right">hello@deliverable.studio</span>
+  <span class="footer-right">hello@deliverable.studio &middot; Ho Chi Minh City</span>
 </footer>
 
 <script src="script.js"></script>
