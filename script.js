@@ -67,6 +67,26 @@ function toggleMenu(){
   });
 })();
 
+// Full pieces: a quiet Play button over the poster instead of the browser's
+// dark control bar; native controls take over once the piece is playing.
+// Without JavaScript the video keeps its native controls.
+(function fullPieces(){
+  var vids = document.querySelectorAll('video[data-full]');
+  Array.prototype.forEach.call(vids, function(v){
+    var btn = v.parentNode.querySelector('.play-full');
+    if(!btn) return;
+    v.controls = false;
+    btn.hidden = false;
+    btn.addEventListener('click', function(){
+      v.controls = true;
+      btn.hidden = true;
+      var p = v.play();
+      if(p && p.catch) p.catch(function(){});
+      v.focus();
+    });
+  });
+})();
+
 async function handleContactSubmit(e){
   e.preventDefault();
   var form = e.target;
