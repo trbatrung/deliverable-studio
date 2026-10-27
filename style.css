@@ -195,6 +195,7 @@ main [id]{scroll-margin-top:72px}
 .win-status{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-tint);border-radius:999px;padding:5px 10px}
 .win-side{max-width:520px}
 .finished-grid{display:grid;gap:28px}
+.process-film{margin-bottom:var(--s8)}
 @media(min-width:900px){
   .finished-grid{grid-template-columns:7fr 5fr;align-items:start}
   .finished-grid .win-wide:last-child{margin-top:64px}
