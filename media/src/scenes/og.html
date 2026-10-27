@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script>window.SCENE = { name: 'og', width: 1200, height: 630, fps: 30, duration: 0, kind: 'still', out: '../og-image.png' };</script>
+<style>
+  html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; background: #F7F4F1; }
+  body { position: relative; font-family: Inter, sans-serif; color: #141413; -webkit-font-smoothing: antialiased; }
+  .copy { position: absolute; left: 80px; top: 72px; width: 900px; }
+  .eyebrow { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: #854F0B;
+             letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 26px; }
+  .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  h1 { margin: 0; font-size: 64px; font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 em { font-style: normal; color: #E8940A; }
+  .sub { margin: 26px 0 0; font-size: 24px; font-weight: 400; line-height: 1.4; color: #6B6763; max-width: 800px; }
+  .mark { position: absolute; left: 80px; bottom: 60px; font-size: 34px; font-weight: 500; letter-spacing: -0.02em;
+          color: #E8940A; line-height: 1; }
+
+  /* Decorative stack: two flat rounded cards with a play mark */
+  .stack { position: absolute; right: 60px; bottom: 60px; width: 300px; height: 200px; }
+  .card { position: absolute; width: 260px; height: 160px; border-radius: 24px; }
+  .back { right: 0; top: 0; background: #E8940A; }
+  .front { left: 0; bottom: 0; background: #141413; }
+  .play { position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px;
+          border-radius: 50%; background: #E8940A; }
+  .play::after { content: ''; position: absolute; left: 22px; top: 17px; border-style: solid;
+                 border-width: 11px 0 11px 17px; border-color: transparent transparent transparent #F7F4F1; }
+</style>
+</head><body>
+  <div class="copy">
+    <div class="eyebrow">AI video production service</div>
+    <h1>Training and onboarding videos that update <em>as fast as your business does.</em></h1>
+    <p class="sub">Script, AI production, editing, and revisions, handled end to end.</p>
+  </div>
+  <div class="mark">Deliverable</div>
+  <div class="stack" aria-hidden="true">
+    <div class="card back"></div>
+    <div class="card front"><div class="play"></div></div>
+  </div>
+</body></html>

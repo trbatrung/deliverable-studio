@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pipeline stations loop</title>
+<script>window.SCENE = { name: 'portrait-pipeline', width: 800, height: 800, fps: 30, duration: 6, kind: 'loop' };</script>
+<style>
+  html, body { width: 800px; height: 800px; margin: 0; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; }
+  .abs { position: absolute; }
+  .card { left: 160px; top: 220px; width: 480px; height: 340px; border-radius: 24px; background: #FCFBFA;
+          box-shadow: 0 12px 24px rgba(0,0,0,0.06); overflow: hidden; }
+  .st { position: absolute; inset: 0; }
+  /* Script */
+  .sl { position: absolute; left: 64px; height: 14px; border-radius: 999px; background: #141413; }
+  .tag { position: absolute; left: 64px; top: 88px; height: 14px; width: 96px; border-radius: 999px; background: #E8940A; }
+  .caret { position: absolute; width: 3px; height: 30px; margin-top: -8px; border-radius: 999px; background: #E8940A; }
+  /* Frame */
+  .frame { position: absolute; left: 40px; top: 57px; width: 400px; height: 226px; border-radius: 20px; background: #FEF3E2; overflow: hidden; }
+  .head { position: absolute; left: 166px; top: 50px; width: 68px; height: 68px; border-radius: 50%; background: #141413; }
+  .body { position: absolute; left: 115px; top: 130px; width: 170px; height: 130px; border-radius: 999px 999px 0 0; background: #141413; }
+  .rec { position: absolute; left: 20px; top: 20px; width: 14px; height: 14px; border-radius: 50%; background: #E8940A; }
+  .lt { position: absolute; left: 20px; bottom: 20px; width: 150px; height: 44px; border-radius: 999px; background: #FCFBFA;
+        display: flex; flex-direction: column; justify-content: center; gap: 7px; padding-left: 20px; box-sizing: border-box; }
+  .lt b { display: block; height: 7px; border-radius: 999px; background: #141413; }
+  .lt b + b { background: #A09B95; }
+  /* Wave */
+  .wave { position: absolute; left: 40px; right: 40px; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 7px; }
+  .wave i { display: block; width: 8px; border-radius: 999px; background: #E8940A; }
+  .base { position: absolute; left: 64px; right: 64px; top: 169px; height: 1.5px; background: #DDD6CD; }
+  /* File */
+  .file { position: absolute; left: 64px; top: 100px; width: 110px; height: 140px; border-radius: 20px; background: #141413; }
+  .file svg { position: absolute; left: 33px; top: 46px; }
+  .badge { position: absolute; left: 150px; top: 82px; width: 44px; height: 44px; border-radius: 50%; background: #E8940A;
+           box-shadow: 0 0 0 5px #FCFBFA; }
+  .ftxt { position: absolute; left: 208px; top: 124px; }
+  .ftxt .t { font-size: 40px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+  .ftxt .s { margin-top: 10px; font-size: 26px; color: #6B6763; }
+  /* Steps */
+  .track { left: 316px; width: 168px; top: 627px; height: 2px; background: #DDD6CD; }
+  .fill { left: 316px; top: 627px; height: 2px; background: #E8940A; }
+  .dot { top: 628px; border-radius: 50%; }
+</style>
+</head>
+<body>
+  <div class="abs card">
+    <div class="st" id="s0">
+      <div class="tag"></div>
+      <div class="sl" id="l0" style="top:136px"></div>
+      <div class="sl" id="l1" style="top:180px"></div>
+      <div class="sl" id="l2" style="top:224px"></div>
+      <div class="caret" id="caret"></div>
+    </div>
+    <div class="st" id="s1">
+      <div class="frame" id="frame">
+        <div id="zoom" style="position:absolute;inset:0">
+          <div class="head"></div><div class="body"></div>
+        </div>
+        <div class="rec" id="rec"></div>
+        <div class="lt" id="lt"><b style="width:86px"></b><b style="width:58px"></b></div>
+      </div>
+    </div>
+    <div class="st" id="s2"><div class="base"></div><div class="wave" id="wave"></div></div>
+    <div class="st" id="s3">
+      <div class="file"><svg width="44" height="48" viewBox="0 0 44 48"><path d="M8 6v36l30-18z" fill="#E8940A" stroke="#E8940A" stroke-width="6" stroke-linejoin="round"/></svg></div>
+      <div class="badge" id="badge"><svg width="44" height="44" viewBox="0 0 44 44"><path id="bt" d="M13.5 22.5l6 6 11-12" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="28"/></svg></div>
+      <div class="ftxt"><div class="t">Delivered</div><div class="s">MP4, 1080p</div></div>
+    </div>
+  </div>
+  <div class="abs track"></div>
+  <div class="abs fill" id="fill"></div>
+  <div id="dots"></div>
+<script>
+  function bez(x1, y1, x2, y2) {
+    return function (x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const xt = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const d = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(d) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - xt / d));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1), EIO = bez(0.65, 0, 0.35, 1);
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const seg = (t, a, b, f = E) => f(clamp((t - a) / (b - a)));
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const mod6 = v => ((v % 6) + 6) % 6;
+
+  // Stations: when each starts entering, and how long until it starts leaving.
+  const D = 0.4;
+  const ST = [{ at: 5.6, len: 2.0 }, { at: 1.6, len: 1.35 }, { at: 2.95, len: 1.05 }, { at: 4.0, len: 1.6 }];
+  const IN0 = 0.25, IN1 = 0.6, OUT = 0.25;
+  const els = [0, 1, 2, 3].map(i => document.getElementById('s' + i));
+  const L = [0, 1, 2].map(i => document.getElementById('l' + i));
+  const LW = [340, 300, 214], LY = [136, 180, 224];
+  const caret = document.getElementById('caret');
+  const zoom = document.getElementById('zoom'), lt = document.getElementById('lt'), rec = document.getElementById('rec');
+  const badge = document.getElementById('badge'), bt = document.getElementById('bt'), fill = document.getElementById('fill');
+  const wave = document.getElementById('wave');
+  const bars = [];
+  for (let i = 0; i < 26; i++) { const b = document.createElement('i'); wave.appendChild(b); bars.push(b); }
+  const DX = [316, 372, 428, 484];
+  const dotsEl = document.getElementById('dots');
+  const dots = DX.map(x => { const d = document.createElement('div'); d.className = 'abs dot'; dotsEl.appendChild(d); return { el: d, x }; });
+  const HL = [221, 214, 205], AM = [232, 148, 10];
+  const mix = (a, b, k) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',') + ')';
+
+  // Poster offset: frame 0 shows the presenter frame with its lower third.
+  const OFFSET = 2.65;
+  window.seek = function (sec) {
+    const T = mod6(sec + OFFSET);
+    const act = [];
+    ST.forEach((s, i) => {
+      const v = mod6(T - s.at);
+      const inK = seg(v, IN0, IN1, EIO), outK = seg(v, s.len, s.len + OUT, EIO);
+      const vis = v <= s.len + OUT;
+      const x = vis ? (1 - inK) * 56 - outK * 56 : 56;
+      els[i].style.opacity = vis ? (inK * (1 - outK)).toFixed(3) : 0;
+      els[i].style.transform = 'translateX(' + x.toFixed(2) + 'px)';
+      act.push(vis ? inK * (1 - outK) : 0);
+      s.v = v;
+    });
+    // 1. Script lines are written out, caret leading.
+    const v0 = ST[0].v > 5 ? 0 : ST[0].v;
+    let cx = 64, cy = LY[0];
+    L.forEach((l, i) => {
+      const a = 0.5 + i * 0.45, k = seg(v0, a, a + 0.42, t => t);
+      l.style.width = (LW[i] * k).toFixed(2) + 'px';
+      if (v0 >= a) { cx = 64 + LW[i] * k; cy = LY[i]; }
+    });
+    caret.style.left = (cx + 6).toFixed(2) + 'px'; caret.style.top = cy + 'px';
+    caret.style.opacity = (1 - seg(v0, 1.85, 2.0)).toFixed(3);
+    // 2. Presenter frame: slow push in, lower third slides on.
+    const v1 = ST[1].v > 5 ? 0 : ST[1].v;
+    zoom.style.transform = 'scale(' + (1 + 0.05 * clamp(v1 / 1.85)).toFixed(4) + ')';
+    zoom.style.transformOrigin = '50% 40%';
+    const l3 = seg(v1, 0.45, 0.95);
+    lt.style.opacity = l3.toFixed(3); lt.style.transform = 'translateX(' + ((1 - l3) * -24).toFixed(2) + 'px)';
+    rec.style.opacity = (0.55 + 0.45 * Math.cos(v1 * Math.PI * 2 / 1.2)).toFixed(3);
+    // 3. Waveform: calm, layered sines inside a soft envelope.
+    const v2 = ST[2].v;
+    bars.forEach((b, i) => {
+      const p = (i - 12.5) / 12.5;
+      const env = 0.25 + 0.75 * Math.cos(p * Math.PI / 2);
+      const m = 0.5 + 0.3 * Math.sin(v2 * 5.2 + i * 0.75) + 0.2 * Math.sin(v2 * 3.1 - i * 1.3);
+      b.style.height = (10 + 150 * env * m).toFixed(2) + 'px';
+    });
+    // 4. Delivered: tick lands.
+    const v3 = ST[3].v > 5 ? 0 : ST[3].v;
+    const bk = seg(v3, 0.35, 0.75);
+    badge.style.transform = 'scale(' + (0.7 + 0.3 * bk).toFixed(4) + ')'; badge.style.opacity = bk.toFixed(3);
+    bt.style.strokeDashoffset = (28 * (1 - seg(v3, 0.5, 0.85))).toFixed(2);
+    // Steps: progress runs along the rail, then retracts with the reset.
+    let pos = 0;
+    for (let i = 1; i < 4; i++) pos += seg(T, ST[i].at + IN0, ST[i].at + IN1, EIO);
+    pos *= 1 - seg(T, 5.6, 6.0, EIO);
+    fill.style.width = (pos * 56).toFixed(2) + 'px';
+    dots.forEach((d, i) => {
+      const reached = clamp(pos - i + 1);
+      const size = 12 + 8 * act[i];
+      d.el.style.left = (d.x - size / 2).toFixed(2) + 'px';
+      d.el.style.width = d.el.style.height = size.toFixed(2) + 'px';
+      d.el.style.marginTop = (-size / 2 + 1).toFixed(2) + 'px';
+      d.el.style.background = mix(HL, AM, Math.max(reached, act[i]));
+    });
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

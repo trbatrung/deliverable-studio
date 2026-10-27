@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Deliverable</title>
+  <rect width="64" height="64" rx="14" fill="#FFFFFF"/>
+  <!-- "D" from Inter, converted to outlines. Optically weighted (Inter 600 outline,
+       stem and bars snapped to even units) so it holds at 16 and 32px tab sizes. -->
+  <path fill="#E8940A" d="M30.2 50H18V14H30.44Q35.8 14 39.66 16.16Q43.52 18.3 45.7 22.34Q48 26.36 48 31.96Q48 37.58 45.7 41.64Q43.5 45.68 39.6 47.84Q35.68 50 30.2 50ZM24 44H29.88Q42 44 42 31.96Q42 20 30.08 20H24Z"/>
+</svg>

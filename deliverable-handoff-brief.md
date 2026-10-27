@@ -47,18 +47,18 @@ Single avatar, talking head, ~75 seconds. Built to be a real, usable example (no
 
 ---
 
-## Demo Videos: Training & Course Module — STATUS: Not started
+## Demo Videos: Course Module & Explainer — STATUS: Produced (text-led motion demos) ✅
 
-Only short pitch lines exist for these (inside the trailer script above). Full standalone scripts, same treatment as the onboarding demo, still need to be written and produced.
+Both were produced in-house as silent, caption-led motion-graphic videos, no avatar, no external generator. Source scenes live in `media/src/scenes/demo-course-module.html` and `media/src/scenes/demo-explainer.html`; re-render with `cd media/src && npm install && node render.mjs`. Scene plans with on-screen text and timings: `files/scripts/course-module-demo.md` and `files/scripts/explainer-demo.md`. Voiceover and music can be added later on top of the rendered mp4.
 
 ---
 
 ## Remaining Checklist
 - [ ] Secure domain
-- [ ] Write + produce training demo video (standalone script needed)
-- [ ] Write + produce course module demo video (standalone script needed)
+- [x] Produce course module demo video (text-led motion demo)
+- [x] Produce explainer demo video (text-led motion demo)
 - [ ] Set up domain email
-- [ ] Get site live with trailer + onboarding demo embedded
+- [x] Get site live with trailer + demos embedded
 - [ ] Send cold outreach to first 5 target prospects
 
 ---

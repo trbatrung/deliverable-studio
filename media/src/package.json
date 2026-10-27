@@ -1,0 +1,12 @@
+{
+  "name": "deliverable-media",
+  "private": true,
+  "type": "module",
+  "description": "Renders the Deliverable site media (loops, demos, stills) from HTML scenes with headless Chrome and ffmpeg.",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}

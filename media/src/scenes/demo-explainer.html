@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept demo: explainer</title>
+<script>
+  window.SCENE = { name: 'demo-explainer', width: 1280, height: 720, fps: 30, duration: 52, kind: 'video' };
+</script>
+<style>
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  [data-in] { will-change: transform, opacity; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #E8940A; flex-shrink: 0; }
+  .h { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 0; text-align: center; text-wrap: balance; }
+  .muted { color: #6B6763; }
+  .nw { white-space: nowrap; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; font-size: 22px; font-weight: 500; padding: 9px 22px; white-space: nowrap; }
+  .pill.outline { background: #FCFBFA; border: 1.5px solid #DDD6CD; color: #6B6763; }
+  .pill.band { background: #FEF3E2; color: #854F0B; }
+  .pill.red { background: #F6DFD8; color: #A32D2D; }
+  .pill.white { background: #FCFBFA; color: #854F0B; }
+  .card { background: #FCFBFA; border-radius: 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+  .head { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .w { display: inline-block; }
+
+  /* Persistent chrome: firm name, label, travelling progress dot */
+  #chrome { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; top: 36px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; }
+  .firm { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
+  .firm i { width: 28px; height: 28px; border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-size: 15px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .track { position: absolute; left: 64px; right: 64px; bottom: 44px; height: 2px; background: #DDD6CD; border-radius: 999px; }
+  .track .done { position: absolute; left: 0; top: 0; bottom: 0; background: #E8940A; border-radius: 999px; width: 0; }
+  .track .stop { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #DDD6CD; }
+  .track .stop.on { background: #E8940A; }
+  .track .dot { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #E8940A; }
+
+  /* (a) hook */
+  #s-hook .demo { position: absolute; top: 44px; left: 50%; transform: translateX(-50%); }
+  #s-hook .stack { display: flex; flex-direction: column; align-items: center; gap: 32px; margin-top: 10px; }
+  #s-hook .h { font-size: 72px; width: 940px; line-height: 1.1; }
+  #s-hook .h em { font-style: normal; color: #D18409; }
+  .rule { width: 64px; height: 4px; border-radius: 999px; background: #E8940A; }
+
+  /* (b) before / after */
+  #s-split { justify-content: flex-start; padding-top: 104px; }
+  #s-split .h { font-size: 40px; }
+  #s-split .head { gap: 12px; margin-bottom: 26px; }
+  .cols { display: flex; gap: 32px; width: 1152px; }
+  .col { flex: 1; border-radius: 24px; padding: 26px 32px 24px; display: flex; flex-direction: column; height: 404px; }
+  .col.before { background: #FBF1EE; }
+  .col.after { background: #FCFBFA; box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+  .col-h { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+  .col-h h3 { margin: 0; font-size: 30px; font-weight: 500; letter-spacing: -0.02em; }
+  .before .col-h h3 { color: #A32D2D; }
+  .rows { position: relative; display: flex; flex-direction: column; }
+  .row { display: flex; align-items: center; gap: 18px; height: 46px; }
+  .node { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #DDD6CD; background: #F7F4F1; position: relative; flex-shrink: 0; z-index: 1; }
+  .before .node { border-color: #E9C9C0; background: #FBF1EE; }
+  .node b { position: absolute; inset: -2px; border-radius: 50%; background: #E8940A; opacity: 0; }
+  .before .node b { background: #A32D2D; }
+  .rail { position: absolute; left: 7px; width: 2px; background: #DDD6CD; }
+  .before .rail { background: #E9C9C0; }
+  .runner { position: absolute; left: 0; width: 16px; height: 16px; border-radius: 50%; background: #E8940A; z-index: 2; }
+  .before .runner { background: #A32D2D; }
+  .txt { flex: 1; display: flex; justify-content: space-between; align-items: baseline; font-size: 24px; }
+  .txt .when { font-size: 22px; color: #6B6763; font-variant-numeric: tabular-nums; }
+  .total { margin-top: auto; border-top: 1.5px solid #DDD6CD; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline; }
+  .before .total { border-color: #E9C9C0; }
+  .total span:first-child { font-size: 22px; color: #6B6763; }
+  .total strong { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; }
+  .before .total strong { color: #A32D2D; }
+  .after .total strong { color: #D18409; }
+
+  /* (c) three things */
+  #s-three .head { margin-bottom: 34px; }
+  #s-three .h { font-size: 44px; }
+  .things { display: flex; flex-direction: column; gap: 16px; width: 960px; }
+  .thing { display: flex; align-items: center; gap: 28px; padding: 22px 32px; }
+  .tnum { width: 56px; height: 56px; border-radius: 50%; border: 2px solid #DDD6CD; position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; color: #6B6763; }
+  .tnum b { position: absolute; inset: -2px; border-radius: 50%; background: #E8940A; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+  .thing h3 { margin: 0 0 4px; font-size: 30px; font-weight: 500; letter-spacing: -0.02em; }
+  .thing p { margin: 0; font-size: 24px; color: #6B6763; }
+
+  /* (d) common mistake */
+  .mistake { width: 1020px; background: #FEF3E2; border-radius: 24px; padding: 44px 52px 46px; display: flex; flex-direction: column; gap: 22px; }
+  .mistake .h { text-align: left; font-size: 46px; line-height: 1.18; text-wrap: nowrap; }
+  .mistake .div { height: 1.5px; background: #F0D9B5; margin: 6px 0; }
+  .fix { display: flex; align-items: flex-start; gap: 22px; }
+  .fix .pill { flex-shrink: 0; }
+  .fix p { margin: 4px 0 0; font-size: 30px; line-height: 1.35; letter-spacing: -0.01em; text-wrap: pretty; }
+
+  /* (e) summary */
+  #s-sum .h { font-size: 60px; width: 1000px; line-height: 1.16; margin-top: 26px; }
+  #s-sum .h em { font-style: normal; color: #D18409; }
+
+  /* (f) end card */
+  #s-end .stack { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  #s-end .mark { width: 64px; height: 64px; border-radius: 50%; background: #141413; color: #F7F4F1; font-size: 30px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  #s-end .h { font-size: 72px; }
+  #s-end .q { font-size: 30px; color: #6B6763; }
+
+  /* (g) Deliverable slate */
+  #s-dlv .word { font-size: 104px; font-weight: 500; letter-spacing: -0.03em; color: #E8940A; line-height: 1; }
+  #s-dlv .sub { font-size: 26px; color: #6B6763; margin-top: 28px; }
+</style>
+</head>
+<body>
+
+<div id="chrome">
+  <div class="top">
+    <div class="firm"><i>H</i>Harwood &amp; Co</div>
+    <div class="pill outline">Client explainer</div>
+  </div>
+  <div class="track">
+    <div class="done"></div>
+    <div class="stop" data-at="4.5"></div><div class="stop" data-at="16.5"></div><div class="stop" data-at="30"></div>
+    <div class="stop" data-at="39"></div><div class="stop" data-at="44.5"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<!-- (a) Hook: poster frame, key content inside the central 960px -->
+<section class="scene" id="s-hook" data-s="0" data-e="4.5">
+  <div class="pill outline demo">Concept demo</div>
+  <div class="stack">
+    <div class="eyebrow">Harwood &amp; Co, client explainer</div>
+    <h1 class="h">What changes when your contract moves to <em class="nw">e-signature?</em></h1>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<!-- (b) Before and after -->
+<section class="scene" id="s-split" data-s="4.5" data-e="16.5">
+  <div class="head">
+    <div class="eyebrow" data-in="4.8">Before and after</div>
+    <h2 class="h" data-in="5.0">Same contract, two routes <span class="muted" style="font-size:22px;letter-spacing:0;font-weight:400;margin-left:10px">Illustrative timings</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col before" data-in="5.3" data-d="0.6">
+      <div class="col-h"><span class="pill red">Before</span><h3>Paper route</h3></div>
+      <div class="rows" data-times="6.0,6.8,7.6,8.4,9.2" data-travel="0.7">
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Print and sign</span><span class="when">Day 1</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Courier to the other party</span><span class="when">Day 3</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Countersign and send back</span><span class="when">Day 5</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Scan and share copies</span><span class="when">Day 6</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>File the original</span><span class="when">Day 7</span></span></div>
+      </div>
+      <div class="total" data-in="9.9"><span>Total</span><strong>About 7 days</strong></div>
+    </div>
+    <div class="col after" data-in="10.4" data-d="0.6">
+      <div class="col-h"><span class="pill band">After</span><h3>E-signature route</h3></div>
+      <div class="rows" data-times="11.0,11.45,11.9" data-travel="0.3">
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Send for signature</span><span class="when">9:00</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Both parties sign online</span><span class="when">10:30</span></span></div>
+        <div class="row"><span class="node"><b></b></span><span class="txt"><span>Signed copy filed automatically</span><span class="when">11:45</span></span></div>
+      </div>
+      <div class="total" data-in="12.5"><span>Total</span><strong>About 3 hours</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- (c) Three things you still need to do -->
+<section class="scene" id="s-three" data-s="16.5" data-e="30">
+  <div class="head">
+    <div class="eyebrow" data-in="16.8">Your part</div>
+    <h2 class="h" data-in="17.0">Three things you still need to do</h2>
+  </div>
+  <div class="things">
+    <div class="card thing" data-in="17.7">
+      <div class="tnum">1<b data-in="18.1" data-fx="pop" data-d="0.4">1</b></div>
+      <div><h3>Confirm who can sign</h3><p>Each signer must be authorised for their party.</p></div>
+    </div>
+    <div class="card thing" data-in="21.2">
+      <div class="tnum">2<b data-in="21.6" data-fx="pop" data-d="0.4">2</b></div>
+      <div><h3>Check the document type</h3><p>Some deeds still need a witness present.</p></div>
+    </div>
+    <div class="card thing" data-in="24.7">
+      <div class="tnum">3<b data-in="25.1" data-fx="pop" data-d="0.4">3</b></div>
+      <div><h3>Keep the audit trail</h3><p>Store the signing certificate with the contract.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- (d) Common mistake -->
+<section class="scene" id="s-mistake" data-s="30" data-e="39">
+  <div class="mistake" data-in="30.3" data-d="0.7">
+    <div class="eyebrow">Common mistake</div>
+    <h2 class="h" data-in="30.7">Sending the draft, not the final version.</h2>
+    <div class="div"></div>
+    <div class="fix" data-in="32.1">
+      <span class="pill white">The fix</span>
+      <p>Lock the final PDF and check it against the agreed draft before you send.</p>
+    </div>
+  </div>
+</section>
+
+<!-- (e) One-sentence summary -->
+<section class="scene" id="s-sum" data-s="39" data-e="45">
+  <div class="eyebrow" data-in="39.3">In short</div>
+  <h2 class="h" data-words="39.6">E-signature speeds up signing.<br>The checks before you send<br><em>stay the same.</em></h2>
+</section>
+
+<!-- (f) End card -->
+<section class="scene" id="s-end" data-s="45" data-e="48.5">
+  <div class="stack">
+    <div class="mark" data-in="45.3" data-fx="scale">H</div>
+    <h2 class="h" data-in="45.4">Harwood &amp; Co</h2>
+    <div class="q" data-in="45.7">Questions? Talk to your engagement lead.</div>
+  </div>
+</section>
+
+<!-- (g) Deliverable closing slate -->
+<section class="scene" id="s-dlv" data-s="48.5" data-e="52">
+  <div class="word" data-in="48.8" data-d="0.7">Deliverable</div>
+  <div class="sub" data-in="49.2">Concept demo, built to show what&rsquo;s possible</div>
+</section>
+
+<script>
+  const DUR = window.SCENE.duration;
+  function bez(x1, y1, x2, y2) {
+    return x => {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const dx = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(cx) < 1e-6 || Math.abs(dx) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - cx/dx));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1);
+  const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
+  const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+
+  document.querySelectorAll('[data-words]').forEach(h => {
+    let start = +h.dataset.words;
+    const walk = node => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const s = document.createElement('span');
+            s.className = 'w'; s.textContent = part;
+            s.dataset.in = start.toFixed(2); s.dataset.d = '0.55';
+            start += 0.08;
+            frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(h);
+  });
+
+  // Route rails: a dot travels node to node; each row's text lands as the dot arrives
+  const rails = [...document.querySelectorAll('.rows')].map(r => {
+    const times = r.dataset.times.split(',').map(Number);
+    const travel = +r.dataset.travel;
+    const rows = [...r.querySelectorAll('.row')];
+    rows.forEach((row, i) => { const x = row.querySelector('.txt'); x.dataset.in = times[i].toFixed(2); x.dataset.fx = 'left'; x.dataset.d = '0.5'; });
+    const ys = rows.map(row => row.offsetTop + row.offsetHeight / 2 - 8);
+    const rail = document.createElement('div'); rail.className = 'rail';
+    rail.style.top = (ys[0] + 8) + 'px'; rail.style.height = (ys[ys.length - 1] - ys[0]) + 'px';
+    const run = document.createElement('div'); run.className = 'runner';
+    r.prepend(rail); r.appendChild(run);
+    return { times, travel, ys, run, fills: rows.map(row => row.querySelector('.node b')) };
+  });
+
+  const scenes = [...document.querySelectorAll('.scene')].map(el => ({ el, s: +el.dataset.s, e: +el.dataset.e }));
+  const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
+  const chrome = document.getElementById('chrome');
+  const C0 = 4.5, C1 = 45;
+  const done = document.querySelector('.track .done'), dot = document.querySelector('.track .dot');
+  const stops = [...document.querySelectorAll('.track .stop')].map(el => ({ el, at: +el.dataset.at }));
+  const TW = 1152;
+  stops.forEach(s => { s.el.style.left = ((s.at - C0) / (C1 - 0.5 - C0) * TW) + 'px'; });
+
+  window.seek = function (t) {
+    for (const sc of scenes) {
+      let o = 1;
+      if (sc.s > 0) o = Math.min(o, prog(t, sc.s, 0.4));
+      if (sc.e < DUR) o = Math.min(o, 1 - prog(t, sc.e - 0.4, 0.4));
+      if (t < sc.s || t >= sc.e) o = 0;
+      sc.el.style.opacity = o;
+      sc.el.style.visibility = o > 0.001 ? 'visible' : 'hidden';
+    }
+    for (const it of items) {
+      const k = prog(t, it.a, it.d), s = it.el.style;
+      switch (it.fx) {
+        case 'fade': s.opacity = k; break;
+        case 'left': s.opacity = k; s.transform = `translateX(${(1 - k) * -20}px)`; break;
+        case 'pop': s.opacity = k; s.transform = `scale(${0.6 + 0.4 * k})`; break;
+        case 'scale': s.opacity = k; s.transform = `scale(${0.9 + 0.1 * k})`; break;
+        default: s.opacity = k; s.transform = `translateY(${(1 - k) * 26}px)`;
+      }
+    }
+    for (const r of rails) {
+      const n = r.times.length;
+      let y = r.ys[0];
+      for (let i = 1; i < n; i++) {
+        const a = r.times[i] - r.travel;
+        y = t <= a ? y : r.ys[i - 1] + (r.ys[i] - r.ys[i - 1]) * prog(t, a, r.travel);
+      }
+      r.run.style.top = y + 'px';
+      r.run.style.opacity = prog(t, r.times[0] - 0.3, 0.3);
+      r.fills.forEach((f, i) => { f.style.opacity = prog(t, r.times[i], 0.25); });
+    }
+    const co = Math.min(prog(t, C0, 0.4), 1 - prog(t, C1 - 0.4, 0.4));
+    chrome.style.opacity = co;
+    chrome.style.visibility = co > 0.001 ? 'visible' : 'hidden';
+    const x = lin(t, C0, C1 - 0.5 - C0) * TW;
+    done.style.width = x + 'px';
+    dot.style.left = x + 'px';
+    stops.forEach(s => s.el.classList.toggle('on', t >= s.at));
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

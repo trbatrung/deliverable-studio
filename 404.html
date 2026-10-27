@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className+=' js'</script>
+<meta name="color-scheme" content="light">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | Deliverable</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F7F4F1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav-shell">
+  <nav class="nav">
+    <a class="logo" href="index.html">Deliverable</a>
+    <div class="nav-links">
+      <a class="nav-link" href="work.html">Our work</a>
+      <a class="nav-link" href="how-it-works.html">How it works</a>
+      <a class="nav-link" href="who-its-for.html">Who it's for</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-cta" href="contact.html">Get in touch</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="work.html" onclick="toggleMenu()">Our work</a>
+    <a href="how-it-works.html" onclick="toggleMenu()">How it works</a>
+    <a href="who-its-for.html" onclick="toggleMenu()">Who it's for</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <div class="mobile-cta-wrap"><a class="mobile-cta-btn" href="contact.html">Get in touch</a></div>
+  </div>
+</div>
+
+<div class="page-header">
+  <p class="page-eyebrow">404</p>
+  <h1 class="page-h">That page moved or never existed.</h1>
+  <p class="page-sub">Try the home page, or have a look at the work.</p>
+</div>
+
+<section class="section" style="padding-top:0">
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn-primary" href="index.html">Back to home</a>
+    <a class="btn-ghost" href="work.html">See our work</a>
+  </div>
+</section>
+
+<footer class="footer dark">
+  <span class="footer-logo">Deliverable</span>
+  <span class="footer-right">hello@deliverable.studio</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

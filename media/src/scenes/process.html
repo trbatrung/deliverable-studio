@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Process timeline loop</title>
+<script>window.SCENE = { name: 'process', width: 1280, height: 720, fps: 30, duration: 6, kind: 'loop' };</script>
+<style>
+  html, body { width: 1280px; height: 720px; margin: 0; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; }
+  .abs { position: absolute; }
+  .panel { left: 48px; top: 48px; width: 1184px; height: 624px; background: #FCFBFA; border-radius: 24px;
+           box-shadow: 0 12px 24px rgba(0,0,0,0.05); }
+  .eyebrow { left: 88px; top: 92px; display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 600;
+             letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 11px; height: 11px; border-radius: 50%; background: #E8940A; }
+  .tc { right: 88px; top: 80px; height: 48px; padding: 0 24px; border-radius: 999px; background: #F7F4F1;
+        display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 500; letter-spacing: 0.01em;
+        font-variant-numeric: tabular-nums; }
+  .tc i { width: 10px; height: 10px; border-radius: 50%; background: #E8940A; display: block; }
+  .rule { left: 88px; width: 1104px; height: 1.5px; background: #DDD6CD; }
+  .label { left: 88px; height: 104px; display: flex; align-items: center; font-size: 26px; font-weight: 500;
+           letter-spacing: -0.02em; }
+  .tick { width: 1.5px; background: #DDD6CD; }
+  .clip { height: 60px; border-radius: 20px; overflow: hidden; }
+  .clip.a { background: #E8940A; }
+  .clip.k { background: #141413; }
+  .clip .bars { position: absolute; left: 16px; right: 16px; top: 0; bottom: 0; display: flex; align-items: center; gap: 5px; }
+  .clip .bars b { flex: 0 0 4px; border-radius: 999px; background: rgba(247,244,241,0.30); }
+  .clip.a .seam { position: absolute; top: 0; bottom: 0; width: 1.5px; background: #D18409; }
+  .ph { top: 160px; width: 2px; height: 456px; margin-left: -1px; background: #141413; }
+  .ph-handle { top: 156px; width: 20px; height: 32px; margin-left: -10px; border-radius: 999px; background: #E8940A; }
+  .pill { height: 60px; padding: 0 24px 0 16px; border-radius: 999px; background: #FEF3E2; border: 1.5px solid #E8940A;
+          box-sizing: border-box; display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 500;
+          color: #854F0B; letter-spacing: -0.01em; white-space: nowrap; }
+  .pill svg { display: block; }
+</style>
+</head>
+<body>
+  <div class="abs panel"></div>
+  <div class="abs eyebrow">Pipeline</div>
+  <div class="abs tc"><i></i><span id="tc">00:00:00:00</span></div>
+  <div id="ruler"></div>
+  <div id="lanes"></div>
+  <div id="clips"></div>
+  <div class="abs pill" id="pill">
+    <svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#E8940A"/><path d="M8.5 14.5l3.6 3.6 7.4-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Delivered
+  </div>
+  <div class="abs ph" id="ph"></div>
+  <div class="abs ph-handle" id="phh"></div>
+<script>
+  // Easing: brand entrance curve and a calm in-out for glides.
+  function bez(x1, y1, x2, y2) {
+    return function (x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const xt = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const d = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(d) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - xt / d));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1), EIO = bez(0.65, 0, 0.35, 1);
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const seg = (t, a, b, f = E) => f(clamp((t - a) / (b - a)));
+
+  const TX = 328, TW = 864, LANE0 = 200, LH = 104;
+  const lanes = ['Brief', 'Script', 'Production', 'Delivery'];
+  const PH_END = 650, PH_START_T = 0.5, PH_END_T = 4.5;
+  const speed = PH_END / (PH_END_T - PH_START_T);
+
+  // Clips: lane, start, end (px within the track area), colour.
+  const clips = [
+    [0, 0, 140, 'a'], [0, 148, 240, 'k'],
+    [1, 182, 330, 'k'], [1, 338, 406, 'a'],
+    [2, 356, 486, 'a'], [2, 494, 598, 'k'],
+    [3, 540, 650, 'a'],
+  ];
+
+  // Static structure.
+  const ruler = document.getElementById('ruler');
+  for (let i = 0; i <= 32; i++) {
+    const d = document.createElement('div');
+    const major = i % 4 === 0;
+    d.className = 'abs tick';
+    d.style.left = (TX + i * TW / 32 - 0.75) + 'px';
+    d.style.top = (major ? 166 : 174) + 'px';
+    d.style.height = (major ? 18 : 10) + 'px';
+    if (major) d.style.background = '#A09B95';
+    ruler.appendChild(d);
+  }
+  const lanesEl = document.getElementById('lanes');
+  const labelEls = [];
+  for (let i = 0; i <= 4; i++) {
+    const r = document.createElement('div');
+    r.className = 'abs rule'; r.style.top = (LANE0 + i * LH - 0.75) + 'px';
+    lanesEl.appendChild(r);
+  }
+  lanes.forEach((name, i) => {
+    const l = document.createElement('div');
+    l.className = 'abs label'; l.style.top = (LANE0 + i * LH) + 'px'; l.textContent = name;
+    lanesEl.appendChild(l); labelEls.push(l);
+  });
+  const clipsEl = document.getElementById('clips');
+  const clipEls = clips.map(([lane, s, e, c], idx) => {
+    const d = document.createElement('div');
+    d.className = 'abs clip ' + c;
+    d.style.left = (TX + s) + 'px'; d.style.width = (e - s) + 'px';
+    d.style.top = (LANE0 + lane * LH + 22) + 'px';
+    if (c === 'k') {
+      const bars = document.createElement('div'); bars.className = 'bars';
+      const n = Math.floor((e - s - 32) / 9);
+      for (let j = 0; j < n; j++) {
+        const b = document.createElement('b');
+        const h = 10 + 26 * Math.abs(Math.sin(j * 0.9 + idx * 1.7) * Math.cos(j * 0.37 + idx));
+        b.style.height = h.toFixed(1) + 'px';
+        bars.appendChild(b);
+      }
+      d.appendChild(bars);
+    } else {
+      for (let x = 44; x < e - s - 10; x += 44) {
+        const sm = document.createElement('div'); sm.className = 'seam'; sm.style.left = x + 'px';
+        d.appendChild(sm);
+      }
+    }
+    clipsEl.appendChild(d);
+    const tx = PH_START_T + s / speed;
+    const a = Math.max(0.05, tx - 0.75);
+    return { el: d, a, b: a + 0.6, lane, s, e };
+  });
+  const pill = document.getElementById('pill');
+  pill.style.left = (TX + PH_END + 16) + 'px';
+  pill.style.top = (LANE0 + 3 * LH + 22) + 'px';
+  const ph = document.getElementById('ph'), phh = document.getElementById('phh'), tc = document.getElementById('tc');
+
+  const ink = [20, 20, 19], mut = [160, 155, 149];
+  const mix = (a, b, k) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',') + ')';
+
+  // Poster offset: frame 0 shows the finished edit with the Delivered pill.
+  const OFFSET = 5.0;
+  window.seek = function (s) {
+    const T = ((s + OFFSET) % 6 + 6) % 6;
+    // Playhead: rest, linear sweep, hold, glide home under the fade.
+    let x;
+    if (T < PH_START_T) x = 0;
+    else if (T < PH_END_T) x = (T - PH_START_T) * speed;
+    else if (T < 5.35) x = PH_END;
+    else x = PH_END * (1 - seg(T, 5.35, 5.95, EIO));
+    ph.style.left = phh.style.left = (TX + x) + 'px';
+    // Timecode follows the playhead (864 px = 48 s of programme).
+    const frames = Math.round(x / TW * 48 * 25);
+    const ss = Math.floor(frames / 25), ff = frames % 25;
+    tc.textContent = '00:00:' + String(ss).padStart(2, '0') + ':' + String(ff).padStart(2, '0');
+
+    const out = 1 - seg(T, 5.35, 5.85, EIO);
+    clipEls.forEach(c => {
+      const k = seg(T, c.a, c.b);
+      c.el.style.opacity = (k * out).toFixed(3);
+      c.el.style.transform = 'translateX(' + ((1 - k) * 56).toFixed(2) + 'px)';
+    });
+    // Lane label reads ink while the playhead is over one of its clips.
+    labelEls.forEach((l, i) => {
+      let act = 0;
+      clipEls.filter(c => c.lane === i).forEach(c => {
+        const d = x < c.s ? c.s - x : x > c.e ? x - c.e : 0;
+        act = Math.max(act, clamp(1 - d / 24));
+      });
+      if (i === 3) act = Math.max(act, seg(T, 4.5, 5.0) * out);
+      l.style.color = mix(mut, ink, act);
+    });
+    const p = seg(T, 4.5, 5.0);
+    pill.style.opacity = (p * out).toFixed(3);
+    pill.style.transform = 'translateX(' + ((1 - p) * -16).toFixed(2) + 'px) scale(' + (0.96 + 0.04 * p).toFixed(4) + ')';
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

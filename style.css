@@ -93,6 +93,13 @@ body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--canv
 .media-slot-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #C4BFB9;margin-left:4px}
 .media-slot-label{font-size:12px;font-weight:700;letter-spacing:0.56px;text-transform:uppercase;color:#A09B95}
 .media-slot-note{font-size:12px;color:#B5AFA8;max-width:70%;text-align:center;line-height:1.5}
+/* A slot that holds a real loop drops the dashed outline and lets the video
+   fill the shape. Circles clip the loop; posters cover until play begins. */
+.media-slot.has-media{border:none;background:var(--lifted);display:block}
+.media-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:var(--lifted)}
+.media-slot.has-media .video-tag{top:20px;left:20px}
+/* Native player for demos rendered in-house (same facade as the YouTube path) */
+.facade-video{position:absolute;top:0;left:0;width:100%;height:100%;background:#000;display:block}
 
 /* ---------- FULL-BLEED HERO STAGE ---------- */
 /* Viewport-wide media frame with the headline sitting on top of it and the
@@ -280,6 +287,8 @@ textarea.form-input{resize:vertical;min-height:110px;border-radius:var(--r-card)
   .js .hero-copy>*,.js .hero-media,.js .hero-btns{opacity:1 !important;transform:none !important}
   .facade-play::after{display:none}
   .hero-glow{display:none}
+  /* Loops stay on their poster frame; script.js also stops autoplay */
+  .media-loop{pointer-events:none}
 }
 
 /* ---------- FORCED LIGHT MODE ---------- */
@@ -288,7 +297,7 @@ textarea.form-input{resize:vertical;min-height:110px;border-radius:var(--r-card)
 @media(prefers-color-scheme:dark){
   body,html,.section,.footer,.hero,.page-header,.work-section{background:var(--canvas) !important;color:var(--ink) !important}
   .nav,.mobile-menu,.contact-form-card{background:#ffffff !important}
-  .stat-card,.for-card,.media-slot,.tl-cell.left{background:var(--lifted) !important}
+  .stat-card,.for-card,.media-slot,.media-loop,.tl-cell.left{background:var(--lifted) !important}
   .section.alt,.trust-bar,.cta-section,.tl-cell.right{background:var(--band) !important}
   .footer.dark{background:var(--ink) !important}
   .section-h,.page-h,.for-card-title,.step-title,.cta-h,.work-title,.nav-link:hover{color:var(--ink) !important}

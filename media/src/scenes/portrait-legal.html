@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Plain terms loop</title>
+<script>window.SCENE = { name: 'portrait-legal', width: 800, height: 800, fps: 30, duration: 6, kind: 'loop' };</script>
+<style>
+  html, body { width: 800px; height: 800px; margin: 0; overflow: hidden; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; position: relative; }
+  .card { position: absolute; box-sizing: border-box; border-radius: 24px; background: #FCFBFA; border: 1.5px solid #DDD6CD;
+          box-shadow: 0 12px 24px rgba(0,0,0,0.05); overflow: hidden; }
+  .ln { position: absolute; left: 40px; height: 9px; border-radius: 999px; background: #DDD6CD; }
+  .say { position: absolute; left: 48px; top: 72px; width: 484px; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 600; letter-spacing: 0.02em;
+             color: #854F0B; }
+  .eyebrow::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: #E8940A; }
+  .sentence { margin-top: 22px; font-size: 42px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.18; }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div id="lines"></div>
+    <div class="say">
+      <div class="eyebrow" id="eb">In plain terms:</div>
+      <div class="sentence" id="sn">Cancel any time with<br>30 days' notice.</div>
+    </div>
+  </div>
+<script>
+  function bez(x1, y1, x2, y2) {
+    return function (x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 10; i++) {
+        const xt = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        const d = 3*x1*(1-t)*(1-t) + 6*(x2-x1)*t*(1-t) + 3*(1-x2)*t*t;
+        if (Math.abs(d) < 1e-6) break;
+        t = Math.min(1, Math.max(0, t - xt / d));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    };
+  }
+  const E = bez(0.22, 0.61, 0.36, 1), EIO = bez(0.65, 0, 0.35, 1);
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const seg = (t, a, b, f = E) => f(clamp((t - a) / (b - a)));
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  // Card shapes: dense document (portrait page) and statement card.
+  const DOC = { w: 400, h: 500 }, SAY = { w: 580, h: 300 };
+  const KEY = [8, 9];
+  // Document lines: [y, width]. Heading first, then three paragraphs.
+  const widths = [180, 320, 306, 318, 236, 320, 298, 312, 316, 284, 214, 320, 310, 322, 290, 168];
+  const spec = [];
+  let y = 46;
+  spec.push([y, widths[0], true]);
+  y = 92;
+  for (let i = 1; i < widths.length; i++) {
+    spec.push([y, widths[i], false]);
+    y += (i === 4 || i === 10) ? 36 : 22;
+  }
+  const linesEl = document.getElementById('lines');
+  const lines = spec.map(([ly, w, head], i) => {
+    const d = document.createElement('div');
+    d.className = 'ln'; d.style.width = w + 'px';
+    if (head) { d.style.height = '14px'; d.style.background = '#A09B95'; }
+    linesEl.appendChild(d);
+    return { el: d, y: ly, w, i, head };
+  });
+  const card = document.getElementById('card'), eb = document.getElementById('eb'), sn = document.getElementById('sn');
+  const LINE = [221, 214, 205], AMB = [209, 132, 9];
+  const mix = (a, b, k) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',') + ')';
+
+  // Poster offset: frame 0 shows the plain statement.
+  const OFFSET = 3.0;
+  window.seek = function (sec) {
+    const T = ((sec + OFFSET) % 6 + 6) % 6;
+    // Shape: condense 0.8 to 1.4, expand back 5.15 to 5.75.
+    const m = seg(T, 0.8, 1.4, EIO) * (1 - seg(T, 5.15, 5.75, EIO));
+    const w = lerp(DOC.w, SAY.w, m), h = lerp(DOC.h, SAY.h, m);
+    card.style.width = w.toFixed(2) + 'px'; card.style.height = h.toFixed(2) + 'px';
+    card.style.left = (400 - w / 2).toFixed(2) + 'px'; card.style.top = (400 - h / 2).toFixed(2) + 'px';
+
+    lines.forEach(l => {
+      const isKey = KEY.includes(l.i);
+      // Converge towards the card's middle while fading out; return staggered from the middle.
+      const inK = seg(T, 0.8 + (isKey ? 0.25 : 0), 1.3 + (isKey ? 0.15 : 0));
+      const dist = Math.abs(l.y - 250) / 250;
+      const back = seg(T, 5.2 + dist * 0.3, 5.55 + dist * 0.3);
+      const conv = T > 5 ? 1 - back : inK;
+      const ty = lerp(l.y, h / 2 - 4, conv * 0.85);
+      l.el.style.top = ty.toFixed(2) + 'px';
+      l.el.style.opacity = (1 - (T > 5 ? 1 - back : inK)).toFixed(3);
+      const k = isKey ? seg(T, 0.25 + (l.i - KEY[0]) * 0.15, 0.65 + (l.i - KEY[0]) * 0.15) * (T > 5 ? 0 : 1) : 0;
+      if (!l.head) l.el.style.background = mix(LINE, AMB, k);
+    });
+    // Statement text.
+    const a = seg(T, 1.25, 1.75) * (1 - seg(T, 4.95, 5.25));
+    const b = seg(T, 1.4, 1.95) * (1 - seg(T, 4.95, 5.25));
+    eb.style.opacity = a.toFixed(3); eb.style.transform = 'translateY(' + ((1 - seg(T, 1.25, 1.75)) * 12).toFixed(2) + 'px)';
+    sn.style.opacity = b.toFixed(3); sn.style.transform = 'translateY(' + ((1 - seg(T, 1.4, 1.95)) * 14).toFixed(2) + 'px)';
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

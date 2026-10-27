@@ -20,16 +20,38 @@ function switchTab(id, el){
   el.classList.add('active');
 }
 
-// Swap a poster facade for the real YouTube player. Keeps the ~1MB player
-// off the initial page load until someone actually wants to watch.
-function playVideo(btn){
+// Build the player for a facade: a YouTube iframe when data-yt is set, a
+// native <video> when data-src points at a file we rendered ourselves.
+// Both are created only on click, so nothing heavy loads up front.
+function buildPlayer(el){
+  var title = el.dataset.title || 'Video';
+  if(el.dataset.src){
+    var v = document.createElement('video');
+    v.className = 'facade-frame facade-video';
+    v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('title', title);
+    if(el.dataset.poster) v.poster = el.dataset.poster;
+    var base = el.dataset.src.replace(/\.(mp4|webm)$/, '');
+    [['webm','video/webm'],['mp4','video/mp4']].forEach(function(t){
+      var s = document.createElement('source');
+      s.src = base + '.' + t[0]; s.type = t[1];
+      v.appendChild(s);
+    });
+    return v;
+  }
   var frame = document.createElement('iframe');
   frame.className = 'facade-frame';
-  frame.src = 'https://www.youtube.com/embed/' + btn.dataset.yt + '?rel=0&autoplay=1';
-  frame.title = btn.dataset.title || 'Video';
+  frame.src = 'https://www.youtube.com/embed/' + el.dataset.yt + '?rel=0&autoplay=1';
+  frame.title = title;
   frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
   frame.allowFullscreen = true;
+  return frame;
+}
 
+// Swap a poster facade for the real player. Keeps the ~1MB YouTube player
+// (or the demo file) off the initial page load until someone wants to watch.
+function playVideo(btn){
+  var frame = buildPlayer(btn);
   var shell = document.createElement('div');
   shell.className = 'video-facade is-playing';
   shell.appendChild(frame);
@@ -41,12 +63,7 @@ function playVideo(btn){
 function playHero(btn){
   var stage = document.querySelector('.hero-stage');
   if(!stage) return;
-  var frame = document.createElement('iframe');
-  frame.className = 'facade-frame';
-  frame.src = 'https://www.youtube.com/embed/' + stage.dataset.yt + '?rel=0&autoplay=1';
-  frame.title = stage.dataset.title || 'Video';
-  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  frame.allowFullscreen = true;
+  var frame = buildPlayer(stage);
   stage.innerHTML = '';
   stage.appendChild(frame);
   frame.focus();
@@ -61,13 +78,7 @@ function playCard(btn){
   var root = card.closest('.carousel');
   if(root) root.dispatchEvent(new CustomEvent('carousel:stop'));
 
-  var frame = document.createElement('iframe');
-  frame.className = 'facade-frame';
-  frame.src = 'https://www.youtube.com/embed/' + card.dataset.yt + '?rel=0&autoplay=1';
-  frame.title = card.dataset.title || 'Video';
-  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  frame.allowFullscreen = true;
-
+  var frame = buildPlayer(card);
   card.innerHTML = '';
   card.classList.add('is-playing');
   card.appendChild(frame);
@@ -178,6 +189,27 @@ function playCard(btn){
 
   // Failsafe for throttled tabs where the observer is never scheduled.
   setTimeout(showAll, 3000);
+})();
+
+// Ambient loops: honour reduced motion (poster only), and pause any loop
+// that scrolls out of view so phones are not decoding video nobody can see.
+(function loops(){
+  var vids = document.querySelectorAll('video.media-loop');
+  if(!vids.length) return;
+  var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  Array.prototype.forEach.call(vids, function(v){
+    if(still){ v.removeAttribute('autoplay'); v.pause(); return; }
+    v.muted = true;
+  });
+  if(still || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var v = en.target;
+      if(en.isIntersecting){ var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+      else v.pause();
+    });
+  }, {threshold:0.2});
+  Array.prototype.forEach.call(vids, function(v){io.observe(v)});
 })();
 
 async function handleContactSubmit(e){
