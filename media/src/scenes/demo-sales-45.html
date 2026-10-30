@@ -6,8 +6,8 @@
 <script>
   // Portrait 4:5 recomposition of demo-sales.html for phones. Same scenes, words, beats and
   // timeline (every scene and beat at the same second, 60 s), so the two files are interchangeable
-  // for timestamp seeks.
-  window.SCENE = { name: 'demo-sales-45', width: 1080, height: 1350, fps: 30, duration: 60, kind: 'video', outWidth: 720, outHeight: 900, posterTime: 2 };
+  // for timestamp seeks. The three steps stack, so the shift card changes state in place above them.
+  window.SCENE = { name: 'demo-sales-45', width: 1080, height: 1350, fps: 30, duration: 60, kind: 'video', outWidth: 720, outHeight: 900, posterTime: 3 };
 </script>
 <style>
   /* Visual language from demo-sales.html, scaled for a 1080 x 1350 portrait master (sizes as demo-explainer-45). */
@@ -26,7 +26,6 @@
   .pill { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; font-size: 40px; font-weight: 500; padding: 8px 30px; white-space: nowrap; line-height: 1.2; }
   .pill.outline { background: #FCFBFA; border: 2px solid #DDD6CD; color: #6B6763; }
   .pill.band { background: #FEF3E2; color: #854F0B; }
-  .pill.red { background: #F6DFD8; color: #A32D2D; }
   .card { background: #FCFBFA; border-radius: 40px; box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
   .head { display: flex; flex-direction: column; align-items: center; gap: 18px; }
   .w { display: inline-block; }
@@ -41,61 +40,88 @@
   .track .stop { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #DDD6CD; }
   .track .stop.on { background: #E8940A; }
   .track .dot { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #E8940A; }
-  .lbl-loop { display: none; }
 
   /* (a) hook */
   #s-hook .demo { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); }
-  #s-hook .stack { display: flex; flex-direction: column; align-items: center; gap: 52px; }
+  #s-hook .stack { display: flex; flex-direction: column; align-items: center; gap: 56px; }
   #s-hook .h { font-size: 104px; line-height: 1.08; width: 900px; }
   #s-hook .h em { font-style: normal; color: #D18409; }
-  .rule { width: 96px; height: 6px; border-radius: 999px; background: #E8940A; }
+  .sheet { display: grid; grid-template-columns: 120px repeat(7, 92px); gap: 10px; }
+  .sheet span { height: 44px; border-radius: 10px; background: #EFEAE4; position: relative; }
+  .sheet span.k { background: none; font-size: 28px; color: #6B6763; display: flex; align-items: center; }
+  .sheet span.k.d { justify-content: center; }
+  .sheet span.on { background: #E6DED4; }
+  .sheet b { position: absolute; inset: 0; border-radius: 10px; background: #F6DFD8; box-shadow: inset 0 0 0 3px #A32D2D; opacity: 0; }
 
   /* (b) a normal week */
-  #s-week .head { margin-bottom: 40px; }
+  #s-week .head { margin-bottom: 10px; }
   #s-week .h { font-size: 62px; width: 860px; }
-  .week { width: 936px; background: #FBF1EE; border-radius: 40px; padding: 36px 44px 30px; display: flex; flex-direction: column; }
-  .col-h { display: flex; align-items: center; gap: 22px; margin-bottom: 16px; }
-  .col-h h3 { margin: 0; font-size: 50px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #A32D2D; }
-  .rows { position: relative; display: flex; flex-direction: column; }
-  .row { display: flex; align-items: center; gap: 26px; height: 92px; }
-  .node { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #E9C9C0; background: #FBF1EE; position: relative; flex-shrink: 0; z-index: 1; }
-  .node b { position: absolute; inset: -3px; border-radius: 50%; background: #A32D2D; opacity: 0; }
-  .rail { position: absolute; left: 12px; width: 3px; background: #E9C9C0; }
-  .runner { position: absolute; left: 0; width: 26px; height: 26px; border-radius: 50%; background: #A32D2D; z-index: 2; }
-  .txt { flex: 1; display: flex; flex-direction: column-reverse; gap: 2px; font-size: 42px; letter-spacing: -0.01em; line-height: 1.15; }
-  .txt .when { font-size: 32px; color: #6B6763; letter-spacing: 0.02em; }
-  .total { margin-top: 18px; border-top: 2px solid #E9C9C0; padding-top: 14px; display: flex; justify-content: space-between; align-items: baseline; }
-  .total span:first-child { font-size: 40px; color: #6B6763; }
-  .total strong { font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #A32D2D; }
+  .wk { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 936px; }
+  .net { position: relative; width: 896px; height: 560px; }
+  .net svg { width: 100%; height: 100%; overflow: visible; }
+  .day { position: absolute; left: 0; top: 230px; font-size: 40px; font-weight: 500; color: #854F0B; }
+  .day small { display: block; font-size: 28px; font-weight: 400; color: #6B6763; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+  .stats { width: 936px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .stat { padding: 20px 30px; display: flex; flex-direction: column; gap: 2px; }
+  .stat span { font-size: 32px; color: #6B6763; }
+  .stat strong { font-size: 64px; font-weight: 500; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat.red strong { color: #A32D2D; }
+  .stat.total { grid-column: span 2; flex-direction: row; justify-content: space-between; align-items: baseline; background: #FBF1EE; box-shadow: none; }
+  .stat.total strong { font-size: 52px; color: #A32D2D; }
 
-  /* (c) how it works */
-  #s-how .head { margin-bottom: 40px; }
+  /* (c) how it works: steps stacked; the shift card changes state above them */
+  #s-how .head { margin-bottom: 44px; }
   #s-how .h { font-size: 62px; width: 760px; }
-  .things { display: flex; flex-direction: column; gap: 20px; width: 936px; }
-  .thing { display: flex; align-items: center; gap: 36px; padding: 26px 44px 28px; }
-  .tnum { width: 92px; height: 92px; border-radius: 50%; border: 3px solid #DDD6CD; position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 42px; font-weight: 500; color: #6B6763; }
-  .tnum b { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 500; }
-  .thing h3 { margin: 0 0 6px; font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; }
-  .thing p { margin: 0; font-size: 40px; line-height: 1.3; color: #6B6763; text-wrap: balance; }
+  .flow { position: relative; width: 936px; display: flex; flex-direction: column; align-items: center; }
+  .flow .line { position: absolute; width: 6px; border-radius: 999px; background: #E6DED4; }
+  .flow .line i { position: absolute; inset: 0; border-radius: 999px; background: #E8940A; transform-origin: center top; transform: scaleY(0); }
+  .stations { position: relative; width: 100%; display: flex; flex-direction: column; gap: 44px; }
+  .st { display: grid; grid-template-columns: 96px 1fr; column-gap: 36px; row-gap: 6px; align-items: center; }
+  .sn { grid-row: span 2; width: 96px; height: 96px; border-radius: 50%; border: 3px solid #DDD6CD; background: #F7F4F1; position: relative; display: flex; align-items: center; justify-content: center; font-size: 42px; font-weight: 500; color: #6B6763; }
+  .sn b { position: absolute; inset: -3px; border-radius: 50%; background: #E8940A; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+  .st h3 { margin: 0; font-size: 56px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; align-self: end; }
+  .st p { margin: 0; font-size: 38px; line-height: 1.3; color: #6B6763; text-wrap: balance; align-self: start; }
+  .chip { position: relative; order: -1; margin-bottom: 56px; display: flex; align-items: center; gap: 22px; padding: 20px 30px 20px 20px; border-radius: 30px; background: #FCFBFA; box-shadow: 0 18px 36px rgba(0,0,0,0.08); white-space: nowrap; }
+  .av { position: relative; width: 76px; height: 76px; flex-shrink: 0; }
+  .av i { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 34px; font-weight: 500; }
+  .av .a1 { background: #E6DED4; color: #141413; }
+  .av .a2 { background: #141413; color: #F7F4F1; }
+  .chip .tx { display: flex; flex-direction: column; gap: 4px; }
+  .chip .tx strong { font-size: 38px; font-weight: 500; letter-spacing: -0.01em; }
+  .chip .tx span { font-size: 32px; color: #6B6763; position: relative; height: 40px; }
+  .chip .tx span em { position: absolute; left: 0; top: 0; font-style: normal; }
+  .chip .ok { font-size: 30px; padding: 8px 22px; }
 
   /* (d) the difference */
-  #s-diff .head { margin-bottom: 44px; }
+  #s-diff .head { margin-bottom: 36px; }
   #s-diff .h { font-size: 62px; width: 860px; }
-  .bars { width: 936px; display: flex; flex-direction: column; gap: 44px; padding: 48px 52px 52px; }
-  .bar-row { display: flex; flex-direction: column; gap: 18px; }
-  .bar-lbl { display: flex; flex-direction: column; gap: 4px; font-size: 42px; color: #6B6763; }
-  .bar-lbl strong { font-size: 60px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+  .bars { width: 936px; display: flex; flex-direction: column; gap: 36px; padding: 40px 48px 44px; }
+  .bar-row { display: flex; flex-direction: column; gap: 14px; }
+  .bar-lbl { display: flex; justify-content: space-between; align-items: baseline; font-size: 38px; color: #6B6763; }
+  .bar-lbl strong { font-size: 48px; font-weight: 500; letter-spacing: -0.02em; }
   .bar-row.old strong { color: #A32D2D; }
   .bar-row.new strong { color: #D18409; }
-  .bar { height: 44px; border-radius: 999px; background: #F2EEE9; position: relative; overflow: hidden; }
+  .bar { height: 36px; border-radius: 999px; background: #F2EEE9; position: relative; overflow: hidden; }
   .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; transform-origin: left center; }
   .bar-row.old .bar i { width: 100%; background: #D9A397; }
   .bar-row.new .bar i { width: 12.5%; background: #E8940A; }
-  .after-line { margin: 48px 0 0; font-size: 50px; line-height: 1.25; letter-spacing: -0.01em; text-align: center; text-wrap: balance; width: 860px; }
+  .after-line { margin: 48px 0 28px; font-size: 46px; line-height: 1.25; letter-spacing: -0.01em; text-align: center; text-wrap: balance; width: 860px; }
   .after-line em { font-style: normal; color: #D18409; }
+  .strip { position: relative; display: flex; gap: 10px; padding-bottom: 30px; }
+  .dcol { width: 125px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .dl { font-size: 30px; color: #6B6763; }
+  .dc { width: 125px; height: 80px; border-radius: 18px; background: #EFEAE4; position: relative; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 500; }
+  .dc.gap { background: #FBF1EE; border: 3px dashed #D9A397; color: #A32D2D; }
+  .dc .spot, .dc .cov { position: absolute; inset: -3px; border-radius: 18px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .dc .spot { box-shadow: inset 0 0 0 3px #E8940A; background: #FEF3E2; color: #854F0B; }
+  .dc .cov { background: #E8940A; color: #fff; }
+  .reach { position: absolute; height: 5px; border-radius: 999px; background: #E8940A; transform-origin: left center; transform: scaleX(0); }
 
   /* (e) who it's for */
   #s-fit .h { font-size: 92px; width: 900px; margin-top: 40px; line-height: 1.1; }
+  .dots { display: grid; grid-template-columns: repeat(10, 34px); gap: 30px; margin-top: 64px; }
+  .dots i { width: 34px; height: 34px; border-radius: 50%; background: #E6DED4; position: relative; }
+  .dots i b { position: absolute; inset: 0; border-radius: 50%; background: #E8940A; opacity: 0; }
   .tags { display: flex; justify-content: center; gap: 20px; margin-top: 64px; width: 936px; }
   .tags .pill { font-size: 42px; padding: 14px 34px; }
 
@@ -132,47 +158,55 @@
   <div class="stack">
     <div class="eyebrow">Tidewell, sales pitch</div>
     <h1 class="h">Still building the staff roster <em class="nw">in a spreadsheet?</em></h1>
-    <div class="rule"></div>
+    <div class="sheet" data-in="0.5" data-d="0.7" data-clash="1.4,2.0,2.6"></div>
   </div>
 </section>
 
-<!-- (b) The problem: a normal week -->
+<!-- (b) The problem: every swap goes through you -->
 <section class="scene" id="s-week" data-s="5" data-e="17">
   <div class="head">
     <div class="eyebrow" data-in="5.3">A normal week</div>
-    <h2 class="h" data-in="5.5">One roster, a week of messages <span class="muted note">Illustrative</span></h2>
+    <h2 class="h" data-in="5.5">Every swap goes through you <span class="muted note">Illustrative</span></h2>
   </div>
-  <div class="week" data-in="5.8" data-d="0.6">
-    <div class="col-h"><span class="pill red">Today</span><h3>The spreadsheet route</h3></div>
-    <div class="rows" data-times="6.6,7.9,9.2,10.5,11.8" data-travel="0.8">
-      <div class="row"><span class="node"><b></b></span><span class="txt"><span>Roster goes out by email</span><span class="when">Monday</span></span></div>
-      <div class="row"><span class="node"><b></b></span><span class="txt"><span>Three swap requests by text</span><span class="when">Tuesday</span></span></div>
-      <div class="row"><span class="node"><b></b></span><span class="txt"><span>Swaps copied into the spreadsheet</span><span class="when">Wednesday</span></span></div>
-      <div class="row"><span class="node"><b></b></span><span class="txt"><span>A shift nobody covered</span><span class="when">Thursday</span></span></div>
-      <div class="row"><span class="node"><b></b></span><span class="txt"><span>Phoning round to fill it</span><span class="when">Friday</span></span></div>
+  <div class="wk">
+    <div class="net" data-in="5.8" data-fx="fade">
+      <div class="day"><small>This week</small><span id="dayName">Monday</span></div>
+      <svg id="netSvg" viewBox="0 0 640 400"></svg>
     </div>
-    <div class="total" data-in="12.8"><span>Manager time</span><strong>About 4 hours</strong></div>
+    <div class="stats">
+      <div class="card stat" data-in="6.0"><span>Messages to you</span><strong id="msgN">0</strong></div>
+      <div class="card stat red" data-in="6.2"><span>Shifts nobody covered</span><strong id="gapN">0</strong></div>
+      <div class="card stat total" data-in="12.6"><span>Your time on the roster</span><strong>About 4 hours</strong></div>
+    </div>
   </div>
 </section>
 
-<!-- (c) How it works -->
+<!-- (c) How it works: one shift travels through the three steps -->
 <section class="scene" id="s-how" data-s="17" data-e="33">
   <div class="head">
     <div class="eyebrow" data-in="17.3">How Tidewell works</div>
     <h2 class="h" data-in="17.5">Three steps, all on the phone</h2>
   </div>
-  <div class="things">
-    <div class="card thing" data-in="18.3">
-      <div class="tnum">1<b data-in="18.7" data-fx="pop" data-d="0.4">1</b></div>
-      <div><h3>Publish the roster</h3><p>Everyone sees their shifts as soon as it goes live.</p></div>
+  <div class="flow">
+    <div class="line" data-in="17.9" data-fx="fade"><i></i></div>
+    <div class="stations">
+      <div class="st" data-in="18.0">
+        <div class="sn">1<b data-in="18.9" data-fx="pop" data-d="0.4">1</b></div>
+        <h3>Publish the roster</h3><p>Everyone sees their shifts as soon as it goes live.</p>
+      </div>
+      <div class="st" data-in="21.6">
+        <div class="sn">2<b data-in="23.0" data-fx="pop" data-d="0.4">2</b></div>
+        <h3>Swap in the app</h3><p>Offer a shift, and a colleague in the same role picks it up.</p>
+      </div>
+      <div class="st" data-in="25.6">
+        <div class="sn">3<b data-in="27.0" data-fx="pop" data-d="0.4">3</b></div>
+        <h3>Approve in one tap</h3><p>You see who covers before you say yes.</p>
+      </div>
     </div>
-    <div class="card thing" data-in="22.3">
-      <div class="tnum">2<b data-in="22.7" data-fx="pop" data-d="0.4">2</b></div>
-      <div><h3>Swap in the app</h3><p>Offer a shift, and a colleague in the same role picks it up.</p></div>
-    </div>
-    <div class="card thing" data-in="26.3">
-      <div class="tnum">3<b data-in="26.7" data-fx="pop" data-d="0.4">3</b></div>
-      <div><h3>Approve in one tap</h3><p>You see who covers before you say yes.</p></div>
+    <div class="chip" id="chip" data-in="18.6">
+      <span class="av"><i class="a1">B</i><i class="a2" id="avB">D</i></span>
+      <span class="tx"><strong>Thursday, 9:00 to 17:00</strong><span><em id="who1">Ben's shift</em><em id="who2">Covered by Dana</em></span></span>
+      <span class="pill band ok" id="okPill">Approved</span>
     </div>
   </div>
 </section>
@@ -185,26 +219,37 @@
   </div>
   <div class="card bars" data-in="33.9" data-d="0.6">
     <div class="bar-row old">
-      <div class="bar-lbl"><span>Spreadsheet</span><strong data-in="35.6">About 4 hours</strong></div>
-      <div class="bar"><i data-in="34.3" data-fx="grow" data-d="1.5"></i></div>
+      <div class="bar-lbl"><span>Spreadsheet</span><strong data-in="35.4">About 4 hours</strong></div>
+      <div class="bar"><i data-in="34.2" data-fx="grow" data-d="1.4"></i></div>
     </div>
     <div class="bar-row new">
-      <div class="bar-lbl"><span>Tidewell</span><strong data-in="37.3">About 30 minutes</strong></div>
-      <div class="bar"><i data-in="36.4" data-fx="grow" data-d="1.0"></i></div>
+      <div class="bar-lbl"><span>Tidewell</span><strong data-in="36.8">About 30 minutes</strong></div>
+      <div class="bar"><i data-in="36.0" data-fx="grow" data-d="0.9"></i></div>
     </div>
   </div>
-  <p class="after-line" data-in="38.6">And you spot an empty shift days ahead, <em>not on the day.</em></p>
+  <p class="after-line" data-in="37.6">And you spot a gap days ahead, <em>not on the day.</em></p>
+  <div class="strip" id="strip" data-in="37.9">
+    <div class="dcol"><span class="dl">Mon</span><span class="dc" id="dMon"><span class="spot" data-in="38.6" data-fx="fade" data-d="0.4">Spotted</span></span></div>
+    <div class="dcol"><span class="dl">Tue</span><span class="dc"></span></div>
+    <div class="dcol"><span class="dl">Wed</span><span class="dc"></span></div>
+    <div class="dcol"><span class="dl">Thu</span><span class="dc gap" id="dThu">Gap<span class="cov" data-in="39.9" data-fx="fade" data-d="0.4">Covered</span></span></div>
+    <div class="dcol"><span class="dl">Fri</span><span class="dc"></span></div>
+    <div class="dcol"><span class="dl">Sat</span><span class="dc"></span></div>
+    <div class="dcol"><span class="dl">Sun</span><span class="dc"></span></div>
+    <div class="reach" id="reach" data-in="39.0" data-fx="grow" data-d="0.8"></div>
+  </div>
 </section>
 
 <!-- (e) Who it's for -->
 <section class="scene" id="s-fit" data-s="43" data-e="49.5">
   <div class="eyebrow" data-in="43.3">Built for</div>
-  <h2 class="h" data-words="43.6">Teams of 10 to 60 who work in shifts</h2>
+  <h2 class="h" data-words="43.5">Teams of 10 to 60 who work in shifts</h2>
+  <div class="dots" id="dots" data-in="44.0" data-fx="fade" data-d="0.4"></div>
   <div class="tags">
-    <span class="pill band" data-in="45.0" data-fx="pop" data-d="0.45">Clinics</span>
-    <span class="pill band" data-in="45.4" data-fx="pop" data-d="0.45">Cafés</span>
-    <span class="pill band" data-in="45.8" data-fx="pop" data-d="0.45">Gyms</span>
-    <span class="pill band" data-in="46.2" data-fx="pop" data-d="0.45">Shops</span>
+    <span class="pill band" data-in="46.6" data-fx="pop" data-d="0.45">Clinics</span>
+    <span class="pill band" data-in="46.9" data-fx="pop" data-d="0.45">Cafés</span>
+    <span class="pill band" data-in="47.2" data-fx="pop" data-d="0.45">Gyms</span>
+    <span class="pill band" data-in="47.5" data-fx="pop" data-d="0.45">Shops</span>
   </div>
 </section>
 
@@ -242,6 +287,8 @@
   const E = bez(0.22, 0.61, 0.36, 1);
   const prog = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : E((t - a) / d);
   const lin = (t, a, d) => t <= a ? 0 : t >= a + d ? 1 : (t - a) / d;
+  const NS = 'http://www.w3.org/2000/svg';
+  const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
 
   document.querySelectorAll('[data-words]').forEach(h => {
     let start = +h.dataset.words;
@@ -265,19 +312,86 @@
     walk(h);
   });
 
-  // Week rail: a dot travels day to day; each row's text lands as the dot arrives
-  const rails = [...document.querySelectorAll('.rows')].map(r => {
-    const times = r.dataset.times.split(',').map(Number);
-    const travel = +r.dataset.travel;
-    const rows = [...r.querySelectorAll('.row')];
-    rows.forEach((row, i) => { const x = row.querySelector('.txt'); x.dataset.in = times[i].toFixed(2); x.dataset.fx = 'left'; x.dataset.d = '0.5'; });
-    const ys = rows.map(row => row.offsetTop + row.offsetHeight / 2 - 8);
-    const rail = document.createElement('div'); rail.className = 'rail';
-    rail.style.top = (ys[0] + 8) + 'px'; rail.style.height = (ys[ys.length - 1] - ys[0]) + 'px';
-    const run = document.createElement('div'); run.className = 'runner';
-    r.prepend(rail); r.appendChild(run);
-    return { times, travel, ys, run, fills: rows.map(row => row.querySelector('.node b')) };
+  // (a) Spreadsheet: names down the side, days across, three cells flag as clashes
+  const sheet = document.querySelector('.sheet');
+  const clashAt = sheet.dataset.clash.split(',').map(Number);
+  const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], NAMES = ['Ben', 'Dana', 'Lee'];
+  const ON = [[1,1,0,1,1,0,0],[0,1,1,0,1,1,0],[1,0,1,1,0,0,1]];
+  const CLASH = [[0,3], [1,4], [2,2]];
+  const add = (cls, txt) => { const s = document.createElement('span'); if (cls) s.className = cls; if (txt) s.textContent = txt; sheet.appendChild(s); return s; };
+  add('k', ''); DAYS.forEach(d => add('k d', d));
+  NAMES.forEach((n, r) => {
+    add('k', n);
+    DAYS.forEach((d, c) => {
+      const cell = add(ON[r][c] ? 'on' : '');
+      const i = CLASH.findIndex(([cr, cc]) => cr === r && cc === c);
+      if (i >= 0) { const b = document.createElement('b'); b.dataset.in = clashAt[i]; b.dataset.fx = 'fade'; b.dataset.d = '0.35'; cell.appendChild(b); }
+    });
   });
+
+  // (b) Network: six staff around the manager; each message travels along its line and adds to the count
+  const svg = document.getElementById('netSvg');
+  const M = { x: 360, y: 200 };
+  const STAFF = [[150, 60], [360, 34], [570, 60], [600, 300], [360, 368], [140, 310]];
+  const linesG = mk('g', {}, svg), dotsG = mk('g', {}, svg), nodesG = mk('g', {}, svg);
+  const lines = STAFF.map(([x, y]) => {
+    const l = mk('line', { x1: x, y1: y, x2: M.x, y2: M.y, stroke: '#E9C9C0', 'stroke-width': 2, 'stroke-linecap': 'round' }, linesG);
+    const len = Math.hypot(M.x - x, M.y - y);
+    l.setAttribute('stroke-dasharray', len);
+    return { l, len, first: Infinity };
+  });
+  const ORDER = [0, 2, 5, 1, 3, 0, 2, 5, 3, 1, 4, 0, 2, 5];
+  const MSG_T0 = 6.3, MSG_GAP = 0.42, MSG_TRAVEL = 0.65;
+  const msgs = ORDER.map((li, i) => {
+    const t0 = MSG_T0 + i * MSG_GAP;
+    lines[li].first = Math.min(lines[li].first, t0);
+    return { li, t0, dot: mk('circle', { r: 7, fill: '#A32D2D', opacity: 0 }, dotsG) };
+  });
+  const GAP_NODE = 3, GAP_T = 10.5;
+  const staffNodes = STAFF.map(([x, y], i) => {
+    const g = mk('g', {}, nodesG);
+    mk('circle', { cx: x, cy: y, r: 26, fill: '#FCFBFA', stroke: '#DDD6CD', 'stroke-width': 2 }, g);
+    const red = mk('circle', { cx: x, cy: y, r: 27, fill: '#F6DFD8', stroke: '#A32D2D', 'stroke-width': 2, opacity: 0 }, g);
+    const tx = mk('text', { x, y: y + 7, 'text-anchor': 'middle', 'font-size': 20, 'font-weight': 500, fill: '#6B6763', 'font-family': 'Inter, sans-serif' }, g);
+    tx.textContent = 'ACEBFD'[i];
+    return { red, tx };
+  });
+  const gapLbl = mk('text', { x: STAFF[GAP_NODE][0], y: STAFF[GAP_NODE][1] + 58, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 500, fill: '#A32D2D', 'font-family': 'Inter, sans-serif', opacity: 0 }, nodesG);
+  gapLbl.textContent = 'Nobody covered';
+  mk('circle', { cx: M.x, cy: M.y, r: 48, fill: '#141413' }, nodesG);
+  const you = mk('text', { x: M.x, y: M.y + 8, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 500, fill: '#F7F4F1', 'font-family': 'Inter, sans-serif' }, nodesG);
+  you.textContent = 'You';
+  const WEEK = [['Monday', 5.8], ['Tuesday', 7.2], ['Wednesday', 8.6], ['Thursday', 10.0], ['Friday', 11.4]];
+  const dayName = document.getElementById('dayName'), msgN = document.getElementById('msgN'), gapN = document.getElementById('gapN');
+
+  // (c) Flow: line from first to last station; the shift chip parks above each station in turn
+  const flow = document.querySelector('.flow');
+  const fr = flow.getBoundingClientRect();
+  const sns = [...flow.querySelectorAll('.sn')].map(n => { const r = n.getBoundingClientRect(); return { x: r.left - fr.left + r.width / 2, y: r.top - fr.top + r.height / 2 }; });
+  const fline = flow.querySelector('.line');
+  fline.style.left = (sns[0].x - 3) + 'px'; fline.style.top = sns[0].y + 'px'; fline.style.height = (sns[2].y - sns[0].y) + 'px';
+  const fill = fline.querySelector('i');
+  const chip = document.getElementById('chip');
+  const chipW = chip.offsetWidth;
+  const chipY = sns[0].y - 64 - chip.offsetHeight;
+  const MOVES = [[22.0, 1.0], [26.0, 1.0]];
+  const avB = document.getElementById('avB'), who1 = document.getElementById('who1'), who2 = document.getElementById('who2'), okPill = document.getElementById('okPill');
+
+  // (d) Week strip: a line reaches from Monday to the Thursday gap
+  const strip = document.getElementById('strip');
+  const sr = strip.getBoundingClientRect();
+  const cx = el => { const r = el.getBoundingClientRect(); return { x: r.left - sr.left + r.width / 2, bottom: r.bottom - sr.top }; };
+  const pMon = cx(document.getElementById('dMon')), pThu = cx(document.getElementById('dThu'));
+  const reach = document.getElementById('reach');
+  reach.style.left = pMon.x + 'px'; reach.style.width = (pThu.x - pMon.x) + 'px'; reach.style.top = (pMon.bottom + 12) + 'px';
+
+  // (e) Dot grid: the first 10 fill quickly, then the rest up to 60
+  const dots = document.getElementById('dots');
+  for (let i = 0; i < 60; i++) {
+    const d = document.createElement('i'), b = document.createElement('b');
+    b.dataset.in = (i < 10 ? 44.3 + i * 0.05 : 45.0 + (i - 10) * 0.028).toFixed(3); b.dataset.fx = 'pop'; b.dataset.d = '0.3';
+    d.appendChild(b); dots.appendChild(d);
+  }
 
   const scenes = [...document.querySelectorAll('.scene')].map(el => ({ el, s: +el.dataset.s, e: +el.dataset.e }));
   const items = [...document.querySelectorAll('[data-in]')].map(el => ({ el, a: +el.dataset.in, d: +(el.dataset.d || 0.6), fx: el.dataset.fx || 'up' }));
@@ -308,23 +422,42 @@
         default: s.opacity = k; s.transform = `translateY(${(1 - k) * 26}px)`;
       }
     }
-    for (const r of rails) {
-      const n = r.times.length;
-      let y = r.ys[0];
-      for (let i = 1; i < n; i++) {
-        const a = r.times[i] - r.travel;
-        y = t <= a ? y : r.ys[i - 1] + (r.ys[i] - r.ys[i - 1]) * prog(t, a, r.travel);
-      }
-      r.run.style.top = y + 'px';
-      r.run.style.opacity = prog(t, r.times[0] - 0.3, 0.3);
-      r.fills.forEach((f, i) => { f.style.opacity = prog(t, r.times[i], 0.25); });
+
+    // (b) network
+    lines.forEach(L => L.l.setAttribute('stroke-dashoffset', L.len * (1 - prog(t, L.first - 0.35, 0.35))));
+    let arrived = 0;
+    for (const m of msgs) {
+      const k = prog(t, m.t0, MSG_TRAVEL), [x, y] = STAFF[m.li];
+      m.dot.setAttribute('cx', x + (M.x - x) * k);
+      m.dot.setAttribute('cy', y + (M.y - y) * k);
+      m.dot.setAttribute('opacity', t < m.t0 || k >= 1 ? 0 : Math.min(1, (t - m.t0) / 0.1));
+      if (k >= 1) arrived++;
     }
+    msgN.textContent = arrived;
+    const g = prog(t, GAP_T, 0.4);
+    staffNodes[GAP_NODE].red.setAttribute('opacity', g);
+    staffNodes[GAP_NODE].tx.setAttribute('fill', g > 0.5 ? '#A32D2D' : '#6B6763');
+    gapLbl.setAttribute('opacity', g);
+    gapN.textContent = t >= GAP_T + 0.2 ? 1 : 0;
+    let dn = WEEK[0][0];
+    for (const [n, at] of WEEK) if (t >= at) dn = n;
+    dayName.textContent = dn;
+
+    // (c) flow
+    const leg1 = prog(t, MOVES[0][0], MOVES[0][1]), leg2 = prog(t, MOVES[1][0], MOVES[1][1]);
+    const x = leg2 > 0 ? sns[1].x + (sns[2].x - sns[1].x) * leg2 : sns[0].x + (sns[1].x - sns[0].x) * leg1;
+    fill.style.transform = `scaleY(${(leg1 + leg2) / 2})`;
+    const sw = prog(t, 23.1, 0.5);
+    avB.style.opacity = sw; who1.style.opacity = 1 - sw; who2.style.opacity = sw;
+    const ok = prog(t, 27.2, 0.45);
+    okPill.style.opacity = ok; okPill.style.transform = `scale(${0.6 + 0.4 * ok})`;
+
     const co = Math.min(prog(t, C0, 0.4), 1 - prog(t, C1 - 0.4, 0.4));
     chrome.style.opacity = co;
     chrome.style.visibility = co > 0.001 ? 'visible' : 'hidden';
-    const x = lin(t, C0, C1 - 0.5 - C0) * TW;
-    done.style.width = x + 'px';
-    dot.style.left = x + 'px';
+    const xx = lin(t, C0, C1 - 0.5 - C0) * TW;
+    done.style.width = xx + 'px';
+    dot.style.left = xx + 'px';
     stops.forEach(s => s.el.classList.toggle('on', t >= s.at));
   };
   window.seek(0);
