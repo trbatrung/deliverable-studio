@@ -48,8 +48,8 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 
 | | Credits a month | Price | Per credit |
 | --- | --- | --- | --- |
-| **Light** | 10 | $500 | $50 |
-| **Standard** | 33 | $1,500 | $45 |
+| **Light (Regular updates)** | 10 | $500 | $50 |
+| **Standard (Updates and creative)** | 33 | $1,500 | $45 |
 | **Larger teams** | Custom | Let's talk | Quote per workload, from about $42 |
 | **Top-up** | 5 | $300 | $60 |
 
@@ -60,7 +60,12 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 - No calls in any plan: briefs by form, feedback by email or comments.
 - Paid by invoice through Wise or Payoneer.
 
-**On the website (since 2026-10-31):** Light $500 ("around two short videos a month"), Standard $1,500 ("around six short videos a month, plus loops and cut-downs"), Larger teams "Let's talk". Credits, the menu and the loyalty month stay out of public copy; they go in replies and quotes.
+**On the website (since 2026-10-31), plans by type of work, not by count:**
+- **Regular updates, $500:** recurring videos in a set format (weekly review, team performance, sales results, project updates), up to once a week. Template work, the fastest kind; no new creative.
+- **Updates and creative, $1,500:** everything above plus new creative work: product demos, sales pitches, explainers, pitch or sales decks.
+- **Larger teams, "Let's talk":** everything above for several teams or more volume, plus "custom visuals beyond motion graphics" (this is where generative footage, presenters or avatars would go; never named as AI in public copy, and only offered once there is a sample to show).
+- "One piece in progress at a time" is the public limit. Credits stay as the private yardstick for heavy users (Regular updates about 10 a month, Updates and creative about 33), and go in quotes, not on the site.
+- Pitch decks are now promised publicly but there is no concept deck yet: make one before outreach to that audience.
 
 ## How payment works
 No free trial: this is a service, not an app. Clients can always leave, but you are always paid before you work, so leaving never costs you money. Everything below goes in the quote before they pay.
