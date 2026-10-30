@@ -56,9 +56,24 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 - Unused credits roll over for one month, then expire.
 - Top-ups cost more per credit on purpose, so heavy users move up a plan.
 - The first month includes setting up their logo, colours and fonts in the house style.
-- Month to month. Cancel with 30 days' notice. Pay 3 months up front for 10% off.
+- Month to month, paid in advance. Cancel with 30 days' notice (see How payment works).
 - No calls in any plan: briefs by form, feedback by email or comments.
 - Paid by invoice through Wise or Payoneer.
+
+## How payment works
+No free trial: this is a service, not an app. Clients can always leave, but you are always paid before you work, so leaving never costs you money. Everything below goes in the quote before they pay.
+
+| | Rule |
+| --- | --- |
+| **Deposit** | Half the first month up front ($250 / $500 / $950). Not refunded once work starts; it pays for the script and style frame. |
+| **Balance** | The rest of month one, due when the first video's watermarked preview is ready. Clean files after payment. |
+| **Month 2 onwards** | Invoiced on the 1st, paid in advance, work starts once paid. A month already paid is not refunded. |
+| **Cancelling** | 30 days' notice in writing, effective at the end of the paid month. |
+| **Loyalty** | 3 paid months in a row, the 4th month is free on the same plan. Leave early and there is simply no free month. Sold as a reward for staying, not a lock-in, since a minimum term can't realistically be enforced abroad. |
+
+The script and style frame approvals are revision points, not exits: if they don't like the direction, revise within the included round. The terms page (`/terms`, "Monthly plans") says the same.
+
+**In outreach, lead with the protection:** "Half up front, the rest after you've seen your first video."
 
 **Capacity check:** about 130 working hours a month is about 130 credits. For example, 1 Team + 2 Standard + 3 Light is 119 credits and about $5,400. Near capacity, stop selling Team or raise prices for new sign-ups.
 
@@ -71,12 +86,14 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 
 ## Likely objections
 1. **"I can make this with an AI tool / Claude / Canva."**
-   You can make a video. The work is deciding what to say, writing it so people get it the first time, and keeping every piece consistent and current. Offer the Light plan as a low-risk month to compare.
-2. **"Credits are confusing."**
+   You can make a video. The work is deciding what to say, writing it so people get it the first time, and keeping every piece consistent and current. Offer the Light plan as a month to compare.
+2. **"Can we try it first?"**
+   No free trial, and say why plainly: it's made by a person, not an app. What protects them instead: half up front, the rest only after they've seen their first video, and they can leave at the end of any paid month.
+3. **"Credits are confusing."**
    Point at three lines of the menu that match what they just asked for, and add them up for them. If a buyer needs a calculator, the menu is too long.
-3. **"You're one person, and in Vietnam."**
+4. **"You're one person, and in Vietnam."**
    Final files and approved scripts are theirs. State a reply time you can keep. Review windows fit AU and SG business hours; the UK morning overlaps the Saigon afternoon.
-4. **"Not now."**
+5. **"Not now."**
    Ask what is coming up in the next quarter that people will need explained, and agree a date to check back.
 
 ## Demo plan
