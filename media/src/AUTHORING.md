@@ -55,3 +55,18 @@ with the Read tool before calling a scene done. A still is not proof of motion.
   gets most of the reading time. No bobbing, shake, spin or surprise cuts.
 - Copy: only the exact on-screen words the brief gives. No em-dashes, no
   numbers or claims that are not in the brief.
+
+## Sound on the long pieces
+The four long pieces (`process-explainer`, `demo-explainer`, `demo-course-module`, `demo-sales`, each
+with its `-45` portrait twin) carry narration, a music bed and sound effects; loops and GIFs stay silent.
+Each is described in `audio/<name>.json`: one narration line per scene (`at`, or `null` to follow the
+previous line; `until`, the scene end it should finish by) and effect cues (`t`, `fx`, optional `gain`).
+- `python3 audio.py vo <name>` voices new or changed lines with VoiceStudio (app open, API on
+  `localhost:3900`, voice "Outwords Narrator A", profile `d3fd62c4`). Lines are cached in `audio/vo/`.
+- `python3 audio.py fit <name>` shows where each line lands; shorten any line marked OVER.
+- `python3 audio.py mix <name>` builds the soundtrack and muxes it into both shapes, mp4 and webm.
+`render.mjs` writes silent files, so run `mix` again after any re-render of a long piece.
+Levels: narration -16 LUFS, effects -15 dB, music about 10 dB under the voice and ducked a further
+7 dB while the narrator speaks. The music is synthesised in `audio.py`. Effects come from Ethan's
+`~/code-project/Infographic sound fx` and `~/code-project/Swooshes` folders (not in the repo).
+Check a new line by transcribing it (`/v1/audio/transcriptions`); the voice occasionally misreads a word.

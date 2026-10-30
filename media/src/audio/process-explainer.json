@@ -1,0 +1,119 @@
+{
+ "duration": 47.4,
+ "lines": [
+  {
+   "at": 0.35,
+   "until": 3,
+   "text": "Here's how a project runs."
+  },
+  {
+   "at": 3.35,
+   "until": 9,
+   "text": "You bring what you already have. A brief, a deck, or just a conversation."
+  },
+  {
+   "at": 9.35,
+   "until": 15.4,
+   "text": "I shape the message and write the script. You approve it before anything is designed."
+  },
+  {
+   "at": 15.75,
+   "until": 22.2,
+   "text": "Then a style frame and a scene plan. That's the second approval, before animation starts."
+  },
+  {
+   "at": 22.55,
+   "until": 27.6,
+   "text": "Then production: animation, editing, and audio or captions where agreed."
+  },
+  {
+   "at": 27.95,
+   "until": 34.4,
+   "text": "You review it, I revise within scope, and you get final files in the formats you need."
+  },
+  {
+   "at": 34.75,
+   "until": 40.4,
+   "text": "When something changes later, only the changed part gets updated. The style carries forward."
+  },
+  {
+   "at": 40.75,
+   "until": 45.2,
+   "text": "Two approvals before animation, so nothing is a surprise."
+  }
+ ],
+ "cues": [
+  {
+   "t": 0.3,
+   "fx": "shine"
+  },
+  {
+   "t": 2.95,
+   "fx": "swish"
+  },
+  {
+   "t": 4.0,
+   "fx": "pop"
+  },
+  {
+   "t": 4.3,
+   "fx": "pop"
+  },
+  {
+   "t": 4.6,
+   "fx": "pop"
+  },
+  {
+   "t": 4.9,
+   "fx": "pop"
+  },
+  {
+   "t": 8.95,
+   "fx": "swish"
+  },
+  {
+   "t": 11.95,
+   "fx": "accept"
+  },
+  {
+   "t": 15.35,
+   "fx": "swish"
+  },
+  {
+   "t": 18.3,
+   "fx": "accept"
+  },
+  {
+   "t": 22.15,
+   "fx": "swish"
+  },
+  {
+   "t": 27.55,
+   "fx": "swish"
+  },
+  {
+   "t": 34.35,
+   "fx": "swish"
+  },
+  {
+   "t": 40.35,
+   "fx": "swish"
+  },
+  {
+   "t": 42.15,
+   "fx": "accept"
+  },
+  {
+   "t": 42.45,
+   "fx": "accept"
+  },
+  {
+   "t": 45.15,
+   "fx": "swish"
+  },
+  {
+   "t": 45.5,
+   "fx": "shine"
+  }
+ ]
+}

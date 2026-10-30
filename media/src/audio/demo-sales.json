@@ -1,0 +1,245 @@
+{
+ "duration": 60,
+ "lines": [
+  {
+   "at": 0.4,
+   "until": 5,
+   "text": "Still building your staff roster in a spreadsheet?"
+  },
+  {
+   "at": 5.35,
+   "until": 17,
+   "text": "Here's a normal week. Every swap request comes to you, by text, by email, by phone. By Thursday, a shift slips through, and the roster has cost you about four hours."
+  },
+  {
+   "at": 17.35,
+   "until": 22.2,
+   "text": "Tidewell works in three steps. Publish the roster, and everyone sees their shifts on their phone."
+  },
+  {
+   "at": null,
+   "until": 26.2,
+   "text": "When Ben can't make Thursday, he offers the shift, and Dana, in the same role, picks it up."
+  },
+  {
+   "at": null,
+   "until": 33,
+   "text": "You see who's covering, and approve it in one tap."
+  },
+  {
+   "at": 33.35,
+   "until": 43,
+   "text": "Managers go from about four hours on the roster to about thirty minutes. And gaps show up days ahead, not on the morning of the shift."
+  },
+  {
+   "at": 43.35,
+   "until": 49.5,
+   "text": "It's built for teams of ten to sixty who work in shifts. Clinics, cafés, gyms and shops."
+  },
+  {
+   "at": 49.85,
+   "until": 56,
+   "text": "Try Tidewell free for thirty days, or book a fifteen-minute walkthrough."
+  }
+ ],
+ "cues": [
+  {
+   "t": 0.5,
+   "fx": "slide"
+  },
+  {
+   "t": 1.4,
+   "fx": "dpops",
+   "gain": -3
+  },
+  {
+   "t": 2.0,
+   "fx": "dpops",
+   "gain": -3
+  },
+  {
+   "t": 2.6,
+   "fx": "dpops",
+   "gain": -3
+  },
+  {
+   "t": 4.95,
+   "fx": "swish"
+  },
+  {
+   "t": 6.95,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 7.37,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 7.79,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 8.21,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 8.63,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 9.05,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 9.47,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 9.89,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 10.31,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 10.5,
+   "fx": "dpops"
+  },
+  {
+   "t": 10.73,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 11.15,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 11.57,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 11.99,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 12.41,
+   "fx": "plop",
+   "gain": -8
+  },
+  {
+   "t": 12.6,
+   "fx": "pop"
+  },
+  {
+   "t": 16.95,
+   "fx": "swish"
+  },
+  {
+   "t": 18.6,
+   "fx": "pop"
+  },
+  {
+   "t": 22.0,
+   "fx": "slide"
+  },
+  {
+   "t": 23.1,
+   "fx": "pop"
+  },
+  {
+   "t": 26.0,
+   "fx": "slide"
+  },
+  {
+   "t": 27.2,
+   "fx": "accept"
+  },
+  {
+   "t": 32.95,
+   "fx": "swish"
+  },
+  {
+   "t": 34.2,
+   "fx": "slide"
+  },
+  {
+   "t": 36.0,
+   "fx": "slide"
+  },
+  {
+   "t": 37.9,
+   "fx": "pop"
+  },
+  {
+   "t": 38.6,
+   "fx": "pop"
+  },
+  {
+   "t": 39.9,
+   "fx": "accept"
+  },
+  {
+   "t": 42.95,
+   "fx": "swish"
+  },
+  {
+   "t": 44.3,
+   "fx": "dpops",
+   "gain": -3
+  },
+  {
+   "t": 46.6,
+   "fx": "pops",
+   "gain": -5
+  },
+  {
+   "t": 46.9,
+   "fx": "pops",
+   "gain": -5
+  },
+  {
+   "t": 47.2,
+   "fx": "pops",
+   "gain": -5
+  },
+  {
+   "t": 47.5,
+   "fx": "pops",
+   "gain": -5
+  },
+  {
+   "t": 49.45,
+   "fx": "swish"
+  },
+  {
+   "t": 49.8,
+   "fx": "pop"
+  },
+  {
+   "t": 51.0,
+   "fx": "pop"
+  },
+  {
+   "t": 55.95,
+   "fx": "swish"
+  },
+  {
+   "t": 56.3,
+   "fx": "shine"
+  }
+ ]
+}

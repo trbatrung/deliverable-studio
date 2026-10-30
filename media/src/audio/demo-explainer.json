@@ -1,0 +1,141 @@
+{
+ "duration": 52,
+ "lines": [
+  {
+   "at": 0.4,
+   "until": 4.5,
+   "text": "What changes when your contract moves to e-signature?"
+  },
+  {
+   "at": 4.85,
+   "until": 16.5,
+   "text": "On paper, the same contract is printed, couriered, countersigned and filed, which takes about a week. With e-signature, both sides sign online, and it's filed in a few hours."
+  },
+  {
+   "at": 16.85,
+   "until": 30,
+   "text": "Three things are still on you. Confirm that each signer is authorised. Check the document type, because some deeds still need a witness. And keep the signing certificate with the contract."
+  },
+  {
+   "at": 30.35,
+   "until": 39,
+   "text": "The most common mistake is sending the draft instead of the final version. Lock the final PDF, and check it before you send."
+  },
+  {
+   "at": 39.35,
+   "until": 45,
+   "text": "In short, signing gets faster. The checks before you send stay the same."
+  },
+  {
+   "at": 45.35,
+   "until": 48.5,
+   "text": "Questions? Talk to your engagement lead."
+  }
+ ],
+ "cues": [
+  {
+   "t": 0.3,
+   "fx": "shine"
+  },
+  {
+   "t": 4.45,
+   "fx": "swish"
+  },
+  {
+   "t": 6.0,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 6.8,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 7.6,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 8.4,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 9.2,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 9.9,
+   "fx": "pop"
+  },
+  {
+   "t": 11.0,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 11.45,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 11.9,
+   "fx": "plop",
+   "gain": -4
+  },
+  {
+   "t": 12.5,
+   "fx": "accept"
+  },
+  {
+   "t": 16.45,
+   "fx": "swish"
+  },
+  {
+   "t": 18.1,
+   "fx": "pop"
+  },
+  {
+   "t": 21.6,
+   "fx": "pop"
+  },
+  {
+   "t": 25.1,
+   "fx": "pop"
+  },
+  {
+   "t": 29.95,
+   "fx": "swish"
+  },
+  {
+   "t": 30.3,
+   "fx": "slide"
+  },
+  {
+   "t": 32.1,
+   "fx": "pop"
+  },
+  {
+   "t": 38.95,
+   "fx": "swish"
+  },
+  {
+   "t": 44.95,
+   "fx": "swish"
+  },
+  {
+   "t": 45.3,
+   "fx": "pop"
+  },
+  {
+   "t": 48.45,
+   "fx": "swish"
+  },
+  {
+   "t": 48.8,
+   "fx": "shine"
+  }
+ ]
+}
