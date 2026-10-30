@@ -88,12 +88,14 @@ The script and style frame approvals are revision points, not exits: if they don
 1. **"I can make this with an AI tool / Claude / Canva."**
    You can make a video. The work is deciding what to say, writing it so people get it the first time, and keeping every piece consistent and current. Offer the Light plan as a month to compare.
 2. **"Can we try it first?"**
-   No free trial, and say why plainly: it's made by a person, not an app. What protects them instead: half up front, the rest only after they've seen their first video, and they can leave at the end of any paid month.
+   No free trial, and say why plainly: it's a service with a person accountable for every video, not an app. What protects them instead: half up front, the rest only after they've seen their first video, and they can leave at the end of any paid month.
 3. **"Credits are confusing."**
    Point at three lines of the menu that match what they just asked for, and add them up for them. If a buyer needs a calculator, the menu is too long.
-4. **"You're one person, and in Vietnam."**
+4. **"Do you use AI?"**
+   Yes, always say so plainly: "Yes, I use AI tools in production, under my direction. Your confidential figures and names stay out of them, I check every frame, and you own the final videos." Never deny it, and never sign a contract that bans AI unless they accept a carve-out (keep their confidential material out of tools that keep or learn from it). The narration voice is AI unless they choose a human one.
+5. **"You're one person, and in Vietnam."**
    Final files and approved scripts are theirs. State a reply time you can keep. Review windows fit AU and SG business hours; the UK morning overlaps the Saigon afternoon.
-5. **"Not now."**
+6. **"Not now."**
    Ask what is coming up in the next quarter that people will need explained, and agree a date to check back.
 
 ## Demo plan
