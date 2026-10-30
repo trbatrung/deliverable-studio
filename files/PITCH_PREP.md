@@ -49,8 +49,8 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 | | Credits a month | Price | Per credit |
 | --- | --- | --- | --- |
 | **Light** | 10 | $500 | $50 |
-| **Standard** | 22 | $1,000 | $45 |
-| **Team** | 45 | $1,900 | $42 |
+| **Standard** | 33 | $1,500 | $45 |
+| **Larger teams** | Custom | Let's talk | Quote per workload, from about $42 |
 | **Top-up** | 5 | $300 | $60 |
 
 - Unused credits roll over for one month, then expire.
@@ -60,12 +60,14 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 - No calls in any plan: briefs by form, feedback by email or comments.
 - Paid by invoice through Wise or Payoneer.
 
+**On the website (since 2026-10-31):** Light $500 ("around two short videos a month"), Standard $1,500 ("around six short videos a month, plus loops and cut-downs"), Larger teams "Let's talk". Credits, the menu and the loyalty month stay out of public copy; they go in replies and quotes.
+
 ## How payment works
 No free trial: this is a service, not an app. Clients can always leave, but you are always paid before you work, so leaving never costs you money. Everything below goes in the quote before they pay.
 
 | | Rule |
 | --- | --- |
-| **Deposit** | Half the first month up front ($250 / $500 / $950). Not refunded once work starts; it pays for the script and style frame. |
+| **Deposit** | Half the first month up front ($250 / $750, or half the agreed figure for larger teams). Not refunded once work starts; it pays for the script and style frame. |
 | **Balance** | The rest of month one, due when the first video's watermarked preview is ready. Clean files after payment. |
 | **Month 2 onwards** | Invoiced on the 1st, paid in advance, work starts once paid. A month already paid is not refunded. |
 | **Cancelling** | 30 days' notice in writing, effective at the end of the paid month. |
@@ -75,7 +77,7 @@ The script and style frame approvals are revision points, not exits: if they don
 
 **In outreach, lead with the protection:** "Half up front, the rest after you've seen your first video."
 
-**Capacity check:** about 130 working hours a month is about 130 credits. For example, 1 Team + 2 Standard + 3 Light is 119 credits and about $5,400. Near capacity, stop selling Team or raise prices for new sign-ups.
+**Capacity check:** about 130 working hours a month is about 130 credits. For example, 3 Standard + 3 Light is 129 credits and $6,000. Near capacity, stop taking larger teams or raise prices for new sign-ups.
 
 ## Discovery questions (by email, or a short call if they ask)
 1. What do you find yourself explaining over and over, to customers, staff or investors?

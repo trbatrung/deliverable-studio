@@ -104,6 +104,9 @@ p+p{margin-top:12px}
 .list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .list li{position:relative;padding-left:26px;color:var(--ink)}
 .card-foot{margin-top:var(--s5);font-size:var(--t-small);color:var(--ink-2)}
+/* Pricing: the plan price is the one large line in each ruled column. */
+.plan .price{font-size:var(--t-sub);font-weight:500;letter-spacing:-0.02em;line-height:1.2;color:var(--ink);margin-bottom:var(--s3)}
+.plan .price small{font-size:var(--t-small);font-weight:400;letter-spacing:0;color:var(--ink-2)}
 .faq{margin-top:var(--s6)}
 .contact-who{margin-top:var(--s4);font-size:var(--t-small);color:var(--ink-2)}
 .nowrap{white-space:nowrap}
