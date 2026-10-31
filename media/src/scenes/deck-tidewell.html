@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept deck: Tidewell seed round</title>
+<script>
+  // Investor deck for the fictional rostering app in demo-sales.html: same brand, a second audience.
+  // kind "deck": render.mjs saves each .slide as media/deck/<name>-NN.webp and prints all of them to media/<name>.pdf.
+  window.SCENE = { name: 'deck-tidewell', width: 1920, height: 1080, kind: 'deck', outWidth: 1600, outHeight: 900 };
+</script>
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  html, body { margin: 0; background: #F7F4F1; }
+  body { font-family: Inter, sans-serif; color: #141413; -webkit-font-smoothing: antialiased; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * { box-sizing: border-box; }
+  .slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F7F4F1; padding: 150px 128px 0; break-after: page; }
+  .slide:last-child { break-after: auto; }
+
+  /* Persistent frame: name top left, concept note and page number along the foot */
+  .firm { position: absolute; top: 56px; left: 128px; display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+  .firm i, .mark { border-radius: 50%; background: #141413; color: #F7F4F1; font-style: normal; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .firm i { width: 34px; height: 34px; font-size: 18px; }
+  .foot { position: absolute; left: 128px; right: 128px; bottom: 52px; display: flex; justify-content: space-between; font-size: 20px; color: #6B6763; }
+  .foot .n { font-variant-numeric: tabular-nums; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #854F0B; }
+  .eyebrow::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: #E8940A; }
+  h1, h2 { font-weight: 500; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+  h1 { font-size: 112px; line-height: 1.04; }
+  h2 { font-size: 68px; line-height: 1.1; margin-top: 22px; max-width: 1500px; }
+  h2 em, h1 em { font-style: normal; color: #D18409; }
+  .muted { color: #6B6763; }
+  .card { background: #FCFBFA; border-radius: 28px; box-shadow: 0 14px 30px rgba(0,0,0,0.06); }
+  .pill { display: inline-flex; align-items: center; border-radius: 999px; font-size: 24px; font-weight: 500; padding: 10px 24px; white-space: nowrap; }
+  .pill.outline { background: #FCFBFA; border: 1.5px solid #DDD6CD; color: #6B6763; }
+  .pill.band { background: #FEF3E2; color: #854F0B; }
+  .body { position: absolute; left: 128px; right: 128px; top: 420px; bottom: 140px; }
+
+  /* Roster grid, shared by the cover and the problem */
+  .sheet { display: grid; grid-template-columns: 120px repeat(7, 92px); gap: 10px; }
+  .sheet span { height: 46px; border-radius: 10px; background: #F1EDE8; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 500; }
+  .sheet span.k { background: none; font-size: 22px; font-weight: 400; color: #6B6763; justify-content: flex-start; }
+  .sheet span.k.d { justify-content: center; }
+  .sheet span.on { background: #DDD2C4; }
+  .sheet span.x { background: #F6DFD8; box-shadow: inset 0 0 0 2.5px #A32D2D; color: #A32D2D; }
+  .sheet span.cov { background: #E8940A; color: #fff; }
+
+  /* 1 Cover */
+  #s1 { padding-top: 0; display: flex; align-items: center; gap: 120px; }
+  #s1 .l { flex: 1; display: flex; flex-direction: column; gap: 34px; }
+  #s1 .sub { font-size: 34px; line-height: 1.4; color: #6B6763; max-width: 760px; text-wrap: pretty; }
+  #s1 .r { padding: 48px 52px; }
+  #s1 .r .cap { font-size: 22px; color: #6B6763; margin-bottom: 26px; display: flex; justify-content: space-between; }
+  #s1 .r .cap strong { color: #141413; font-weight: 500; }
+  #s1 .concept { position: absolute; top: 50px; right: 128px; }
+
+  /* 2 Problem */
+  #s2 .body { display: flex; gap: 96px; align-items: flex-start; }
+  #s2 .grid { padding: 44px 48px; }
+  #s2 .grid .cap { font-size: 22px; color: #A32D2D; margin-top: 24px; font-weight: 500; }
+  #s2 .stats { display: flex; flex-direction: column; gap: 30px; flex: 1; }
+  .stat { display: flex; flex-direction: column; gap: 6px; padding: 30px 38px; }
+  .stat strong { font-size: 60px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 28px; color: #6B6763; line-height: 1.35; }
+  .stat.red strong { color: #A32D2D; }
+
+  /* 3 Solution */
+  #s3 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  #s3 .step { padding: 52px 48px 60px; display: flex; flex-direction: column; gap: 18px; }
+  #s3 .num { width: 72px; height: 72px; border-radius: 50%; background: #E8940A; color: #fff; font-size: 32px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  #s3 h3 { margin: 0; font-size: 42px; font-weight: 500; letter-spacing: -0.02em; }
+  #s3 p { margin: 0; font-size: 29px; line-height: 1.4; color: #6B6763; }
+
+  /* 4 Difference */
+  #s4 .body { display: flex; flex-direction: column; gap: 48px; }
+  .bars { padding: 40px 52px 44px; display: flex; flex-direction: column; gap: 28px; }
+  .bar-lbl { display: flex; justify-content: space-between; align-items: baseline; font-size: 30px; margin-bottom: 14px; }
+  .bar-lbl strong { font-size: 40px; font-weight: 500; letter-spacing: -0.02em; }
+  .old .bar-lbl strong { color: #A32D2D; }
+  .new .bar-lbl strong { color: #D18409; }
+  .bar { height: 30px; border-radius: 999px; background: #F2EEE9; position: relative; overflow: hidden; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
+  .old .bar i { width: 100%; background: #D9A397; }
+  .new .bar i { width: 12.5%; background: #E8940A; }
+  .wk { display: flex; align-items: center; gap: 56px; }
+  .wk p { margin: 0; font-size: 34px; line-height: 1.35; max-width: 560px; letter-spacing: -0.01em; }
+  .wk p em { font-style: normal; color: #D18409; }
+  .strip { display: flex; gap: 14px; }
+  .dcol { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .dl { font-size: 22px; color: #6B6763; }
+  .dc { width: 128px; height: 70px; border-radius: 14px; background: #EFEAE4; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 500; }
+  .dc.spot { box-shadow: inset 0 0 0 2.5px #E8940A; background: #FEF3E2; color: #854F0B; }
+  .dc.cov { background: #E8940A; color: #fff; }
+
+  /* 5 Market */
+  #s5 .body { display: flex; gap: 110px; align-items: center; }
+  .rings { position: relative; width: 600px; height: 600px; flex-shrink: 0; margin-top: -40px; }
+  .rings i { position: absolute; left: 50%; bottom: 0; border-radius: 50%; transform: translateX(-50%); }
+  .rings .r1 { width: 600px; height: 600px; background: #EFEAE4; }
+  .rings .r2 { width: 400px; height: 400px; background: #E6DED4; }
+  .rings .r3 { width: 190px; height: 190px; background: #E8940A; }
+  .tiers { flex: 1; display: flex; flex-direction: column; gap: 22px; }
+  .tier { display: grid; grid-template-columns: 44px 300px 1fr; align-items: center; gap: 28px; padding: 26px 0; border-bottom: 1.5px solid #DDD6CD; }
+  .tier:last-child { border-bottom: 0; }
+  .tier .sw { width: 32px; height: 32px; border-radius: 50%; }
+  .tier strong { font-size: 58px; font-weight: 500; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+  .tier span { font-size: 28px; color: #6B6763; line-height: 1.35; }
+
+  /* 6 Business model */
+  #s6 .eq { display: flex; align-items: center; gap: 36px; }
+  #s6 .term { padding: 40px 44px; min-width: 300px; display: flex; flex-direction: column; gap: 8px; }
+  #s6 .term strong { font-size: 76px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  #s6 .term span { font-size: 27px; color: #6B6763; }
+  #s6 .term.res { background: #FEF3E2; box-shadow: none; }
+  #s6 .term.res strong { color: #854F0B; }
+  #s6 .op { font-size: 64px; color: #6B6763; font-weight: 400; }
+  #s6 .terms { display: flex; gap: 18px; margin-top: 64px; }
+  #s6 .terms .pill { font-size: 26px; padding: 14px 30px; }
+
+  /* 7 Traction */
+  #s7 .body { display: flex; gap: 80px; align-items: flex-end; }
+  .chart { flex: 1; display: flex; flex-direction: column; }
+  .chart .cols { height: 420px; display: flex; align-items: flex-end; gap: 16px; border-bottom: 2px solid #DDD6CD; }
+  .chart .col { flex: 1; position: relative; border-radius: 10px 10px 0 0; background: #E6DED4; }
+  .chart .col.last { background: #E8940A; }
+  .chart .col b { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); margin-bottom: 10px; font-size: 30px; font-weight: 500; color: #854F0B; }
+  .chart .mos { display: flex; gap: 16px; margin-top: 14px; }
+  .chart .mos span { flex: 1; text-align: center; font-size: 22px; color: #6B6763; }
+  .chart .ck { font-size: 24px; color: #6B6763; margin-bottom: 26px; }
+  #s7 .stats { width: 470px; display: flex; flex-direction: column; gap: 22px; }
+  #s7 .stat strong { font-size: 54px; }
+  #s7 .stat span { font-size: 26px; }
+
+  /* 8 Competition */
+  .cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 29px; }
+  .cmp th { font-weight: 500; font-size: 26px; color: #6B6763; padding: 22px 0; text-align: center; width: 15%; }
+  .cmp th:first-child { text-align: left; width: auto; }
+  .cmp td { padding: 20px 0; border-top: 1.5px solid #DDD6CD; text-align: center; }
+  .cmp td:first-child { text-align: left; }
+  .cmp .tw { background: #FEF3E2; }
+  .cmp th.tw { color: #854F0B; border-radius: 22px 22px 0 0; }
+  .cmp tr:last-child td.tw { border-radius: 0 0 22px 22px; }
+  .y, .no { display: inline-block; vertical-align: middle; }
+  .y { width: 26px; height: 26px; border-radius: 50%; background: #141413; }
+  .tw .y { background: #E8940A; }
+  .no { width: 26px; height: 3px; border-radius: 2px; background: #C9C1B7; }
+  .legend { display: flex; gap: 40px; margin-top: 30px; font-size: 22px; color: #6B6763; align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 12px; }
+  .legend .y, .legend .no { width: 20px; }
+  .legend .y { height: 20px; }
+
+  /* 9 Team */
+  #s9 .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  #s9 .p { padding: 46px 44px 50px; display: flex; flex-direction: column; gap: 10px; }
+  #s9 .mark { width: 100px; height: 100px; font-size: 40px; margin-bottom: 22px; }
+  #s9 .p:nth-child(2) .mark { background: #E8940A; color: #fff; }
+  #s9 .p:nth-child(3) .mark { background: #E6DED4; color: #141413; }
+  #s9 h3 { margin: 0; font-size: 44px; font-weight: 500; letter-spacing: -0.02em; }
+  #s9 .role { font-size: 26px; font-weight: 500; color: #854F0B; }
+  #s9 p { margin: 12px 0 0; font-size: 29px; line-height: 1.4; color: #6B6763; }
+
+  /* 10 Ask */
+  #s10 .body { display: flex; flex-direction: column; gap: 64px; }
+  .split { display: flex; height: 92px; border-radius: 20px; overflow: hidden; }
+  .split div { display: flex; align-items: center; padding: 0 30px; font-size: 28px; font-weight: 500; }
+  .split .a { width: 45%; background: #E8940A; color: #fff; }
+  .split .b { width: 35%; background: #F2CF95; color: #141413; }
+  .split .c { width: 20%; background: #E6DED4; color: #141413; }
+  .split-k { display: flex; font-size: 26px; color: #6B6763; margin-top: 16px; }
+  .split-k span:nth-child(1) { width: 45%; } .split-k span:nth-child(2) { width: 35%; }
+  .miles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .mile { border-top: 3px solid #141413; padding-top: 22px; display: flex; flex-direction: column; gap: 8px; }
+  .mile:last-child { border-color: #E8940A; }
+  .mile small { font-size: 22px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #6B6763; }
+  .mile strong { font-size: 40px; font-weight: 500; letter-spacing: -0.02em; }
+  .mile span { font-size: 27px; color: #6B6763; }
+  #s10 .contact { position: absolute; left: 128px; bottom: 116px; font-size: 26px; color: #6B6763; }
+  #s10 .contact strong { color: #141413; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- 1 Cover -->
+<section class="slide" id="s1">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <span class="pill outline concept">Concept deck</span>
+  <div class="l">
+    <div class="eyebrow">Seed round, 2026</div>
+    <h1>Rosters for teams that <em>work in shifts.</em></h1>
+    <p class="sub">Publish the week, let staff swap shifts in the app, and approve in one tap.</p>
+  </div>
+  <div class="card r">
+    <div class="cap"><strong>This week</strong><span>Front of house</span></div>
+    <div class="sheet" data-cells="1101100,0110110,1011001" data-cov="1,4"></div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">01 / 10</span></div>
+</section>
+
+<!-- 2 Problem -->
+<section class="slide" id="s2">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">The problem</div>
+  <h2>Small shift teams still run on a spreadsheet <em>and a group chat.</em></h2>
+  <div class="body">
+    <div class="card grid">
+      <div class="sheet" data-cells="1101100,0110110,1011001" data-x="0,3;1,4;2,2"></div>
+      <div class="cap">Three clashes nobody sees until the day</div>
+    </div>
+    <div class="stats">
+      <div class="card stat red"><strong>About 4 hours</strong><span>a week, per manager, spent fixing the roster</span></div>
+      <div class="card stat"><strong>Every swap</strong><span>goes through the manager, by message, at any hour</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">02 / 10</span></div>
+</section>
+
+<!-- 3 Solution -->
+<section class="slide" id="s3">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">The product</div>
+  <h2>Publish, swap, approve. <em>All on the phone.</em></h2>
+  <div class="body">
+    <div class="steps">
+      <div class="card step"><span class="num">1</span><h3>Publish the roster</h3><p>Everyone sees their shifts the moment it goes live.</p></div>
+      <div class="card step"><span class="num">2</span><h3>Swap in the app</h3><p>Offer a shift, and a colleague in the same role picks it up.</p></div>
+      <div class="card step"><span class="num">3</span><h3>Approve in one tap</h3><p>The manager sees who covers before saying yes.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">03 / 10</span></div>
+</section>
+
+<!-- 4 Difference -->
+<section class="slide" id="s4">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">Why teams switch</div>
+  <h2>Manager time on the roster drops <em>from hours to minutes.</em></h2>
+  <div class="body">
+    <div class="card bars">
+      <div class="old"><div class="bar-lbl"><span>With a spreadsheet</span><strong>About 4 hours a week</strong></div><div class="bar"><i></i></div></div>
+      <div class="new"><div class="bar-lbl"><span>With Tidewell</span><strong>About 30 minutes a week</strong></div><div class="bar"><i></i></div></div>
+    </div>
+    <div class="wk">
+      <p>And a gap is spotted days ahead, <em>not on the day.</em></p>
+      <div class="strip">
+        <div class="dcol"><span class="dl">Mon</span><span class="dc spot">Spotted</span></div>
+        <div class="dcol"><span class="dl">Tue</span><span class="dc"></span></div>
+        <div class="dcol"><span class="dl">Wed</span><span class="dc"></span></div>
+        <div class="dcol"><span class="dl">Thu</span><span class="dc cov">Covered</span></div>
+        <div class="dcol"><span class="dl">Fri</span><span class="dc"></span></div>
+        <div class="dcol"><span class="dl">Sat</span><span class="dc"></span></div>
+        <div class="dcol"><span class="dl">Sun</span><span class="dc"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">04 / 10</span></div>
+</section>
+
+<!-- 5 Market -->
+<section class="slide" id="s5">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">The market</div>
+  <h2>Built for teams of 10 to 60 <em>who work in shifts.</em></h2>
+  <div class="body">
+    <div class="rings"><i class="r1"></i><i class="r2"></i><i class="r3"></i></div>
+    <div class="tiers">
+      <div class="tier"><i class="sw" style="background:#EFEAE4;box-shadow:inset 0 0 0 1.5px #DDD6CD"></i><strong>400,000</strong><span>shift teams of 10 to 60 in Australia, the UK and Singapore</span></div>
+      <div class="tier"><i class="sw" style="background:#E6DED4"></i><strong>180,000</strong><span>clinics, caf&eacute;s, gyms and shops, where we start</span></div>
+      <div class="tier"><i class="sw" style="background:#E8940A"></i><strong>6,000</strong><span>teams by the end of year three</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">05 / 10</span></div>
+</section>
+
+<!-- 6 Business model -->
+<section class="slide" id="s6">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">Business model</div>
+  <h2>One simple price: <em>$4 per person, per month.</em></h2>
+  <div class="body">
+    <div class="eq">
+      <div class="card term"><strong>25</strong><span>people in a typical team</span></div>
+      <span class="op">&times;</span>
+      <div class="card term"><strong>$4</strong><span>per person, per month</span></div>
+      <span class="op">=</span>
+      <div class="card term res"><strong>$1,200</strong><span>a year from each team</span></div>
+    </div>
+    <div class="terms">
+      <span class="pill band">30 days free, then monthly</span>
+      <span class="pill outline">No setup fee</span>
+      <span class="pill outline">The manager pays, staff use it free</span>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">06 / 10</span></div>
+</section>
+
+<!-- 7 Traction -->
+<section class="slide" id="s7">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">Traction</div>
+  <h2>420 teams, <em>growing every month.</em></h2>
+  <div class="body">
+    <div class="chart">
+      <div class="ck">Teams using Tidewell, last 12 months</div>
+      <div class="cols" data-vals="18,31,46,64,88,117,150,189,236,290,352,420"></div>
+      <div class="mos"><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
+    </div>
+    <div class="stats">
+      <div class="card stat"><strong>$42,000</strong><span>monthly revenue</span></div>
+      <div class="card stat"><strong>9 in 10</strong><span>teams still using it after six months</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">07 / 10</span></div>
+</section>
+
+<!-- 8 Competition -->
+<section class="slide" id="s8">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">Competition</div>
+  <h2>Small teams are stuck between <em>too little and too much.</em></h2>
+  <div class="body" style="top:400px">
+    <table class="cmp">
+      <tr><th></th><th>Spreadsheet</th><th>Group chat</th><th>Enterprise suites</th><th class="tw">Tidewell</th></tr>
+      <tr><td>A roster everyone can see</td><td><i class="y"></i></td><td><i class="no"></i></td><td><i class="y"></i></td><td class="tw"><i class="y"></i></td></tr>
+      <tr><td>Swaps without the manager in the middle</td><td><i class="no"></i></td><td><i class="no"></i></td><td><i class="y"></i></td><td class="tw"><i class="y"></i></td></tr>
+      <tr><td>Gaps flagged days ahead</td><td><i class="no"></i></td><td><i class="no"></i></td><td><i class="y"></i></td><td class="tw"><i class="y"></i></td></tr>
+      <tr><td>Set up in an afternoon</td><td><i class="y"></i></td><td><i class="y"></i></td><td><i class="no"></i></td><td class="tw"><i class="y"></i></td></tr>
+      <tr><td>Priced for 10 to 60 people</td><td><i class="y"></i></td><td><i class="y"></i></td><td><i class="no"></i></td><td class="tw"><i class="y"></i></td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">08 / 10</span></div>
+</section>
+
+<!-- 9 Team -->
+<section class="slide" id="s9">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">The team</div>
+  <h2>We have run the roster <em>ourselves.</em></h2>
+  <div class="body">
+    <div class="team">
+      <div class="card p"><span class="mark">M</span><h3>Mai</h3><span class="role">Chief executive</span><p>Ran rosters for six clinics for eight years before starting Tidewell.</p></div>
+      <div class="card p"><span class="mark">T</span><h3>Tom</h3><span class="role">Product and engineering</span><p>Built scheduling software for hospital wards.</p></div>
+      <div class="card p"><span class="mark">L</span><h3>Linh</h3><span class="role">Sales</span><p>Sold software to more than 300 caf&eacute;s and gyms.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">09 / 10</span></div>
+</section>
+
+<!-- 10 Ask -->
+<section class="slide" id="s10">
+  <div class="firm"><i>T</i>Tidewell</div>
+  <div class="eyebrow">The round</div>
+  <h2>Raising $1.2 million <em>to reach 2,000 teams.</em></h2>
+  <div class="body" style="top:410px">
+    <div>
+      <div class="split"><div class="a">Product, 45%</div><div class="b">Sales and marketing, 35%</div><div class="c">Operations, 20%</div></div>
+      <div class="split-k"><span>Swaps across sites, payroll export</span><span>Clinics and gyms in the UK</span><span>Support</span></div>
+    </div>
+    <div class="miles">
+      <div class="mile"><small>Today</small><strong>420 teams</strong><span>$42,000 monthly revenue</span></div>
+      <div class="mile"><small>In 9 months</small><strong>1,000 teams</strong><span>UK launch</span></div>
+      <div class="mile"><small>In 18 months</small><strong>2,000 teams</strong><span>$200,000 monthly revenue</span></div>
+    </div>
+  </div>
+  <div class="contact"><strong>Mai, chief executive</strong> &middot; hello@tidewell.example</div>
+  <div class="foot"><span>Tidewell &middot; Seed round, 2026</span><span>Concept deck: fictional company, illustrative figures</span><span class="n">10 / 10</span></div>
+</section>
+
+<script>
+  // Roster grids: names down the side, days across; data-cov marks one covered shift, data-x the clashes.
+  const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], NAMES = ['Ben', 'Dana', 'Lee'];
+  document.querySelectorAll('.sheet').forEach(sheet => {
+    const rows = sheet.dataset.cells.split(',');
+    const marks = (sheet.dataset.x || '').split(';').filter(Boolean).map(p => p.split(',').map(Number));
+    const cov = sheet.dataset.cov ? sheet.dataset.cov.split(',').map(Number) : null;
+    const add = (cls, txt) => { const s = document.createElement('span'); s.className = cls; s.textContent = txt || ''; sheet.appendChild(s); };
+    add('k', ''); DAYS.forEach(d => add('k d', d));
+    NAMES.forEach((n, r) => {
+      add('k', n);
+      DAYS.forEach((d, c) => {
+        if (cov && cov[0] === r && cov[1] === c) add('cov', 'Covered');
+        else if (marks.some(([mr, mc]) => mr === r && mc === c)) add('x', 'Clash');
+        else add(rows[r][c] === '1' ? 'on' : '', '');
+      });
+    });
+  });
+  // Traction columns, scaled to the largest month; the latest month carries its value.
+  document.querySelectorAll('.cols').forEach(el => {
+    const v = el.dataset.vals.split(',').map(Number), max = Math.max(...v);
+    v.forEach((n, i) => {
+      const c = document.createElement('div');
+      c.className = 'col' + (i === v.length - 1 ? ' last' : '');
+      c.style.height = (n / max * 100) + '%';
+      if (i === v.length - 1) { const b = document.createElement('b'); b.textContent = n; c.appendChild(b); }
+      el.appendChild(c);
+    });
+  });
+</script>
+</body>
+</html>

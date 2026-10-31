@@ -228,6 +228,13 @@ video.loop:focus-visible{outline:2px solid var(--amber-ink);outline-offset:-2px}
   .piece.alt .piece-text{order:-1}
 }
 .opening+.piece-sec{padding-top:var(--s5)}
+/* Deck viewer: one slide at a time, stepped from the bar or the slide list. */
+.deck-bar{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-top:1px solid var(--rule)}
+.deck-bar .win-ctl{position:static;width:40px;height:40px;justify-content:center;padding:0;font-size:var(--t-small)}
+.deck-bar .win-ctl[hidden]{display:none}
+.deck-bar .win-ctl:disabled{opacity:0.4;cursor:default}
+.deck-n{font-family:var(--mono);font-size:var(--t-meta);color:var(--ink-2);min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+.deck-pdf{margin-left:auto;font-size:var(--t-small)}
 @media(min-width:900px){
   .finished-grid{grid-template-columns:7fr 5fr;align-items:start}
   .finished-grid .win-wide:last-child{margin-top:64px}

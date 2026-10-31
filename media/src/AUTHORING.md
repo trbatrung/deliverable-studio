@@ -70,3 +70,13 @@ Levels: narration -16 LUFS, effects -15 dB, music about 10 dB under the voice an
 7 dB while the narrator speaks. The music is synthesised in `audio.py`. Effects come from Ethan's
 `~/code-project/Infographic sound fx` and `~/code-project/Swooshes` folders (not in the repo).
 Check a new line by transcribing it (`/v1/audio/transcriptions`); the voice occasionally misreads a word.
+
+## Decks
+A deck is one HTML file with `kind: "deck"`: every `<section class="slide">` is `width x height`
+(1920x1080), stacked in the page, with `@page { size: 1920px 1080px; margin: 0 }` and
+`break-after: page` on each slide. `node render.mjs deck-tidewell` writes
+`media/deck/<name>-NN.webp` at `outWidth x outHeight` and prints the whole file to `media/<name>.pdf`
+(vector, selectable text). Slides are still: no seek, no motion. Body text at least 26 px, headings
+64 px or more, and a footer on every slide that says it is a concept with illustrative figures.
+The Examples page shows the webp files in a viewer (`[data-deck]` in `script.js`).
+

@@ -76,6 +76,25 @@ for (const file of files) {
     continue;
   }
 
+  if (kind === 'deck') {
+    // Every .slide (width x height, stacked) becomes media/deck/<name>-NN.webp at the
+    // web size, and the whole document prints to media/<name>.pdf, one slide a page.
+    const ow = scene.outWidth || width, oh = scene.outHeight || height;
+    const dir = join(mediaDir, 'deck');
+    mkdirSync(dir, { recursive: true });
+    const slides = await page.$$('.slide');
+    for (const [i, el] of slides.entries()) {
+      const out = join(dir, `${name}-${String(i + 1).padStart(2, '0')}.webp`);
+      writeFileSync(out + '.png', await el.screenshot({ type: 'png' }));
+      await ffmpeg(['-i', out + '.png', '-vf', `scale=${ow}:${oh}:flags=lanczos`, '-c:v', 'libwebp', '-quality', '86', out]);
+      execFileSync('rm', ['-f', out + '.png']);
+    }
+    await page.pdf({ path: join(mediaDir, `${name}.pdf`), width: `${width}px`, height: `${height}px`, printBackground: true });
+    console.log(`${name}: ${slides.length} slides -> deck/${name}-NN.webp, ${name}.pdf`);
+    await page.close();
+    continue;
+  }
+
   // Optional hold: freeze scene time `at` for `for` seconds, so output time t
   // shows scene time t (t < at), at (at <= t < at + for), t - for (after).
   // Optional posterTime (output seconds) picks the poster frame; default frame 0.

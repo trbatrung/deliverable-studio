@@ -149,6 +149,52 @@ function toggleMenu(){
   });
 })();
 
+// Deck: one slide image at a time, stepped by the arrows, the arrow keys or the
+// slide list. Without JavaScript the first slide and the PDF link remain.
+(function decks(){
+  var decks = document.querySelectorAll('[data-deck]');
+  Array.prototype.forEach.call(decks, function(deck){
+    var img = deck.querySelector('img[data-base]');
+    var links = deck.querySelectorAll('[data-slide]');
+    var steps = deck.querySelectorAll('[data-step]');
+    var n = deck.querySelector('.deck-n');
+    if(!img || !links.length) return;
+    var base = img.getAttribute('data-base'), total = links.length, cur = 0;
+    var pad = function(i){ return (i < 9 ? '0' : '') + (i + 1); };
+    var label = function(i){ return 'Slide ' + (i + 1) + ' of ' + total + ': ' + links[i].querySelector('.d').textContent + '.'; };
+    function show(i){
+      cur = Math.max(0, Math.min(total - 1, i));
+      img.src = base + pad(cur) + '.webp';
+      img.alt = label(cur);
+      n.textContent = (cur + 1) + ' / ' + total;
+      steps[0].disabled = cur === 0;
+      steps[1].disabled = cur === total - 1;
+      Array.prototype.forEach.call(links, function(a, j){ a.classList.toggle('on', j === cur); });
+      if(cur < total - 1){ var next = new Image(); next.src = base + pad(cur + 1) + '.webp'; }
+    }
+    Array.prototype.forEach.call(steps, function(b){
+      b.hidden = false;
+      b.addEventListener('click', function(){ show(cur + parseInt(b.getAttribute('data-step'), 10)); });
+    });
+    deck.querySelector('figure').addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ e.preventDefault(); show(cur + 1); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); show(cur - 1); }
+    });
+    Array.prototype.forEach.call(links, function(a, i){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        show(i);
+        var r = img.getBoundingClientRect();
+        if(r.top < 0 || r.bottom > window.innerHeight){
+          var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+          img.scrollIntoView({behavior: still ? 'auto' : 'smooth', block: 'center'});
+        }
+      });
+    });
+    show(0);
+  });
+})();
+
 async function handleContactSubmit(e){
   e.preventDefault();
   var form = e.target;

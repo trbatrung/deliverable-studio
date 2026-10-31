@@ -25,7 +25,7 @@ Pitch one of these per prospect, never all three in a first message.
 | --- | --- | --- |
 | **Customers** | Sales pitch videos, product explainers, website loops | Sales pitch concept piece |
 | **Staff** | Onboarding, training, process changes | Course module concept piece |
-| **Investors and partners** | Pitch decks, animated charts for updates | Hold until a concept deck exists |
+| **Investors and partners** | Pitch decks, animated charts for updates | Tidewell concept deck (`/work#deck`) |
 
 ## The menu
 
@@ -38,7 +38,7 @@ Pitch one of these per prospect, never all three in a first message.
 | 30-second video | 3 |
 | 60-second explainer or training video | 5 |
 | Sales pitch or product video, 60 to 90 s | 7 |
-| Pitch deck in their brand, up to 12 slides | 6 (list once a concept deck exists) |
+| Pitch deck in their brand, up to 12 slides | 6 |
 | Extra revision round | 1 |
 | Rush (half the usual time) | +50% |
 
@@ -65,7 +65,7 @@ Every video includes the script, captions plus a subtitle file, 16:9 and 4:5 ver
 - **Updates and creative, $1,500:** everything above plus new creative work: product demos, sales pitches, explainers, pitch or sales decks.
 - **Larger teams, "Let's talk":** everything above for several teams or more volume, plus "custom visuals beyond motion graphics" (this is where generative footage, presenters or avatars would go; never named as AI in public copy, and only offered once there is a sample to show).
 - "One piece in progress at a time" is the public limit. Credits stay as the private yardstick for heavy users (Regular updates about 10 a month, Updates and creative about 33), and go in quotes, not on the site.
-- Pitch decks are now promised publicly but there is no concept deck yet: make one before outreach to that audience.
+- Concept deck live since 2026-10-31: Tidewell seed round, 10 slides, on `/work#deck` with a PDF download. Same fictional company as the sales pitch, so it shows one brand speaking to customers and investors.
 
 ## How payment works
 No free trial: this is a service, not an app. Clients can always leave, but you are always paid before you work, so leaving never costs you money. Everything below goes in the quote before they pay.
@@ -151,6 +151,6 @@ Anyone who says no goes on a do-not-contact list and never hears from you again.
 
 ## Before the first send
 1. **Time it.** Run one 60-second video and one loop through the pipeline, end to end, and check the credits hold.
-2. **Only list what you can show.** Sales pitch: concept piece in progress. Pitch decks: off the menu until there's a concept deck.
+2. **Only list what you can show.** Explainer, course module, sales pitch and pitch deck all have concept pieces now. Decide what file a deck client gets: PDF only, or an editable PowerPoint, Keynote or Google Slides file (the concept is built as HTML, so editable files would be rebuilt in their tool).
 3. **Decide** the reply time you'll commit to, and whether clients get source files.
 4. **Domain and email** are the parked final launch step. Outreach starts after them.
