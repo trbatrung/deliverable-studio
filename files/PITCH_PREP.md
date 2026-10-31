@@ -38,7 +38,7 @@ Pitch one of these per prospect, never all three in a first message.
 | 30-second video | 3 |
 | 60-second explainer or training video | 5 |
 | Sales pitch or product video, 60 to 90 s | 7 |
-| Pitch deck in their brand, up to 12 slides | 6 |
+| Pitch deck in their brand, up to 12 slides, PDF plus editable PowerPoint | 8 |
 | Extra revision round | 1 |
 | Rush (half the usual time) | +50% |
 
@@ -151,6 +151,6 @@ Anyone who says no goes on a do-not-contact list and never hears from you again.
 
 ## Before the first send
 1. **Time it.** Run one 60-second video and one loop through the pipeline, end to end, and check the credits hold.
-2. **Only list what you can show.** Explainer, course module, sales pitch and pitch deck all have concept pieces now. Decide what file a deck client gets: PDF only, or an editable PowerPoint, Keynote or Google Slides file (the concept is built as HTML, so editable files would be rebuilt in their tool).
+2. **Only list what you can show.** Explainer, course module, sales pitch and pitch deck all have concept pieces now. Decks: decided 2026-10-31, every deck ships as a PDF plus an editable PowerPoint file (opens in Keynote and Google Slides), stated on the pricing section, the Examples page and the terms. The editable file is rebuilt natively, so the deck went from 6 to 8 credits. Time one editable rebuild before quoting the first deck client.
 3. **Decide** the reply time you'll commit to, and whether clients get source files.
 4. **Domain and email** are the parked final launch step. Outreach starts after them.
