@@ -19,13 +19,15 @@ function toggleMenu(){
   if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
-// Homepage headline types itself on load, then the highlight sweeps in.
-// Characters are wrapped and hidden in place, so layout never moves; screen
-// readers get the whole headline from aria-label. Reduced motion: no typing.
+// Homepage headline: "Make your business" is there at once; only the
+// highlighted phrase types, then the highlight sweeps in. Characters are
+// wrapped and hidden in place, so layout never moves; screen readers get the
+// whole headline from aria-label. Reduced motion: no typing.
 (function heroType(){
   var h = document.querySelector('.hero-type');
   if(!h) return;
   var mark = h.querySelector('.hl');
+  if(!mark) return;
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   // Once per visit: coming back to the homepage shows the finished headline.
   try{
@@ -34,23 +36,24 @@ function toggleMenu(){
   }catch(e){}
   h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
   h.classList.add('js-type');
+  // Type the phrase inside the highlight and the full stop after it.
+  var targets = Array.prototype.slice.call(mark.childNodes);
+  if(mark.nextSibling && mark.nextSibling.nodeType === 3) targets.push(mark.nextSibling);
   var chars = [];
-  (function wrap(node){
-    Array.prototype.slice.call(node.childNodes).forEach(function(n){
-      if(n.nodeType === 3){
-        var frag = document.createDocumentFragment();
-        n.textContent.split('').forEach(function(ch){
-          var s = document.createElement('span');
-          s.className = 'tw';
-          s.setAttribute('aria-hidden', 'true');
-          s.textContent = ch;
-          frag.appendChild(s);
-          chars.push(s);
-        });
-        n.parentNode.replaceChild(frag, n);
-      } else if(n.nodeType === 1){ wrap(n); }
+  targets.forEach(function(n){
+    if(n.nodeType !== 3) return;
+    var frag = document.createDocumentFragment();
+    n.textContent.split('').forEach(function(ch){
+      var s = document.createElement('span');
+      s.className = 'tw';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = ch;
+      frag.appendChild(s);
+      chars.push(s);
     });
-  })(h);
+    n.parentNode.replaceChild(frag, n);
+  });
+  if(!chars.length) return;
   var caret = document.createElement('span');
   caret.className = 'tw-caret';
   caret.setAttribute('aria-hidden', 'true');
@@ -68,7 +71,19 @@ function toggleMenu(){
     var ch = c.textContent;
     setTimeout(next, ch === ' ' ? 90 : 34 + Math.random() * 38);
   }
-  setTimeout(next, 350);
+  setTimeout(next, 250);
+})();
+
+// Pricing buttons start the enquiry with the plan's name, unless the
+// visitor has already written something.
+(function planPrefill(){
+  var links = document.querySelectorAll('[data-plan]');
+  Array.prototype.forEach.call(links, function(a){
+    a.addEventListener('click', function(){
+      var msg = document.getElementById('f-message');
+      if(msg && !msg.value.trim()) msg.value = "I'm interested in the " + a.getAttribute('data-plan') + ' plan. ';
+    });
+  });
 })();
 
 // Close the mobile menu when one of its links is followed (most jump within the homepage).
