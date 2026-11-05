@@ -60,8 +60,8 @@
           <div class="a">Who the video is for, what they should understand or do, and the material you already have: notes, a presentation, a walkthrough, or a conversation. You do not need a script.</div>
         </details>
         <details>
-          <summary>How long does a project take?</summary>
-          <div class="a">It depends on the scope. The timeline is agreed with the quote, with approval points for the message and the visual approach before animation starts.</div>
+          <summary>How long does a video take?</summary>
+          <div class="a">It depends on the piece. Each one gets a date when its brief is agreed, with two approvals, the script and the visual approach, before animation starts. One piece is in progress at a time.</div>
         </details>
         <details>
           <summary>What does it cost?</summary>
@@ -96,8 +96,12 @@
           <label class="form-label" for="f-message">What should people understand?</label>
           <textarea class="form-input" id="f-message" name="message" required></textarea>
         </div>
+        <div class="form-consent">
+          <input id="f-consent" name="consent" type="checkbox" required>
+          <label for="f-consent" id="f-consent-text">I agree to Deliverable using these details to reply to my enquiry, as described in the <a href="privacy.html">privacy notice</a>.</label>
+        </div>
         <button class="btn form-submit" type="submit">Talk through a project</button>
-        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records. <a href="privacy.html">How your details are used</a>.</p>
+        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records.</p>
         <div class="form-success" id="formSuccess" role="status">Thanks, your message is in. I'll reply by email.</div>
         <div class="form-error" id="formError" role="alert"></div>
       </form>

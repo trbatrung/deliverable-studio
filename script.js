@@ -5,6 +5,11 @@
 
 var SUPABASE_URL = 'https://okduntsweecbxlaaywlx.supabase.co';
 var SUPABASE_ANON_KEY = 'sb_publishable_0F8E-a9VDxJLgCyhxC9PpA_QRxZWBzt';
+// Matches the "Last updated" date on privacy.html; change both together.
+var PRIVACY_NOTICE_VERSION = '2026-11-05';
+
+// iOS Safari only applies :active press styles once a touch listener exists.
+document.addEventListener('touchstart', function(){}, {passive: true});
 
 function toggleMenu(){
   var menu = document.getElementById('mobileMenu');
@@ -13,6 +18,53 @@ function toggleMenu(){
   var open = menu.classList.toggle('open');
   if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
+
+// Homepage headline types itself on load, then the highlight sweeps in.
+// Characters are wrapped and hidden in place, so layout never moves; screen
+// readers get the whole headline from aria-label. Reduced motion: no typing.
+(function heroType(){
+  var h = document.querySelector('.hero-type');
+  if(!h) return;
+  var mark = h.querySelector('.hl');
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+  h.classList.add('js-type');
+  var chars = [];
+  (function wrap(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if(n.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        n.textContent.split('').forEach(function(ch){
+          var s = document.createElement('span');
+          s.className = 'tw';
+          s.setAttribute('aria-hidden', 'true');
+          s.textContent = ch;
+          frag.appendChild(s);
+          chars.push(s);
+        });
+        n.parentNode.replaceChild(frag, n);
+      } else if(n.nodeType === 1){ wrap(n); }
+    });
+  })(h);
+  var caret = document.createElement('span');
+  caret.className = 'tw-caret';
+  caret.setAttribute('aria-hidden', 'true');
+  chars[0].parentNode.insertBefore(caret, chars[0]);
+  var i = 0;
+  function next(){
+    if(i >= chars.length){
+      if(mark) mark.classList.add('on');
+      setTimeout(function(){ caret.remove(); }, 1600);
+      return;
+    }
+    var c = chars[i++];
+    c.classList.add('on');
+    c.parentNode.insertBefore(caret, c.nextSibling);
+    var ch = c.textContent;
+    setTimeout(next, ch === ' ' ? 90 : 34 + Math.random() * 38);
+  }
+  setTimeout(next, 350);
+})();
 
 // Close the mobile menu when one of its links is followed (most jump within the homepage).
 (function closeMenuOnLink(){
@@ -203,6 +255,14 @@ async function handleContactSubmit(e){
   var error = document.getElementById('formError');
   var original = btn.textContent;
 
+  // Vietnam's data law needs express, recorded consent: the box must be ticked,
+  // and the exact wording shown plus the notice version are stored with the row.
+  if(!form.consent || !form.consent.checked){
+    error.textContent = 'Please tick the box to agree before sending.';
+    error.style.display = 'block';
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = 'Sending...';
   success.style.display = 'none';
@@ -212,7 +272,9 @@ async function handleContactSubmit(e){
     name: form.name.value.trim(),
     email: form.email.value.trim(),
     company: form.company.value.trim() || null,
-    message: form.message.value.trim()
+    message: form.message.value.trim(),
+    consent_text: document.getElementById('f-consent-text').textContent.replace(/\s+/g, ' ').trim(),
+    notice_version: PRIVACY_NOTICE_VERSION
   };
 
   try{

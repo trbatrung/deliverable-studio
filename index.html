@@ -49,22 +49,35 @@
 <main>
 
 <section class="opening hero-split">
+  <div class="hero-layer" aria-hidden="true">
+    <div class="hero-map">
+      <img src="media/world-dots.svg?v=2" alt="" width="1440" height="536" decoding="async">
+      <span class="hm-dot hm-home" style="left:79.62%;top:49.72%"></span>
+    </div>
+    <div class="hf hf-steps"><span>01</span><i></i><span>02</span><i></i><span class="on">03</span><i></i><span>04</span></div>
+    <div class="hf hf-chip"><span class="hf-tick"></span>Script approved</div>
+    <div class="hf hf-card"><span class="hf-pill">Before</span><b></b><b></b><b class="short"></b><span class="hf-total">About 7 days</span></div>
+    <div class="hf hf-scrub"><span class="hf-play"></span><span class="hf-bar"><span class="hf-head"></span></span><span class="hf-time">0:47</span></div>
+  </div>
   <div class="opening-inner">
     <p class="eyebrow">Motion graphics &amp; explainer videos</p>
-    <h1>Make your business easier to understand.</h1>
-    <div class="hero-side">
-      <p class="lede">Explainers, product walkthroughs and training videos, shaped around what your customers or team need to understand. You bring the knowledge. I handle the script, visuals and production.</p>
-      <div class="btn-row">
-        <a class="btn" href="#contact">Talk through a project</a>
-        <a class="btn ghost" href="#process">See how it works</a>
-      </div>
+    <h1 class="hero-type">Make your business <mark class="hl">easier to understand</mark>.</h1>
+    <p class="lede">Explainers, walkthroughs and training videos. You bring the knowledge, I handle the script, visuals and production.</p>
+    <div class="btn-row">
+      <a class="btn" href="#contact">Talk through a project</a>
+      <a class="btn ghost" href="#process">See how it works</a>
     </div>
   </div>
+  <nav class="hero-jobs" aria-label="What the videos are for">
+    <a href="#explain">Explain your business</a>
+    <a href="#update">Keep people up to date</a>
+    <a href="#teach">Share what you know</a>
+  </nav>
 </section>
 
 <section class="rows" id="examples" aria-label="How it works, in three conversations">
 
-  <div class="convo">
+  <div class="convo" id="explain">
     <div class="convo-text">
       <div class="bubbles">
         <p class="bubble client">Can this proposal be a video? Nobody reads the 14 pages.</p>
@@ -86,7 +99,7 @@
     </figure>
   </div>
 
-  <div class="convo alt">
+  <div class="convo alt" id="update">
     <div class="convo-text">
       <div class="bubbles">
         <p class="bubble client">Can the Monday review be a one-minute video instead of the deck?</p>
@@ -108,7 +121,7 @@
     </figure>
   </div>
 
-  <div class="convo">
+  <div class="convo" id="teach">
     <div class="convo-text">
       <div class="bubbles">
         <p class="bubble client">Can this training slide become a lesson people actually finish?</p>
@@ -135,6 +148,7 @@
 </section>
 
 <section class="section" id="process">
+  <div class="split process-top">
   <div class="section-head">
     <p class="eyebrow">Process</p>
     <h2>From your material to a finished file.</h2>
@@ -142,7 +156,7 @@
   </div>
   <figure class="win process-film">
     <div class="win-media wide">
-      <video data-full controls playsinline preload="metadata" poster="media/process-explainer.webp" data-portrait="media/process-explainer-45" aria-label="How a project runs, in six steps: inputs, message and script, visual approach, production, review and delivery, updates later, with two approval points before animation starts">
+      <video data-full controls playsinline preload="metadata" poster="media/process-explainer.webp" aria-label="How a project runs, in six steps: inputs, message and script, visual approach, production, review and delivery, updates later, with two approval points before animation starts">
         <source src="media/process-explainer.webm" type="video/webm">
         <source src="media/process-explainer.mp4" type="video/mp4">
       </video>
@@ -153,27 +167,14 @@
       The six steps below, as a short narrated video made in the same style as the examples. Every point is also on screen, so it works with the sound off.
     </figcaption>
   </figure>
-  <div class="split">
-    <div class="steps">
-      <div class="step"><span class="n">01</span><div><h3>Inputs</h3><p>Who the video is for, what they should understand or do, where it will be used, and the material you already have.</p></div></div>
-      <div class="step"><span class="n">02</span><div><h3>Message and script</h3><p>I propose the structure and write or refine the script. You approve it before anything is designed.</p></div></div>
-      <div class="step"><span class="n">03</span><div><h3>Visual approach</h3><p>A style frame and a scene plan: what is shown, when, and for how long. You approve it before animation starts.</p></div></div>
-      <div class="step"><span class="n">04</span><div><h3>Production</h3><p>Animation, editing, and audio or captions where agreed. I direct and check the result.</p></div></div>
-      <div class="step"><span class="n">05</span><div><h3>Review and delivery</h3><p>You review the piece. Revisions within the agreed scope, then final files in the formats you need.</p></div></div>
-      <div class="step"><span class="n">06</span><div><h3>Updates later</h3><p>When something changes, the update is scoped by what changed. Approved layouts and styles carry forward.</p></div></div>
-    </div>
-    <div class="card">
-      <span class="k">In every quote</span>
-      <ul class="list">
-        <li>Audience and purpose</li>
-        <li>Length, format and where it will be used</li>
-        <li>What you provide and when</li>
-        <li>Approval points: script, visual approach, final review</li>
-        <li>Revision rounds included</li>
-        <li>Delivery formats and timeline</li>
-      </ul>
-      <p class="card-foot">A first project is one defined piece of work, quoted before production begins. When the need repeats, we agree an ongoing scope once the workload is understood: capacity and priorities, not unlimited output.</p>
-    </div>
+  </div>
+  <div class="steps steps-2">
+    <div class="step"><span class="n">01</span><div><h3>Inputs</h3><p>Who the video is for, what they should understand or do, where it will be used, and the material you already have.</p></div></div>
+    <div class="step"><span class="n">02</span><div><h3>Message and script</h3><p>I propose the structure and write or refine the script. You approve it before anything is designed.</p></div></div>
+    <div class="step"><span class="n">03</span><div><h3>Visual approach</h3><p>A style frame and a scene plan: what is shown, when, and for how long. You approve it before animation starts.</p></div></div>
+    <div class="step"><span class="n">04</span><div><h3>Production</h3><p>Animation, editing, and audio or captions where agreed. I direct and check the result.</p></div></div>
+    <div class="step"><span class="n">05</span><div><h3>Review and delivery</h3><p>You review the piece. Revisions within the agreed scope, then final files in the formats you need.</p></div></div>
+    <div class="step"><span class="n">06</span><div><h3>Updates later</h3><p>When something changes, the update is scoped by what changed.</p></div></div>
   </div>
 </section>
 
@@ -233,20 +234,8 @@
       <p class="contact-who">You will be talking to Ethan Truong, who does and directs the work. <a class="link nowrap" href="about.html">About Ethan</a></p>
       <div class="faq">
         <details>
-          <summary>What do you need from me to start?</summary>
-          <div class="a">Who the video is for, what they should understand or do, and the material you already have: notes, a presentation, a walkthrough, or a conversation. You do not need a script or any animation terminology.</div>
-        </details>
-        <details>
-          <summary>How long does a project take?</summary>
-          <div class="a">It depends on the scope. The timeline is agreed with the quote, with approval points for the message and the visual approach before animation starts.</div>
-        </details>
-        <details>
-          <summary>What does it cost?</summary>
-          <div class="a">$500 a month for regular updates, or $1,500 a month with creative work such as product demos and pitch decks. Larger teams are priced to the workload. <a class="link" href="/#pricing">See pricing</a></div>
-        </details>
-        <details>
-          <summary>Can a video be updated later?</summary>
-          <div class="a">Yes. Updates are scoped by what changes. Approved layouts and styles carry forward, so a revision is usually smaller than the first piece.</div>
+          <summary>How long does a video take?</summary>
+          <div class="a">It depends on the piece. Each one gets a date when its brief is agreed, with two approvals, the script and the visual approach, before animation starts. One piece is in progress at a time.</div>
         </details>
         <details>
           <summary>Do you need access to our systems or data?</summary>
@@ -272,8 +261,12 @@
           <label class="form-label" for="f-message">What should people understand?</label>
           <textarea class="form-input" id="f-message" name="message" required></textarea>
         </div>
+        <div class="form-consent">
+          <input id="f-consent" name="consent" type="checkbox" required>
+          <label for="f-consent" id="f-consent-text">I agree to Deliverable using these details to reply to my enquiry, as described in the <a href="privacy.html">privacy notice</a>.</label>
+        </div>
         <button class="btn form-submit" type="submit">Talk through a project</button>
-        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records. <a href="privacy.html">How your details are used</a>.</p>
+        <p class="privacy">Contact details and a short description are enough. Please do not include passwords or confidential records.</p>
         <div class="form-success" id="formSuccess" role="status">Thanks, your message is in. I'll reply by email.</div>
         <div class="form-error" id="formError" role="alert"></div>
       </form>

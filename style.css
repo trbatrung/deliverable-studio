@@ -131,15 +131,67 @@ main [id]{scroll-margin-top:72px}
 .opening-inner{max-width:760px}
 .opening .lede{margin-top:22px}
 @media(min-width:900px){.opening{padding:80px var(--px) 40px}}
-/* Homepage: headline left, supporting line and actions right, so the first
-   conversation row sits inside the first screen. */
-@media(min-width:900px){
-  .opening.hero-split{padding:64px var(--px) 16px}
-  .hero-split .opening-inner{max-width:none;display:grid;grid-template-columns:1.25fr 1fr;column-gap:64px;align-items:end}
-  .hero-split .eyebrow{grid-column:1/-1;justify-self:start}
-  .hero-split .hero-side .lede{margin-top:0;font-size:19px;max-width:44ch}
-  .hero-split + .rows{padding-top:40px}
+/* Homepage hero: owns the first screen, centred, with a quiet layer behind it:
+   a dot map (home in Ho Chi Minh City, plus the markets served) and a few
+   parts of the video system drifting at the edges. */
+.opening.hero-split{position:relative;isolation:isolate;overflow:hidden;min-height:min(calc(100svh - 72px),880px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--s8) var(--px) var(--s10)}
+.hero-split .opening-inner{position:relative;z-index:1;max-width:900px;display:flex;flex-direction:column;align-items:center}
+.hero-split h1{font-size:clamp(44px,7.2vw,92px);letter-spacing:-0.035em;line-height:1.02}
+/* Highlighter stroke behind the key phrase; it sweeps in once the headline
+   has typed (script.js adds .on), and is simply there without JavaScript. */
+.hl{color:inherit;background:linear-gradient(transparent 50%,rgba(232,148,10,.34) 50%,rgba(232,148,10,.34) 86%,transparent 86%) no-repeat 0 0/100% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .04em}
+.js-type .hl{background-size:0% 100%;transition:background-size .7s cubic-bezier(.2,.7,.2,1)}
+.js-type .hl.on{background-size:100% 100%}
+/* Typewriter: every character is laid out from the start but hidden until
+   typed, so the centred lines never shift. */
+.tw{visibility:hidden}
+.tw.on{visibility:visible}
+.tw-caret{position:relative}
+.tw-caret::after{content:'';position:absolute;left:.03em;top:.12em;bottom:.1em;width:.055em;background:var(--amber);animation:tw-blink 1s steps(1) infinite}
+@keyframes tw-blink{50%{opacity:0}}
+.hero-split .lede{margin-top:var(--s5);max-width:46ch;font-size:clamp(18px,1.6vw,20px)}
+.hero-split .btn-row{justify-content:center;margin-top:var(--s6)}
+.hero-jobs{position:absolute;z-index:1;left:var(--px);right:var(--px);bottom:0;display:flex;justify-content:center;flex-wrap:wrap;gap:var(--s2) var(--s7);padding:var(--s4) 0 var(--s5);border-top:1px dotted #CFCFC5;font-family:var(--mono);font-size:var(--t-meta);letter-spacing:0.06em;text-transform:uppercase}
+.hero-jobs a{text-decoration:none;color:var(--ink-2)}
+.hero-jobs a:hover{color:var(--ink)}
+
+.hero-layer{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-map{position:absolute;left:50%;top:46%;width:min(1480px,128%);aspect-ratio:1440/536;transform:translate(-50%,-50%)}
+.hero-map img{display:block;width:100%;height:100%;opacity:.6;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,0,0,.08) 34%,#000 68%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,0,0,.08) 34%,#000 68%,transparent 100%)}
+.hm-dot{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:1px;background:var(--amber)}
+.hm-home::after{content:'';position:absolute;inset:-7px;border:1.5px solid var(--amber);border-radius:50%;animation:hm-pulse 2.8s ease-out infinite}
+@keyframes hm-pulse{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+/* Phones: text sits high, and the map (Asia-Pacific, around home) fills the
+   space under the buttons, fading in from above so it never sits behind text. */
+@media(max-width:759px){
+  .opening.hero-split{justify-content:flex-start;padding-top:var(--s9)}
+  .hero-map{width:200vw;left:-98vw;top:auto;bottom:0;transform:none}
+  .hero-map img{opacity:.5;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 60%);mask-image:linear-gradient(to bottom,transparent 0,#000 60%)}
 }
+@media(max-width:599px){.hero-jobs{display:none}}
+
+.hf{position:absolute;display:none;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--lift);font-size:12px;color:var(--ink-2);animation:hf-float 10s ease-in-out infinite}
+@media(min-width:1200px){.hf{display:flex}}
+@keyframes hf-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hf-steps{left:5%;top:19%;gap:0;padding:10px 12px}
+.hf-steps span{width:26px;height:26px;border:1px solid var(--rule);border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--ink);background:#fff}
+.hf-steps span.on{background:var(--amber);border-color:var(--amber);color:#fff}
+.hf-steps i{width:12px;height:1px;background:var(--rule)}
+.hf-chip{right:6%;top:23%;gap:8px;padding:6px 14px 6px 6px;border:0;border-radius:999px;background:var(--amber);color:#fff;font-size:13px;font-weight:500;animation-duration:12s;animation-delay:-4s}
+.hf-tick{width:20px;height:20px;border-radius:50%;background:#fff;position:relative}
+.hf-tick::after{content:'';position:absolute;left:7px;top:4px;width:5px;height:9px;border:solid var(--amber);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.hf-card{left:8%;bottom:24%;flex-direction:column;align-items:stretch;gap:7px;width:168px;padding:12px;animation-duration:11s;animation-delay:-6s}
+.hf-pill{align-self:flex-start;padding:2px 8px;border-radius:999px;background:#FBF1EE;color:#A32D2D;font-size:11px;font-weight:500}
+.hf-card b{display:block;height:6px;border-radius:3px;background:#ECEAE2}
+.hf-card b.short{width:60%}
+.hf-total{margin-top:2px;color:var(--amber-ink);font-weight:500;text-align:right}
+.hf-scrub{right:8%;bottom:21%;gap:10px;width:220px;padding:10px 12px;animation-duration:13s;animation-delay:-2s}
+.hf-play{flex:none;width:20px;height:20px;border-radius:50%;background:var(--ink);position:relative}
+.hf-play::after{content:'';position:absolute;left:8px;top:6px;width:6px;height:8px;background:var(--paper);clip-path:polygon(0 0,100% 50%,0 100%)}
+.hf-bar{flex:1;height:3px;border-radius:2px;background:var(--rule);position:relative}
+.hf-head{position:absolute;left:0;top:0;bottom:0;width:42%;border-radius:2px;background:var(--amber)}
+.hf-head::after{content:'';position:absolute;right:-5px;top:-4px;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--amber)}
+.hf-time{font-family:var(--mono);font-size:11px}
 
 /* ---------- Conversation rows: a client-style exchange beside a 5 s loop ----------
    Alternating sides down the page. The exchange is hypothetical and reads as
@@ -210,7 +262,16 @@ video.loop:focus-visible{outline:2px solid var(--amber-ink);outline-offset:-2px}
 .win-status{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-tint);border-radius:999px;padding:5px 10px}
 .win-side{max-width:520px}
 .finished-grid{display:grid;gap:28px}
-.process-film{margin-bottom:var(--s8)}
+/* Process video sits beside its heading at the size of the other examples,
+   not across the full column, so one sentence on screen never fills the view. */
+.process-top{margin-bottom:var(--s8)}
+.process-top .section-head{margin-bottom:0}
+@media(min-width:760px){.process-top{align-items:center}}
+@media(max-width:599px){
+  .process-film .play-full{right:var(--s2);bottom:var(--s2);height:32px;padding:0 var(--s3) 0 var(--s2);font-size:13px}
+  .process-film .play-ico{width:18px;height:18px}
+  .process-film .play-ico::after{left:7px;top:5px;width:6px;height:8px}
+}
 .rows-more{margin:0}
 .piece{display:grid;gap:var(--s6)}
 .piece-text .row-h{font-size:var(--t-title);margin-bottom:var(--s2)}
@@ -279,6 +340,10 @@ video.loop:focus-visible{outline:2px solid var(--amber-ink);outline-offset:-2px}
 .step{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;padding:18px 0;border-top:1px solid var(--rule)}
 .step h3{font-size:18px;margin-bottom:4px}
 .step:last-child{border-bottom:1px solid var(--rule)}
+@media(min-width:760px){
+  .steps-2{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:var(--s8)}
+  .steps-2 .step:nth-child(3){border-bottom:1px solid var(--rule)}
+}
 .step .n{font-family:var(--mono);font-size:12px;color:var(--amber-ink);padding-top:4px}
 .step p{color:var(--ink-2);font-size:16px}
 
@@ -318,6 +383,11 @@ video.loop:focus-visible{outline:2px solid var(--amber-ink);outline-offset:-2px}
 .form-input:focus{outline:2px solid var(--amber-ink);outline-offset:1px;border-color:var(--amber)}
 textarea.form-input{min-height:130px;resize:vertical}
 .form-submit{width:100%;justify-content:center}
+.form-consent{display:flex;align-items:flex-start;gap:var(--s3);margin:var(--s1) 0 var(--s4);font-size:14px;line-height:1.45;color:var(--ink-2)}
+.form-consent input{flex:none;width:18px;height:18px;margin:1px 0 0;accent-color:var(--amber-ink);cursor:pointer}
+.form-consent input:focus-visible{outline:2px solid var(--amber-ink);outline-offset:2px}
+.form-consent label{cursor:pointer}
+.form-consent a{color:var(--ink)}
 .form-success,.form-error{display:none;margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);font-size:15px}
 .form-success{background:var(--amber-tint);color:var(--amber-ink)}
 .form-error{background:#FBF1EE;color:#A32D2D}
@@ -334,10 +404,32 @@ textarea.form-input{min-height:130px;resize:vertical}
 .footer-links a:hover{color:var(--ink)}
 .footer-right{font-family:var(--mono);font-size:var(--t-meta);color:var(--ink-2);letter-spacing:0.02em}
 
+/* ---------- Interaction feedback ---------- */
+/* Everything you can hover or tap answers within about 150 ms, and a tap on a
+   phone shows a press instead of the browser's grey flash. */
+html{-webkit-tap-highlight-color:transparent;interpolate-size:allow-keywords}
+a,button,summary,.btn,.nav-cta,.hamburger,.win-ctl,.play-full{transition:color .15s ease,background-color .15s ease,border-color .15s ease,opacity .15s ease,transform .12s ease}
+.btn:active,.nav-cta:active,.hamburger:active,.win-ctl:active,.play-full:active{transform:scale(.97)}
+.link:hover{color:var(--amber-ink)}
+.scenes a:active,.mobile-menu a:active,.footer-links a:active{color:var(--amber-ink)}
+/* FAQ: the plus turns into a cross and the answer slides open where the
+   browser supports it; elsewhere it opens instantly, as before. */
+.faq summary:hover{color:var(--amber-ink)}
+.faq summary::after{content:'+';transition:transform .2s ease}
+.faq details[open] summary::after{content:'+';transform:rotate(45deg)}
+.faq details::details-content{block-size:0;overflow:hidden;transition:block-size .25s ease,content-visibility .25s allow-discrete}
+.faq details[open]::details-content{block-size:auto}
+/* Mobile menu: the three lines fold into a cross while it is open. */
+.hamburger span{transition:transform .2s ease,opacity .15s ease}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
 /* ---------- Motion preferences ---------- */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition-duration:0.01ms !important;animation-duration:0.01ms !important}
+  .hf,.hm-home::after,.tw-caret::after{animation:none !important}
 }
 /* Forced light: the palette above is the only palette. */
 @media(prefers-color-scheme:dark){
