@@ -27,6 +27,11 @@ function toggleMenu(){
   if(!h) return;
   var mark = h.querySelector('.hl');
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  // Once per visit: coming back to the homepage shows the finished headline.
+  try{
+    if(sessionStorage.getItem('heroTyped')) return;
+    sessionStorage.setItem('heroTyped', '1');
+  }catch(e){}
   h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
   h.classList.add('js-type');
   var chars = [];
